@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "name": "admin",
+      "surname": "admin",
+      "email": "admin@gmail.com",
+      "gender": "male",
+      "password": "1111",
+      "id": "adminuser"
+    },
+    {
+      "name": "ion",
+      "surname": "ion",
+      "email": "ion@gmail.com",
+      "gender": "male",
+      "password": "1",
+      "id": "xtW2mbI"
+    },
+    {
+      "name": "1",
+      "surname": "1",
+      "email": "1",
+      "gender": "male",
+      "password": "1",
+      "id": "nsT7q04"
+    },
+    {
+      "name": "1",
+      "surname": "1",
+      "email": "vb23745@gmail.com",
+      "gender": "male",
+      "password": "1",
+      "id": "NO2QPOB"
+    },
+    {
+      "name": "2",
+      "surname": "2",
+      "email": "2",
+      "gender": "female",
+      "password": "2",
+      "id": "0yuptB3"
+    },
+    {
+      "name": "Bolocan",
+      "surname": "Valeri",
+      "email": "vb23745@gmail.com",
+      "gender": "male",
+      "password": "1",
+      "id": "L8Rh3to"
+    },
+    {
+      "name": "1",
+      "surname": "1",
+      "email": "1",
+      "gender": "male",
+      "password": "1",
+      "id": "R1bt0uB"
+    },
+    {
+      "name": "1",
+      "surname": "2",
+      "email": "23",
+      "gender": "male",
+      "password": "123",
+      "id": "p1o8dLS"
+    },
+    {
+      "name": "1",
+      "surname": "1",
+      "email": "1",
+      "gender": "male",
+      "password": "1",
+      "id": "9t_k6BW"
+    }
+  ]
+}
