@@ -3,14 +3,35 @@ import React, { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
+import InputField from "../../components/Input/InputField";
 import classes from "./LoginForm.module.css";
 
 const LoginForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState<{ id: string }[]>([]);
 
   const navigate = useNavigate();
+
+  const validation = () => {
+    let error: { id: string }[] = [];
+    //error = !enteredName.match('22') ? [...error, {id: 'name'}]: error.filter(({id})=>id !== 'name')
+    error =
+      enteredEmail.trim().length! <= 5
+        ? [...error, { id: "email" }]
+        : error.filter(({ id }) => id !== "email");
+    error = !enteredEmail.match(
+      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+    )
+      ? [...error, { id: "email" }]
+      : error.filter(({ id }) => id !== "email");
+    error =
+      enteredPassword.trim().length! <= 5
+        ? [...error, { id: "password" }]
+        : error.filter(({ id }) => id !== "password");
+    setError(error);
+    return !error.length;
+  };
 
   const usernameChangeHandler = (event: any) => {
     setEnteredEmail(event.target.value);
@@ -22,27 +43,28 @@ const LoginForm = () => {
 
   const proceedLoginHandler = async (event: FormEvent) => {
     event.preventDefault();
-    if (
-      enteredEmail.trim().length === 0 ||
-      enteredPassword.trim().length === 0
-    ) {
-      setError("Input is required");
+    const isValid = validation();
+    if (isValid) {
+      await axios
+        .get(
+          "http://localhost:5000/users/?email=" +
+            enteredEmail +
+            "&password=" +
+            enteredPassword
+        )
+        .then((res) => res.data)
+        .then((data) => {
+
+          if (Object.keys(data).length === 0) {
+          } else {
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+        });
+    }else {
       return;
     }
-   
-    await axios.get("http://localhost:5000/users/?email="+enteredEmail+"&password="+enteredPassword).then((res)=>
-        res.data
-    ).then((data)=>{
-        console.log(data)
-        if (Object.keys(data).length === 0){
-            setError("Entered email or password is incorrect");
-        }else{
-            navigate('/');
-        }
-    }).catch((err)=>{
-        console.log(err);
-    })
-      
   };
 
   return (
@@ -52,21 +74,28 @@ const LoginForm = () => {
           <div className={classes.formHeader}>
             <h1>Login</h1>
           </div>
-          <input
-            id="name"
+          <InputField
+            id="emails"
             type="text"
-            placeholder="Nume"
+            placeholder="Email"
             value={enteredEmail}
             onChange={usernameChangeHandler}
+            error={
+              error.find(({ id }) => id === "email") &&
+              "Email-ul introdus nu corespunde cerințelor"
+            }
           />
-          <input
+          <InputField
             id="password"
             type="password"
             placeholder="Parola"
             value={enteredPassword}
             onChange={passwordChangeHandler}
+            error={
+              error.find(({ id }) => id === "password") &&
+              "Parola trebuie să conțină cel puțin 6 caractere"
+            }
           />
-
           <div className="footer">
             <Button type="submit">Log in</Button>
             <Link to="/register">

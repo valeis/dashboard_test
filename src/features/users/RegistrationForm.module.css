@@ -27,16 +27,6 @@
   font-size: 0.9em;
 }
 
-.input input {
-  font: inherit;
-  width: 70%;
-  border: 1px solid #ccc;
-  padding: 0.15rem;
-  margin-bottom: 0.5rem;
-  border-radius: 10px;
-  text-indent: 5px;
-}
-
 .input select {
   font: inherit;
   display: center;
@@ -47,14 +37,10 @@
   border-radius: 10px;
 }
 
-.input input:focus {
-  outline: none;
-  border-color: #4f005f;
-}
-
-.input input[type=checkbox] {
-    width: 4%;
-    vertical-align: middle;
-    position: relative;
-    bottom: 1px;
+.span {
+  display: block;
+  font-size: 0.9em;
+  font-style: oblique;
+  margin-bottom: 0.2rem;
+  color:#B23A48;
 }
