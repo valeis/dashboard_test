@@ -5,11 +5,14 @@ import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
 import classes from "./LoginForm.module.css";
+import { useQuery } from "react-query";
 
 const LoginForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [error, setError] = useState<{ id: string }[]>([]);
+
+  const [logged, setIsLogged] = useState(true);
 
   const navigate = useNavigate();
 
@@ -41,10 +44,29 @@ const LoginForm = () => {
     setEnteredPassword(event.target.value);
   };
 
+  /* const getRegisteredUser = async () => {
+    const { data } = await axios.get(
+      "http://localhost:5000/users/?email=" +
+        (enteredEmail || null) +
+        "&password=" +
+        (enteredPassword || null)
+    );
+    return data;
+  };
+
+  const { data } = useQuery("create", getRegisteredUser, {
+    onSuccess: (data) => {
+      console.log(data);
+      if (!data || data?.length === 0) return;
+      navigate("/");
+    },
+  }); */
+
   const proceedLoginHandler = async (event: FormEvent) => {
     event.preventDefault();
     const isValid = validation();
     if (isValid) {
+      //data();
       await axios
         .get(
           "http://localhost:5000/users/?email=" +
@@ -54,15 +76,15 @@ const LoginForm = () => {
         )
         .then((res) => res.data)
         .then((data) => {
-
-          if (Object.keys(data).length === 0) {
+           if (Object.keys(data).length === 0) {
+            setIsLogged(false);
           } else {
-            navigate("/");
-          }
+          navigate("/");
+          setIsLogged(true);
+           }
         })
-        .catch((err) => {
-        });
-    }else {
+        .catch((err) => {});
+    } else {
       return;
     }
   };
@@ -99,9 +121,10 @@ const LoginForm = () => {
           <div className="footer">
             <Button type="submit">Log in</Button>
             <Link to="/register">
-              <Button type="submit">Register</Button>
+              <Button type="submit" className={classes.button_register}>Register</Button>
             </Link>
           </div>
+          {!logged && <span>Utilizatorul dat nu a fost găsit în sistem !</span>}
         </form>
       </Card>
     </div>

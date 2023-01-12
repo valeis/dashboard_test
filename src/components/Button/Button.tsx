@@ -4,7 +4,7 @@ import classes from './Button.module.css'
 const Button = (props:any) => {
     return(
         <button
-        className={classes.button}
+        className={`${classes.button} ${props.className}`}
         type={props.type || "button"}>
             {props.children}
         </button>

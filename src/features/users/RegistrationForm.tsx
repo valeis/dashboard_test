@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { FormEvent, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
@@ -56,12 +57,12 @@ const RegistrationForm = () => {
 
     if (checkbox?.checked) {
     } else {
-      error =[...error, { id: "confirmation" }] 
+      error = [...error, { id: "confirmation" }];
     }
 
-    if (enteredGender !== ''){
+    if (enteredGender !== "") {
     } else {
-      error =[...error, { id: "gendre" }]
+      error = [...error, { id: "gendre" }];
     }
 
     //console.log(error);
@@ -70,37 +71,63 @@ const RegistrationForm = () => {
     return !error.length;
   };
 
+  interface User {
+    name: string;
+    surname: string;
+    email: string;
+    gender: string;
+    password: string;
+  }
+  const user = JSON.stringify({
+    name: enteredName,
+    surname: enteredSurname,
+    email: enteredEmail,
+    gender: enteredGender,
+    password: enteredPassword,
+  });
+
+  const registerUser = async (user: string) => {
+    const { data: response } = await axios.post(
+      "http://localhost:5000/users",
+      user,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data;
+  };
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation(registerUser, {
+    onSuccess: (data) => {
+      navigate("/login");
+    },
+    onError: () => {
+      console.log("Some error occured");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("create");
+    },
+  });
+
   const registerUserHandler = async (event: FormEvent) => {
     event.preventDefault();
     const isValid = validation();
     if (isValid) {
       setIsLoading(true);
+      const user = JSON.stringify({
+        name: enteredName,
+        surname: enteredSurname,
+        email: enteredEmail,
+        gender: enteredGender,
+        password: enteredPassword,
+      });
+      
+      mutate(user);
 
-      try {
-        const user = JSON.stringify({
-          name: enteredName,
-          surname: enteredSurname,
-          email: enteredEmail,
-          gender: enteredGender,
-          password: enteredPassword,
-        });
-        await axios
-          .post("http://localhost:5000/users", user, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((res) => {
-            setIsLoading(false);
-            if (res.status === 201) {
-              navigate("/login");
-            } else {
-              console.log("Some error occured");
-            }
-          });
-      } catch (err) {
-        console.log(err);
-      }
     } else {
       return;
     }
@@ -180,7 +207,9 @@ const RegistrationForm = () => {
             <option value="female">Femenin</option>
             <option value="none">Ma abtin</option>
           </select>
-          { error.find(({ id }) => id === "gendre") && <span className={classes.span}>Selectați cel puțin o valoare</span> }
+          {error.find(({ id }) => id === "gendre") && (
+            <span className={classes.span}>Selectați cel puțin o valoare</span>
+          )}
 
           <InputField
             id="password"

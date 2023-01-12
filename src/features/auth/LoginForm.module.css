@@ -44,4 +44,11 @@
       bottom: 1px;
   }
 
-  
+  .button_register{
+    background: #005E7C;
+  }
+  .button_register:hover,
+  .button_register:active {
+    background: #001242;
+    border-color: #001242;
+  }
