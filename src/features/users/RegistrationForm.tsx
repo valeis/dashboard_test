@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
@@ -21,7 +21,7 @@ const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-
+  
   const validation = () => {
     let error: { id: string }[] = [];
     //error = !enteredName.match('22') ? [...error, {id: 'name'}]: error.filter(({id})=>id !== 'name')
@@ -103,7 +103,7 @@ const RegistrationForm = () => {
 
   const { mutate } = useMutation(registerUser, {
     onSuccess: (data) => {
-      navigate("/login");
+      navigate("/");
     },
     onError: () => {
       console.log("Some error occured");
@@ -252,6 +252,7 @@ const RegistrationForm = () => {
           <div className="footer">
             {!isLoading && <Button type="submit">Register</Button>}
             {isLoading && <p>Sending request...</p>}
+            {/* <Button type="submit" className={classes.button_register} onClick={navigate("/", { replace: true })}>Login</Button> */}
           </div>
         </form>
       </Card>

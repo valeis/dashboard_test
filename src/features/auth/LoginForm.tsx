@@ -1,16 +1,20 @@
 import axios from "axios";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
 import classes from "./LoginForm.module.css";
-import { useQuery } from "react-query";
+import { useMutation} from "react-query";
+import AuthContext from "../../store/auth-context";
+
 
 const LoginForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [error, setError] = useState<{ id: string }[]>([]);
+
+  const authCtx = useContext(AuthContext);
 
   const [logged, setIsLogged] = useState(true);
 
@@ -44,7 +48,8 @@ const LoginForm = () => {
     setEnteredPassword(event.target.value);
   };
 
-  /* const getRegisteredUser = async () => {
+  const getRegisteredUser = async (...r: any) => {
+    console.log(r)
     const { data } = await axios.get(
       "http://localhost:5000/users/?email=" +
         (enteredEmail || null) +
@@ -54,36 +59,18 @@ const LoginForm = () => {
     return data;
   };
 
-  const { data } = useQuery("create", getRegisteredUser, {
-    onSuccess: (data) => {
-      console.log(data);
-      if (!data || data?.length === 0) return;
-      navigate("/");
-    },
-  }); */
+  const mutation = useMutation(getRegisteredUser, {onSuccess: (data) => {
+        if (!data || data?.length === 0) return;
+        authCtx.login(data[0].id);
+        navigate("/dashboard", { replace: true });
+        setIsLogged(true);
+      }})
 
   const proceedLoginHandler = async (event: FormEvent) => {
     event.preventDefault();
     const isValid = validation();
     if (isValid) {
-      //data();
-      await axios
-        .get(
-          "http://localhost:5000/users/?email=" +
-            enteredEmail +
-            "&password=" +
-            enteredPassword
-        )
-        .then((res) => res.data)
-        .then((data) => {
-           if (Object.keys(data).length === 0) {
-            setIsLogged(false);
-          } else {
-          navigate("/");
-          setIsLogged(true);
-           }
-        })
-        .catch((err) => {});
+      mutation.mutate({fff: 'fff'})
     } else {
       return;
     }
@@ -121,7 +108,9 @@ const LoginForm = () => {
           <div className="footer">
             <Button type="submit">Log in</Button>
             <Link to="/register">
-              <Button type="submit" className={classes.button_register}>Register</Button>
+              <Button type="submit" className={classes.button_register}>
+                Register
+              </Button>
             </Link>
           </div>
           {!logged && <span>Utilizatorul dat nu a fost găsit în sistem !</span>}

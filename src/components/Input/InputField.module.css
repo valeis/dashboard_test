@@ -6,6 +6,8 @@
   margin-bottom: 0.3rem;
   border-radius: 10px;
   text-indent: 5px;
+  position: relative;
+  left: 6px;
 }
 
 .input input:focus {
@@ -22,7 +24,6 @@
 }
 
 .input input[type=checkbox] {
-  
   width: 4%;
   vertical-align: middle;
   position: relative;

@@ -9,6 +9,7 @@
   background-color: #eff0f1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
+  margin-bottom: 1.2em;
 }
 
 .formHeader h1 {
@@ -29,11 +30,10 @@
 
 .input select {
   font: inherit;
-  display: center;
-  width: 71%;
+  width: 70%;
   border: 1px solid #ccc;
   padding: 0.15rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.3rem;
   border-radius: 10px;
 }
 
@@ -43,4 +43,13 @@
   font-style: oblique;
   margin-bottom: 0.2rem;
   color:#B23A48;
+}
+
+.button_register{
+  background: #005E7C;
+}
+.button_register:hover,
+.button_register:active {
+  background: #495c91;
+  border-color: #495c91;
 }

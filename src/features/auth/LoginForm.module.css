@@ -1,6 +1,6 @@
 .input {
     position: relative;
-    margin: 7rem auto;
+    margin: 12rem auto;
     padding: 1rem;
     width: 60%;
     max-width: 40rem;
@@ -9,6 +9,7 @@
     background-color: #eff0f1;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    margin-bottom: 1.2em;
   }
   
   .formHeader h1 {
@@ -49,6 +50,6 @@
   }
   .button_register:hover,
   .button_register:active {
-    background: #001242;
-    border-color: #001242;
+    background: #495c91;
+    border-color: #495c91;
   }
