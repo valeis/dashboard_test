@@ -56,6 +56,13 @@
     margin-bottom: 0.3rem;
     border-radius: 10px;
   }
+  .span {
+    display: block;
+    font-size: 0.9em;
+    font-style: oblique;
+    margin-bottom: 0.2rem;
+    color:#B23A48;
+  }
 
   @media (min-width: 768px) {
     .modal {

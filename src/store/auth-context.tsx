@@ -44,13 +44,7 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     const [token, setToken] = useState(initialToken);
 
     const [currentUser, setCurrentUser] = useState('');
-
-    
-
     const userIsLoggedIn = !!token;
-
-    console.log(localStorage.getItem('token'))
-
     const getRegisteredUser = async () => {
         const { data } = await axios.get("http://localhost:5000/users/"+ localStorage.getItem('token'));
         return data;
@@ -75,8 +69,6 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
     const {data, isLoading} = useQuery('user', getRegisteredUser)
     
-    console.log(data);
-
     // const mutation = useMutation(getRegisteredUser, {onSuccess: (data) => {
     //     setCurrentUser(data[0].name);
     // }})

@@ -1,68 +1,20 @@
 {
   "users": [
     {
+      "name": "Ion ",
+      "surname": "Petrache",
+      "email": "petrache_ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "id": "0FOia-5"
+    },
+    {
       "name": "admin",
       "surname": "admin",
       "email": "admin@gmail.com",
       "gender": "male",
-      "password": "1111",
-      "id": "adminuser"
-    },
-    {
-      "name": "ionut",
-      "surname": "ionut",
-      "email": "ionut@gmail.com",
-      "gender": "male",
-      "password": "ionut1",
-      "id": "pX9O77g"
-    },
-    {
-      "name": "marcel",
-      "surname": "marcel",
-      "email": "marcel@gmail.com",
-      "gender": "male",
-      "password": "marcel123",
-      "id": "Ke-ND3O"
-    },
-    {
-      "name": "ion",
-      "surname": "inculet",
-      "email": "ion-inculet@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "id": "lqPxmhK"
-    },
-    {
-      "name": "Bolocan",
-      "surname": "Valeri",
-      "email": "vb23745@gmail.com",
-      "gender": "male",
-      "password": "valera123",
-      "id": "zt_9Jlf"
-    },
-    {
-      "name": "Marina",
-      "surname": "Marina",
-      "email": "marina25@gmail.com",
-      "gender": "female",
-      "password": "marina123",
-      "id": "PlRhrge"
-    },
-    {
-      "name": "valera",
-      "surname": "valera",
-      "email": "valera@gmail.com",
-      "gender": "male",
-      "password": "valera123",
-      "id": "nxaT6Z4"
-    },
-    {
-      "name": "Bolocan",
-      "surname": "Valeri",
-      "email": "vb23745@gmail.com",
-      "gender": "male",
-      "password": "valera123",
-      "id": "0wi261r"
+      "password": "admin123",
+      "id": "N4SCZtd"
     }
   ]
 }
