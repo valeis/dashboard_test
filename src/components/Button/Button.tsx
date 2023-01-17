@@ -5,7 +5,7 @@ const Button = (props:any) => {
     return(
         <button
         className={`${classes.button} ${props.className}`}
-        type={props.type || "button"}>
+        type={props.type || "button"} {...props}>
             {props.children}
         </button>
     );

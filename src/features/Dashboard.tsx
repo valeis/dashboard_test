@@ -1,14 +1,10 @@
-import axios from "axios";
-import React, { useContext, useState } from "react";
-import { useMutation } from "react-query";
+import React from "react";
 import Navbar from "../components/Navbar/Navbar";
-import AuthContext from "../store/auth-context";
-const Home = () => {
+const Dashboard = () => {
   return (
     <>
       <Navbar/>
-      <h1></h1>
     </>
   );
 };
-export default Home;
+export default Dashboard;

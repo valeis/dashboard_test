@@ -60,7 +60,10 @@ const LoginForm = () => {
   };
 
   const mutation = useMutation(getRegisteredUser, {onSuccess: (data) => {
-        if (!data || data?.length === 0) return;
+        if (!data || data?.length === 0){
+          setIsLogged(false);
+          return;
+        } 
         authCtx.login(data[0].id);
         navigate("/dashboard", { replace: true });
         setIsLogged(true);

@@ -64,9 +64,6 @@ const RegistrationForm = () => {
     } else {
       error = [...error, { id: "gendre" }];
     }
-
-    //console.log(error);
-
     setError(error);
     return !error.length;
   };

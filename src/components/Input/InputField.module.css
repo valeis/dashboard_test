@@ -8,6 +8,7 @@
   text-indent: 5px;
   position: relative;
   left: 6px;
+  color: black;
 }
 
 .input input:focus {

@@ -117,4 +117,19 @@ button {
 button:hover {
     background-color: #a8d0db;
     color: #000000;
+}
+
+@media screen and (max-width: 1250px) {
+  .nav-menu {
+    background-color: #bdc2bf;
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+    z-index: 1;
   }
+}

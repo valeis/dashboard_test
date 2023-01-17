@@ -9,198 +9,6 @@
       "id": "adminuser"
     },
     {
-      "name": "",
-      "surname": "",
-      "email": "wewe@gmail.com",
-      "gender": "",
-      "password": "",
-      "id": "7XuGd0K"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "text@gmail.com",
-      "gender": "female",
-      "password": "",
-      "id": "AGZSCzK"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "sdsdsdssdsdd@gmail.com",
-      "gender": "",
-      "password": "",
-      "id": "PuCRARn"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "gender": "",
-      "password": "",
-      "id": "cCwK9Rx"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "gender": "",
-      "password": "",
-      "id": "sO9U_Rf"
-    },
-    {
-      "name": "ggj",
-      "surname": "fhh",
-      "email": "fhf",
-      "gender": "male",
-      "password": "fhf",
-      "id": "AQLyDC9"
-    },
-    {
-      "name": "dgdg",
-      "surname": "gfgd",
-      "email": "ggdfg",
-      "gender": "",
-      "password": "dgfg",
-      "id": "1gCluYG"
-    },
-    {
-      "name": "1",
-      "surname": "2",
-      "email": "2",
-      "gender": "",
-      "password": "12",
-      "id": "cLkMQqJ"
-    },
-    {
-      "name": "1",
-      "surname": "2",
-      "email": "2",
-      "gender": "female",
-      "password": "2",
-      "id": "_gBCihr"
-    },
-    {
-      "name": "y",
-      "surname": "y",
-      "email": "y",
-      "gender": "male",
-      "password": "y",
-      "id": "tuDCnQy"
-    },
-    {
-      "name": "2",
-      "surname": "2",
-      "email": "2",
-      "gender": "male",
-      "password": "2",
-      "id": "270fLdr"
-    },
-    {
-      "name": "22",
-      "surname": "r",
-      "email": "r",
-      "gender": "male",
-      "password": "e",
-      "id": "Ww4tfno"
-    },
-    {
-      "name": "22",
-      "surname": "hn",
-      "email": "nn",
-      "gender": "male",
-      "password": "ng",
-      "id": "72oAiIS"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "gender": "",
-      "password": "",
-      "id": "aElwgrt"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "gender": "",
-      "password": "",
-      "id": "BWqk7v7"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "gender": "",
-      "password": "",
-      "id": "n3_G1a6"
-    },
-    {
-      "name": "",
-      "surname": "",
-      "email": "",
-      "gender": "",
-      "password": "",
-      "id": "MtdDqkh"
-    },
-    {
-      "name": "ana",
-      "surname": "Maria",
-      "email": "retert@gmail.com",
-      "gender": "male",
-      "password": "123456",
-      "id": "zjVr14u"
-    },
-    {
-      "name": "as",
-      "surname": "sasa",
-      "email": "dsdsd@gmail.com",
-      "gender": "male",
-      "password": "123456",
-      "id": "JwnGAd4"
-    },
-    {
-      "name": "valera",
-      "surname": "valera",
-      "email": "vb23745@gmail.com",
-      "gender": "male",
-      "password": "123456",
-      "id": "cM7mS2b"
-    },
-    {
-      "{\"name\":\"alex\",\"surname\":\"petrache\",\"email\":\"alex@gmail.com\",\"gender\":\"male\",\"password\":\"1234567\"}": "",
-      "id": "eBsxSAE"
-    },
-    {
-      "{\"name\":\"alex\",\"surname\":\"alexpentru\",\"email\":\"alexpentru@gmail.com\",\"gender\":\"male\",\"password\":\"123567\"}": "",
-      "id": "J6iBofk"
-    },
-    {
-      "name": "alextopaz",
-      "surname": "alextopaz",
-      "email": "alextopaz@gmail.com",
-      "gender": "female",
-      "password": "345678",
-      "id": "KPy4j-9"
-    },
-    {
-      "name": "joi",
-      "surname": "joi",
-      "email": "joi@gmail.com",
-      "gender": "female",
-      "password": "123456",
-      "id": "W14Yp_V"
-    },
-    {
-      "name": "valera",
-      "surname": "valera",
-      "email": "valera@gmail.com",
-      "gender": "male",
-      "password": "valera123",
-      "id": "YhBK4MR"
-    },
-    {
       "name": "ionut",
       "surname": "ionut",
       "email": "ionut@gmail.com",
@@ -215,6 +23,46 @@
       "gender": "male",
       "password": "marcel123",
       "id": "Ke-ND3O"
+    },
+    {
+      "name": "ion",
+      "surname": "inculet",
+      "email": "ion-inculet@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "id": "lqPxmhK"
+    },
+    {
+      "name": "Bolocan",
+      "surname": "Valeri",
+      "email": "vb23745@gmail.com",
+      "gender": "male",
+      "password": "valera123",
+      "id": "zt_9Jlf"
+    },
+    {
+      "name": "Marina",
+      "surname": "Marina",
+      "email": "marina25@gmail.com",
+      "gender": "female",
+      "password": "marina123",
+      "id": "PlRhrge"
+    },
+    {
+      "name": "valera",
+      "surname": "valera",
+      "email": "valera@gmail.com",
+      "gender": "male",
+      "password": "valera123",
+      "id": "nxaT6Z4"
+    },
+    {
+      "name": "Bolocan",
+      "surname": "Valeri",
+      "email": "vb23745@gmail.com",
+      "gender": "male",
+      "password": "valera123",
+      "id": "0wi261r"
     }
   ]
 }
