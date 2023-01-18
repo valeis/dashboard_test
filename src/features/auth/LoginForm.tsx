@@ -48,8 +48,7 @@ const LoginForm = () => {
     setEnteredPassword(event.target.value);
   };
 
-  const getRegisteredUser = async (...r: any) => {
-    console.log(r)
+  const getRegisteredUser = async () => {
     const { data } = await axios.get(
       "http://localhost:5000/users/?email=" +
         (enteredEmail || null) +
@@ -73,7 +72,7 @@ const LoginForm = () => {
     event.preventDefault();
     const isValid = validation();
     if (isValid) {
-      mutation.mutate({fff: 'fff'})
+      mutation.mutate()
     } else {
       return;
     }

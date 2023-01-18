@@ -16,6 +16,7 @@ const UserModal = (props: any) => {
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredRepeatedPassword, setRepeatedPassword] = useState("");
   const [confirmation, setConfirmation] = useState();
+  const [enteredRole, setEnteredRole] = useState("Moderator");
 
   const [error, setError] = useState<{ id: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -88,6 +89,10 @@ const UserModal = (props: any) => {
     } else {
       error = [...error, { id: "gendre" }];
     }
+    if (enteredRole !== "") {
+    } else {
+      error = [...error, { id: "role" }];
+    }
     setError(error);
     return !error.length;
   };
@@ -98,6 +103,7 @@ const UserModal = (props: any) => {
     email: string;
     gender: string;
     password: string;
+    role: string
   }
   const user = JSON.stringify({
     name: enteredName,
@@ -105,6 +111,7 @@ const UserModal = (props: any) => {
     email: enteredEmail,
     gender: enteredGender,
     password: enteredPassword,
+    role: enteredRole
   });
 
   const registerUser = async (user: string) => {
@@ -120,17 +127,44 @@ const UserModal = (props: any) => {
     return response.data;
   };
 
+  const updateUser = async () =>{
+    const {data: response} = await axios.put("http://localhost:5000/users/" + props.userId, {
+            name: enteredName,
+            surname: enteredSurname,
+            email: enteredEmail,
+            gender: enteredGender,
+            password: enteredPassword,
+            role: enteredRole
+    });
+    return response.data;
+  };
+
   const queryClient = useQueryClient();
 
   const closeModal = props.onConfirm;
 
   const { mutate } = useMutation(registerUser, {
-    onSuccess: (data) => {},
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['users']);
+    },
     onError: () => {
       console.log("Some error occured");
     },
     onSettled: () => {
       queryClient.invalidateQueries("create");
+    },
+  });
+
+  const put = useMutation(updateUser, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['users']);
+      closeModal();
+    },
+    onError: () => {
+      console.log("Some error occured");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("update");
     },
   });
 
@@ -145,6 +179,7 @@ const UserModal = (props: any) => {
         email: enteredEmail,
         gender: enteredGender,
         password: enteredPassword,
+        role: enteredRole
       });
       const updatedData = {
         enteredName,
@@ -152,27 +187,18 @@ const UserModal = (props: any) => {
         enteredEmail,
         enteredGender,
         enteredPassword,
+        enteredRole
       };
 
       if (props.userId == null) {
         mutate(user);
       } else {
-        axios
-          .put("http://localhost:5000/users/" + props.userId, {
-            name: enteredName,
-            surname: enteredSurname,
-            email: enteredEmail,
-            gender: enteredGender,
-            password: enteredPassword,
-          })
-          .then((response) => {
-            closeModal();
-          });
+        put.mutate();
       }
       closeModal();
     } else {
       return;
-    } 
+    }
   }
 
   const usernameChangeHandler = (event: any) => {
@@ -201,6 +227,10 @@ const UserModal = (props: any) => {
 
   const confirmationChangeHandler = (event: any) => {
     setConfirmation(event.target.value);
+  };
+
+  const roleChangeHandler = (event: any) => {
+    setEnteredRole(event.target.value);
   };
 
   return (
@@ -259,6 +289,17 @@ const UserModal = (props: any) => {
                   <option value="none">Ma abtin</option>
                 </select>
                 {error.find(({ id }) => id === "gendre") && (
+                  <span className={classes.span}>
+                    Selectați cel puțin o valoare
+                  </span>
+                )}
+
+                <select onChange={roleChangeHandler} id="role">
+                  <option value="">Role</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Moderator">Moderator</option>
+                </select>
+                {error.find(({ id }) => id === "role") && (
                   <span className={classes.span}>
                     Selectați cel puțin o valoare
                   </span>

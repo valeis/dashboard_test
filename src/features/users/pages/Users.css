@@ -5,14 +5,22 @@
 }
 
 .table{
-    table-layout: fixed;
+    /* table-layout: fixed; */
     border-collapse: collapse;
     margin-left: auto;  
     margin-right: auto;  
     border-collapse: collapse;    
-    width: 800px;  
+    width: 45%;   
     text-align: center;
-    align-items: center;
+}
+
+.table_l{
+    border-collapse: collapse;
+    margin-left: auto;  
+    margin-right: auto;  
+    border-collapse: collapse;    
+    width: 54%;   
+    text-align: center; 
 }
 
 .table_header{
@@ -23,9 +31,8 @@
     margin-right: auto;
     text-align: center;
     padding: 20px;
-    /* background-color: #e4dfda; */
     border-radius: 8px;
-    width: 670px;
+    width: 820px;
 }
 
 .table_header p{
@@ -38,7 +45,7 @@ button{
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    padding: 10px;
+    padding: 10px 12px;
     color: #ffffff;
 }
 
@@ -113,8 +120,8 @@ tr:hover td{
 
 
 @media 
-only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 1024px)  {
+only screen and (max-width: 1500px),
+(min-device-width: 768px) and (max-device-width: 1080px)  {
 
 	/* Force table to not be like tables anymore */
 	table, thead, tbody, th, td, tr, .table_header { 

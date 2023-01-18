@@ -1,20 +1,67 @@
 {
   "users": [
     {
-      "name": "Ion ",
-      "surname": "Petrache",
-      "email": "petrache_ion@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "id": "0FOia-5"
-    },
-    {
       "name": "admin",
       "surname": "admin",
       "email": "admin@gmail.com",
       "gender": "male",
       "password": "admin123",
-      "id": "N4SCZtd"
+      "role": "Admin",
+      "id": 1
+    },
+    {
+      "name": "Marina",
+      "surname": "Marina",
+      "email": "marina@gmail.com",
+      "gender": "female",
+      "password": "marina123",
+      "role": "Moderator",
+      "id": 2
+    },
+    {
+      "name": "Petrache",
+      "surname": "Ion",
+      "email": "petrache_ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "role": "Moderator",
+      "id": 3
+    },
+    {
+      "name": "Test",
+      "surname": "Test",
+      "email": "test@gmail.com",
+      "gender": "male",
+      "password": "test123",
+      "role": "Moderator",
+      "id": 4
+    },
+    {
+      "name": "Test23",
+      "surname": "Test23",
+      "email": "test@gmail.com",
+      "gender": "male",
+      "password": "test123",
+      "role": "Moderator",
+      "id": 5
+    },
+    {
+      "name": "test234",
+      "surname": "test234",
+      "email": "test@gmail.com",
+      "gender": "male",
+      "password": "test234",
+      "role": "Moderator",
+      "id": 6
+    },
+    {
+      "name": "test12",
+      "surname": "test12",
+      "email": "test1@gmail.com",
+      "gender": "male",
+      "password": "test123",
+      "role": "Moderator",
+      "id": 8
     }
   ]
 }

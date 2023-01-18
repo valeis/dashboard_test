@@ -24,7 +24,8 @@ interface User{
     surname?: string,
     email?: string,
     gender?: string,
-    password?: string 
+    password?: string,
+    role?: string 
 }
 
 export const AuthContext = React.createContext<AuthContextType>({

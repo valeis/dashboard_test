@@ -21,7 +21,7 @@ const RegistrationForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
-  
+
   const validation = () => {
     let error: { id: string }[] = [];
     //error = !enteredName.match('22') ? [...error, {id: 'name'}]: error.filter(({id})=>id !== 'name')
@@ -121,10 +121,10 @@ const RegistrationForm = () => {
         email: enteredEmail,
         gender: enteredGender,
         password: enteredPassword,
+        role: "Moderator",
       });
-      
-      mutate(user);
 
+      mutate(user);
     } else {
       return;
     }
@@ -157,6 +157,7 @@ const RegistrationForm = () => {
   const confirmationChangeHandler = (event: any) => {
     setConfirmation(event.target.value);
   };
+
   return (
     <div>
       <Card className={classes.input}>
@@ -207,7 +208,7 @@ const RegistrationForm = () => {
           {error.find(({ id }) => id === "gendre") && (
             <span className={classes.span}>Selectați cel puțin o valoare</span>
           )}
-
+          
           <InputField
             id="password"
             type="password"
