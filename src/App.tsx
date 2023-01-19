@@ -8,6 +8,8 @@ import AuthContext, { AuthContextProvider } from "./store/auth-context";
 import Layout from "./components/Layout";
 import Dashboard from "./features/Dashboard";
 import Users from "./features/users/pages/Users";
+import Posts from "./features/posts/pages/Posts/Posts";
+import CreatePosts from "./features/posts/pages/CreatePosts/CreatePosts";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +37,15 @@ function App() {
             {isLoggedIn && (
               <Route path="/users" element={<Users />}></Route>
             )}
+
+            {isLoggedIn && (
+              <Route path="/posts" element={<Posts />}></Route>
+            )}
+            
+            {isLoggedIn && (
+              <Route path="/posts/create" element={<CreatePosts />}></Route>
+            )}
+
             {/* <Route path = '*'> <Navigate to ='/login'/></Route>  */}
           </Routes>
         </BrowserRouter>

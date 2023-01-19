@@ -17,5 +17,11 @@ export const SidebarData = [
         path: '/users',
         icon: <Feather.FiUsers />,
         cName: 'nav-text'
+    },
+    {
+        title: 'Posts',
+        path: '/posts',
+        icon: <FaIcons.FaNewspaper />,
+        cName: 'nav-text'
     }
 ]

@@ -29,3 +29,9 @@
   vertical-align: middle;
   position: relative;
 }
+
+.input input[type=textarea] {
+  height: 23%;
+  vertical-align: middle;
+  position: relative;
+}

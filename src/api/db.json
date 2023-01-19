@@ -63,5 +63,39 @@
       "role": "Moderator",
       "id": 8
     }
+  ],
+  "posts": [
+    {
+      "title": "Temperatura",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultricies ac elit ut lacinia. Nulla commodo luctus elit nec scelerisque. Morbi a ornare nulla. Nam arcu leo, suscipit eu ligula sit amet, tincidunt interdum sem. Morbi volutpat risus vel enim dapibus, eget blandit felis ultricies. Mauris convallis tristique risus, id elementum mi fermentum id.",
+      "image": "https://images.unsplash.com/photo-1671138962308-411f31da58b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      "date": "2023-01-20",
+      "author": "admin",
+      "id": 1
+    },
+    {
+      "title": "Test",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultricies ac elit ut lacinia. Nulla commodo luctus elit nec scelerisque. Morbi a ornare nulla. Nam arcu leo, suscipit eu ligula sit amet, tincidunt interdum sem. Morbi volutpat risus vel enim dapibus, eget blandit felis ultricies. Mauris convallis tristique risus, id elementum mi fermentum id.",
+      "image": "https://images.unsplash.com/photo-1671138962308-411f31da58b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      "date": "2023-01-28",
+      "author": "admin",
+      "id": 2
+    },
+    {
+      "title": "Test",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultricies ac elit ut lacinia. Nulla commodo luctus elit nec scelerisque. Morbi a ornare nulla. Nam arcu leo, suscipit eu ligula sit amet, tincidunt interdum sem. Morbi volutpat risus vel enim dapibus, eget blandit felis ultricies. Mauris convallis tristique risus, id elementum mi fermentum id.",
+      "image": "https://images.unsplash.com/photo-1671138962308-411f31da58b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      "date": "2023-01-19",
+      "author": "admin",
+      "id": 3
+    },
+    {
+      "title": "Afara este frumos",
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi ultricies ac elit ut lacinia. Nulla commodo luctus elit nec scelerisque. Morbi a ornare nulla. Nam arcu leo, suscipit eu ligula sit amet, tincidunt interdum sem. Morbi volutpat risus vel enim dapibus, eget blandit felis ultricies. Mauris convallis tristique risus, id elementum mi fermentum id.",
+      "image": "https://images.unsplash.com/photo-1671138962308-411f31da58b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      "date": "2023-01-29",
+      "author": "admin",
+      "id": 4
+    }
   ]
 }
