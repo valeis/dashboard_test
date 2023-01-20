@@ -10,6 +10,7 @@ import Dashboard from "./features/Dashboard";
 import Users from "./features/users/pages/Users";
 import Posts from "./features/posts/pages/Posts/Posts";
 import CreatePosts from "./features/posts/pages/CreatePosts/CreatePosts";
+import PostDetails from "./features/posts/pages/PostDetails/PostDetails";
 
 const queryClient = new QueryClient();
 
@@ -34,18 +35,17 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />}></Route>
             )}
 
-            {isLoggedIn && (
-              <Route path="/users" element={<Users />}></Route>
-            )}
+            {isLoggedIn && <Route path="/users" element={<Users />}></Route>}
 
-            {isLoggedIn && (
-              <Route path="/posts" element={<Posts />}></Route>
-            )}
-            
+            {isLoggedIn && <Route path="/posts" element={<Posts />}></Route>}
+
             {isLoggedIn && (
               <Route path="/posts/create" element={<CreatePosts />}></Route>
             )}
 
+            {isLoggedIn && (
+              <Route path="/posts/:id" element={<PostDetails />}></Route>
+            )}
             {/* <Route path = '*'> <Navigate to ='/login'/></Route>  */}
           </Routes>
         </BrowserRouter>

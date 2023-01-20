@@ -63,7 +63,9 @@ const Navbar = () => {
             })}
             {isLoggedIn && (
               <li>
-                <button onClick={logoutHandler}>Logout</button>
+                <div>
+                  <button onClick={logoutHandler} className='button_logout'>Logout</button>
+                </div>
               </li>
             )}
           </ul>

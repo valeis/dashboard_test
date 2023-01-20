@@ -7,6 +7,7 @@ import PostCard from "../../components/PostCard";
 import "./Posts.css";
 
 export type CardProps = {
+  id:string;
   title?: string;
   description?: string;
   image?: string;
@@ -33,22 +34,23 @@ const Posts = () => {
   const { data } = useQuery("posts", fetchPosts);
 
   return (
-    /* <div className="top_button">
+    <Layout>
+      <div className="top_button">
         <button className="add_new" onClick={addPostHandler}>
           Add new post
         </button>
-      </div> */
-    <Layout>
+      </div>
       <div className="test">
         {posts &&
           posts.map((item) => (
-              <PostCard
-                title={item.title}
-                description={item.description}
-                image={item.image}
-                date={item.date}
-                author={item.author}
-              />
+            <PostCard
+              id={item.id}
+              title={item.title}
+              description={item.description}
+              image={item.image}
+              date={item.date}
+              author={item.author}
+            />
           ))}
       </div>
     </Layout>

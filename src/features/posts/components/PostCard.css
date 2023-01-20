@@ -9,6 +9,9 @@
 	transition: 200ms;
     max-width: 400px;
 	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+	margin-top: 4rem;
+	margin-left: 1rem;
+	margin-right: 1rem;
 }
 
 .card:hover {
@@ -28,7 +31,7 @@
 .profile {
 	width: 2.5rem;
 	height: 2.5rem;
-	background-color: tomato;
+	background-color: #bcc4db;
 	border-radius: 50%;
 	margin: 8px;
 	font-size: 20pt;
@@ -69,8 +72,63 @@
 }
 
 .card-text {
-	width: 300px;
 	font-size: medium;
 	text-align: center;
 	padding: 10px;
+	justify-content: center;
+}
+
+
+.button-81 {
+  background-color: #bcc4db;
+  border: 0 solid #e2e8f0;
+  border-radius: 1.5rem;
+  box-sizing: border-box;
+  color: #0d172a;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "Basier circle",-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 0.34;
+  padding: 0.7rem 0.9rem;
+  text-align: center;
+  text-decoration: none #0d172a solid;
+  transition: all .1s cubic-bezier(.4, 0, .2, 1);
+  box-shadow: 0px 1px 2px rgba(166, 175, 195, 0.25);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-81:hover {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+.buttons{
+	display: flex;
+	margin-left: auto;
+}
+
+button{
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    padding: 5px 5px;
+	background-color: #fff;
+	color: #000;
+}
+
+button:hover{
+	background-color: #1e293b;
+  	color: #fff;
+}
+
+@media (min-width: 768px) {
+  .button-81 {
+    font-size: 1.125rem;
+    padding: 0.9rem 1rem;
+  }
 }

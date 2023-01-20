@@ -45,7 +45,7 @@ button{
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    padding: 10px 12px;
+    padding: 1px 12px;
     color: #ffffff;
 }
 
@@ -62,15 +62,6 @@ td button:nth-child(2){
     color: #ffffff;
     background-color: #0298cf ;
 }
-
-/* input{
-    padding: 11px 10px;
-    margin: 0 10px;
-    outline: none;
-    border: 1px solid #0298cf;
-    border-radius: 6px;
-    color: #0298cf;
-} */
 
 ::placeholder{
     color: black;
