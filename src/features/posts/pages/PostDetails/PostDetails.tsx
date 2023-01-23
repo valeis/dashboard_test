@@ -1,17 +1,14 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import Layout from "../../../../components/Layout";
-import { CardProps } from "../Posts/Posts";
+import { CardProps } from "../../../../types/CardProps";
 import "./PostDetails.css";
 
 const PostDetails = () => {
   const params = useParams();
   const [post, setPost] = useState<CardProps[]>([]);
-
-  const queryClient = useQueryClient();
-
   const fetchPost = async () => {
     const data = await axios.get("http://localhost:5000/posts/" + params.id);
     setPost(data.data);

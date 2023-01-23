@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './Pagination.css'
 
 type PaginationProps ={
@@ -8,13 +8,8 @@ type PaginationProps ={
     currentPage: number
 }
 
-const Pagination=({usersPerPage, totalUsers, paginate, currentPage}:PaginationProps)=>{
+const Pagination=({usersPerPage, totalUsers, paginate, currentPage} : PaginationProps)=>{
     const pageNumbers =[];
-    const [style, setStyle] = useState("default")
-    const changeStyle = () => {
-        setStyle("active");
-    }
-
     for(let i =1; i<=Math.ceil(totalUsers / usersPerPage); i++){
         pageNumbers.push(i);
     }

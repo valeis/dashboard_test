@@ -46,6 +46,11 @@ function App() {
             {isLoggedIn && (
               <Route path="/posts/:id" element={<PostDetails />}></Route>
             )}
+
+            {isLoggedIn && (
+              <Route path="/posts/:id/edit" element={<CreatePosts />}></Route>
+            )}
+
             {/* <Route path = '*'> <Navigate to ='/login'/></Route>  */}
           </Routes>
         </BrowserRouter>

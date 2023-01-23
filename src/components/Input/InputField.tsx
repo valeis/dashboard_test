@@ -2,9 +2,7 @@ import React from 'react'
 import classes from './InputField.module.css'
 
 interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
-    // id: string, 
     type: string, 
-    // placeholder: string,
     value?: string,
     error?: string,
     message?: string

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
@@ -24,7 +24,6 @@ const RegistrationForm = () => {
 
   const validation = () => {
     let error: { id: string }[] = [];
-    //error = !enteredName.match('22') ? [...error, {id: 'name'}]: error.filter(({id})=>id !== 'name')
     error =
       enteredName.trim().length! <= 1
         ? [...error, { id: "name" }]
@@ -67,21 +66,6 @@ const RegistrationForm = () => {
     setError(error);
     return !error.length;
   };
-
-  interface User {
-    name: string;
-    surname: string;
-    email: string;
-    gender: string;
-    password: string;
-  }
-  const user = JSON.stringify({
-    name: enteredName,
-    surname: enteredSurname,
-    email: enteredEmail,
-    gender: enteredGender,
-    password: enteredPassword,
-  });
 
   const registerUser = async (user: string) => {
     const { data: response } = await axios.post(

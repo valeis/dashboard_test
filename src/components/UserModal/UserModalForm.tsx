@@ -1,11 +1,9 @@
 import axios from "axios";
 import React, { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
-import Button from "../../../components/Button/Button";
-import Card from "../../../components/Card/Card";
-import InputField from "../../../components/Input/InputField";
-import { UserItemProps } from "../pages/Users";
+import Button from "../Button/Button";
+import Card from "../Card/Card";
+import InputField from "../Input/InputField";
 import classes from "./UserModalForm.module.css";
 
 const UserModal = (props: any) => {
@@ -20,7 +18,6 @@ const UserModal = (props: any) => {
 
   const [error, setError] = useState<{ id: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [userData, setUserData] = useState<UserItemProps[]>([]);
 
   useEffect(() => {
     if (props.userId != null) {
@@ -34,7 +31,6 @@ const UserModal = (props: any) => {
           setEnteredEmail(resp.email);
           setEnteredGender(resp.gender);
           setEnteredPassword(resp.password);
-          setUserData(resp);
         })
         .catch((err) => {
           console.log(err.message);
@@ -42,7 +38,6 @@ const UserModal = (props: any) => {
     }
   }, [props.userId]);
 
-  const navigate = useNavigate();
 
   const validation = () => {
     let error: { id: string }[] = [];
@@ -97,7 +92,7 @@ const UserModal = (props: any) => {
     return !error.length;
   };
 
-  interface User {
+  /* interface User {
     name: string;
     surname: string;
     email: string;
@@ -112,7 +107,7 @@ const UserModal = (props: any) => {
     gender: enteredGender,
     password: enteredPassword,
     role: enteredRole
-  });
+  }); */
 
   const registerUser = async (user: string) => {
     const { data: response } = await axios.post(
@@ -140,7 +135,7 @@ const UserModal = (props: any) => {
   };
 
   const queryClient = useQueryClient();
-
+  
   const closeModal = props.onConfirm;
 
   const { mutate } = useMutation(registerUser, {
@@ -165,7 +160,7 @@ const UserModal = (props: any) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries("update");
-    },
+    }
   });
 
   async function registerUserHandler(event: FormEvent) {
@@ -181,15 +176,14 @@ const UserModal = (props: any) => {
         password: enteredPassword,
         role: enteredRole
       });
-      const updatedData = {
+      /* const updatedData = {
         enteredName,
         enteredSurname,
         enteredEmail,
         enteredGender,
         enteredPassword,
         enteredRole
-      };
-
+      }; */
       if (props.userId == null) {
         mutate(user);
       } else {
@@ -357,7 +351,6 @@ const UserModal = (props: any) => {
                     </Button>
                   )}
                   {isLoading && <p>Sending request...</p>}
-                  {/* <Button type="submit" className={classes.button_register} onClick={navigate("/", { replace: true })}>Login</Button> */}
                 </div>
               </form>
             </Card>

@@ -22,7 +22,6 @@ const LoginForm = () => {
 
   const validation = () => {
     let error: { id: string }[] = [];
-    //error = !enteredName.match('22') ? [...error, {id: 'name'}]: error.filter(({id})=>id !== 'name')
     error =
       enteredEmail.trim().length! <= 5
         ? [...error, { id: "email" }]

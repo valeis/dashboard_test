@@ -1,9 +1,7 @@
- import axios from "axios";
-import exp from "constants";
-import React, { createContext, ReactNode, useState} from "react";
-import { useMutation, useQuery  } from "react-query";
-import { useNavigate } from "react-router-dom";
-import { tokenToString } from "typescript";
+import axios from "axios";
+import React, { ReactNode, useState} from "react";
+import { useQuery  } from "react-query";
+
 
 type AuthProviderProps = {
     children: ReactNode;
@@ -39,12 +37,8 @@ export const AuthContext = React.createContext<AuthContextType>({
 });
 
 export const AuthContextProvider = ({ children }: AuthProviderProps) => {
-
     const initialToken = localStorage.getItem('token');
-    
     const [token, setToken] = useState(initialToken);
-
-    const [currentUser, setCurrentUser] = useState('');
     const userIsLoggedIn = !!token;
     const getRegisteredUser = async () => {
         const { data } = await axios.get("http://localhost:5000/users/"+ localStorage.getItem('token'));
@@ -70,12 +64,6 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
 
     const {data, isLoading} = useQuery('user', getRegisteredUser)
     
-    // const mutation = useMutation(getRegisteredUser, {onSuccess: (data) => {
-    //     setCurrentUser(data[0].name);
-    // }})
-    
-    // mutation.mutate();
-
     const contextValue = {
         token: token,
         isLoggedIn: userIsLoggedIn,

@@ -1,7 +1,7 @@
 import axios from "axios";
-import React, { FormEvent, useContext, useState } from "react";
+import React, { FormEvent, useContext, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../../../../components/Button/Button";
 import Card from "../../../../components/Card/Card";
 import InputField from "../../../../components/Input/InputField";
@@ -9,24 +9,42 @@ import Layout from "../../../../components/Layout";
 import AuthContext from "../../../../store/auth-context";
 import "./CreatePosts.css";
 
-//1. Titlu(input[type="text"]) - titlul postarii
-//2. Descriere(input[type="textarea"]) - descrierea postarii
-//3. Imagine(input[type="text"]) - un link de pe unsplash.com
-//4. Data(input[type="date"]) - data postarii
-//5. Utilizatorul - va fi ascuns dar cu valoarea utilizatorului logat (numele si prenumele)
-//6. Buton de adaugare - POST `/posts`
-
-const CreatePosts = () => {
+const CreatePosts = (props: any) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredDescription, setEnteredDescription] = useState("");
   const [enteredLinkToImage, setEnteredLinkToImage] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [author, setEnteredAuthor] = useState("");
 
   const [error, setError] = useState<{ id: string }[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const params = useParams();
+
   const authCtx = useContext(AuthContext);
+
+  let postAuthor: string | undefined = ""!;
+
+  useEffect(() => {
+    if (params.id != null) {
+      fetch("http://localhost:5000/posts/" + params.id)
+        .then((res) => {
+          return res.json();
+        })
+        .then((resp) => {
+          setEnteredTitle(resp.title);
+          setEnteredDescription(resp.description);
+          setEnteredLinkToImage(resp.image);
+          setEnteredDate(resp.date);
+          setEnteredAuthor(resp.author);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        });
+    }
+  }, [params.id]);
+
   const navigate = useNavigate();
 
   const validation = () => {
@@ -47,6 +65,11 @@ const CreatePosts = () => {
         ? [...error, { id: "date" }]
         : error.filter(({ id }) => id !== "date");
 
+    error =
+      enteredLinkToImage.trim().length! <= 1
+        ? [...error, { id: "image" }]
+        : error.filter(({ id }) => id !== "image");
+
     setError(error);
     return !error.length;
   };
@@ -64,11 +87,38 @@ const CreatePosts = () => {
     return response.data;
   };
 
+  const updatePost = async () => {
+    const { data: response } = await axios.put(
+      "http://localhost:5000/posts/" + params.id,
+      {
+        title: enteredTitle,
+        description: enteredDescription,
+        image: enteredLinkToImage,
+        date: enteredDate,
+        author: postAuthor,
+      }
+    );
+    return response.data;
+  };
+
+  const update = useMutation(updatePost, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["posts"]);
+      navigate("/posts");
+    },
+    onError: () => {
+      console.log("Some error occured");
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries("update");
+    },
+  });
+
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation(publishPost, {
     onSuccess: (data) => {
-        navigate("/posts");
+      navigate("/posts");
     },
     onError: () => {
       console.log("Some error occured");
@@ -83,14 +133,24 @@ const CreatePosts = () => {
     const isValid = validation();
     if (isValid) {
       setIsLoading(true);
+
+      if (params.id == null) {
+        postAuthor = authCtx.currentUser?.name;
+      } else {
+        postAuthor = author;
+      }
       const post = JSON.stringify({
         title: enteredTitle,
         description: enteredDescription,
         image: enteredLinkToImage,
         date: enteredDate,
-        author: authCtx.currentUser?.name,
+        author: postAuthor,
       });
-      mutate(post);
+      if (params.id == null) {
+        mutate(post);
+      } else {
+        update.mutate();
+      }
     } else {
       return;
     }
@@ -118,7 +178,7 @@ const CreatePosts = () => {
         <Card className="input">
           <form onSubmit={publishPostHandler}>
             <div className="formHeader">
-              <h1>Add a new post</h1>
+              {params.id ? <h1>Edit post</h1> : <h1>Add a new post</h1>}
             </div>
             <InputField
               id="title"
@@ -151,6 +211,10 @@ const CreatePosts = () => {
               placeholder="Imagine"
               value={enteredLinkToImage}
               onChange={imageChangeHandler}
+              error={
+                error.find(({ id }) => id === "image") &&
+                "Postarea trebuie să conțină link-ul către imaginea"
+              }
             />
 
             <InputField
@@ -168,8 +232,8 @@ const CreatePosts = () => {
               {!isLoading && <Button type="submit">Publish</Button>}
               {isLoading && <p>Sending request....</p>}
               <Link to="/posts">
-                <Button type="submit" className='button_register'>
-                    Cancel
+                <Button type="submit" className="button_register">
+                  Cancel
                 </Button>
               </Link>
             </div>

@@ -28,7 +28,7 @@ const Navbar = () => {
   if (authCtx.isLoading) return <>...Loading</>;
 
   return (
-    <>
+    <div className="wrapper">
       <IconContext.Provider value={{ color: "undefined" }}>
         <div className="navbar">
           <Link to="#" className="menu-bars">
@@ -71,7 +71,7 @@ const Navbar = () => {
           </ul>
         </nav>
       </IconContext.Provider>
-    </>
+    </div>
   );
 };
 

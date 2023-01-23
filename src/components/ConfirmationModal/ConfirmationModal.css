@@ -18,7 +18,7 @@
   }
   
   .header {
-    background: #4f005f;
+    background: #bdc2bf;
     padding: 1rem;
   }
   
@@ -35,6 +35,19 @@
     padding: 1rem;
     display: flex;
     justify-content: flex-end;
+  }
+
+  .button_register{
+    background: #005E7C;
+    border-radius: 10px;
+    margin-left: 10px;
+    padding: 0.32rem 1rem;
+    color:#fff;
+  }
+  .button_register:hover,
+  .button_register:active {
+    background: #495c91;
+    border-color: #495c91;
   }
   
   @media (min-width: 768px) {

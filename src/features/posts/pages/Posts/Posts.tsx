@@ -3,23 +3,15 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
 import Layout from "../../../../components/Layout";
+import { CardProps } from "../../../../types/CardProps";
 import PostCard from "../../components/PostCard";
 import "./Posts.css";
 
-export type CardProps = {
-  id:string;
-  title?: string;
-  description?: string;
-  image?: string;
-  date?: string;
-  author?: string;
-};
+
 
 const Posts = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState<CardProps[]>([]);
-
-  const [loading, setLoading] = useState(false);
   const addPostHandler = () => {
     navigate("/posts/create", { replace: true });
   };
@@ -27,11 +19,10 @@ const Posts = () => {
   const fetchPosts = async () => {
     const data = await axios.get("http://localhost:5000/posts");
     setPosts(data.data);
-    setLoading(false);
     return data;
   };
 
-  const { data } = useQuery("posts", fetchPosts);
+  useQuery("posts", fetchPosts);
 
   return (
     <Layout>
@@ -44,6 +35,7 @@ const Posts = () => {
         {posts &&
           posts.map((item) => (
             <PostCard
+              key={item.id}
               id={item.id}
               title={item.title}
               description={item.description}

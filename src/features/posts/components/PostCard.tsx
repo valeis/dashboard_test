@@ -1,22 +1,14 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import * as AiIcons from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
 import * as BiIcons from "react-icons/bi";
 import * as MdIcons from "react-icons/md";
-
 import "./PostCard.css";
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
-
-interface CardInterface {
-  id: string;
-  title?: string;
-  description?: string;
-  image?: string;
-  date?: string;
-  author?: string;
-}
+import ErrorModal from "../../../components/ConfirmationModal/ConfirmationModal";
+import AuthContext from "../../../store/auth-context";
+import { CardProps } from "../../../types/CardProps";
 
 const PostCard = ({
   id,
@@ -25,10 +17,15 @@ const PostCard = ({
   image,
   date,
   author,
-}: CardInterface) => {
+}: CardProps) => {
+
+  const [ postToDelete, setPostToDelete ] = useState(false);
+
   const navigate = useNavigate();
 
   const queryClient = useQueryClient();
+
+  const authCtx = useContext(AuthContext);
 
   const deletePost = async (id: string) => {
     return await axios.delete(`http://localhost:5000/posts/${id}`)
@@ -46,6 +43,10 @@ const PostCard = ({
     }
   })
 
+  const editPostHandler = (id: string) =>{
+    navigate(`/posts/${id}/edit`);
+  };
+
   return (
     <div className="card">
       <div className="card-header">
@@ -58,10 +59,10 @@ const PostCard = ({
           <h5 className="card-title">{author}</h5>
           <div className="card-date">{date}</div>
         </div>
-        <div className="buttons">
+        {(authCtx.currentUser?.role === "Admin" || authCtx.currentUser?.name === author) && <div className="buttons">
           <button
             onClick={() => {
-              ("");
+              editPostHandler(id);
             }}
           >
             <BiIcons.BiEdit />
@@ -69,15 +70,16 @@ const PostCard = ({
           &nbsp;
           <button
             onClick={() => {
-              deletePostHandler.mutate(id);
+              setPostToDelete(true);
             }}
           >
             <MdIcons.MdDeleteOutline />
           </button>
-        </div>
+        </div>}
       </div>
+      { postToDelete && <ErrorModal setPostToDelete={setPostToDelete} deletePostHandler={deletePostHandler} id={id}/>} 
       <div>
-        <b>{title}</b>
+       <b>{title}</b>
       </div>
       <img className="card-image" src={image} alt="Logo" />
       <div className="card-text">
@@ -90,7 +92,6 @@ const PostCard = ({
           navigate(`/posts/${id}`);
         }}
       >
-        {" "}
         Detalii
       </button>
     </div>
