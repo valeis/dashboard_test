@@ -1,10 +1,11 @@
-import axios from "axios";
 import React, { FormEvent, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
+import usersRequest from "../../api/users";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
+import { UserProps } from "../../types/UserProps";
 import classes from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
@@ -67,16 +68,8 @@ const RegistrationForm = () => {
     return !error.length;
   };
 
-  const registerUser = async (user: string) => {
-    const { data: response } = await axios.post(
-      "http://localhost:5000/users",
-      user,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  const registerUser = async (user: UserProps) => {
+    const { data: response } = await usersRequest.post(user);
     return response.data;
   };
 
@@ -99,7 +92,7 @@ const RegistrationForm = () => {
     const isValid = validation();
     if (isValid) {
       setIsLoading(true);
-      const user = JSON.stringify({
+      const user =({
         name: enteredName,
         surname: enteredSurname,
         email: enteredEmail,
@@ -107,7 +100,6 @@ const RegistrationForm = () => {
         password: enteredPassword,
         role: "Moderator",
       });
-
       mutate(user);
     } else {
       return;

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { FormEvent, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
@@ -7,6 +6,7 @@ import InputField from "../../components/Input/InputField";
 import classes from "./LoginForm.module.css";
 import { useMutation} from "react-query";
 import AuthContext from "../../store/auth-context";
+import usersRequest from "../../api/users";
 
 
 const LoginForm = () => {
@@ -47,15 +47,10 @@ const LoginForm = () => {
     setEnteredPassword(event.target.value);
   };
 
-  const getRegisteredUser = async () => {
-    const { data } = await axios.get(
-      "http://localhost:5000/users/?email=" +
-        (enteredEmail || null) +
-        "&password=" +
-        (enteredPassword || null)
-    );
+    const getRegisteredUser = async () => {
+    let data = await usersRequest.getAuth(enteredEmail, enteredPassword);
     return data;
-  };
+  }; 
 
   const mutation = useMutation(getRegisteredUser, {onSuccess: (data) => {
         if (!data || data?.length === 0){

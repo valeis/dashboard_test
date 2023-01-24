@@ -1,13 +1,11 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+import postsRequest from "../../../../api/posts";
 import Layout from "../../../../components/Layout";
 import { CardProps } from "../../../../types/CardProps";
 import PostCard from "../../components/PostCard";
 import "./Posts.css";
-
-
 
 const Posts = () => {
   const navigate = useNavigate();
@@ -17,8 +15,8 @@ const Posts = () => {
   };
 
   const fetchPosts = async () => {
-    const data = await axios.get("http://localhost:5000/posts");
-    setPosts(data.data);
+    let data = await postsRequest.get();
+    setPosts(data);
     return data;
   };
 

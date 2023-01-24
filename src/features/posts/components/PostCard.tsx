@@ -5,10 +5,10 @@ import * as BiIcons from "react-icons/bi";
 import * as MdIcons from "react-icons/md";
 import "./PostCard.css";
 import { useMutation, useQueryClient } from "react-query";
-import axios from "axios";
 import ErrorModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import AuthContext from "../../../store/auth-context";
 import { CardProps } from "../../../types/CardProps";
+import postsRequest from "../../../api/posts";
 
 const PostCard = ({
   id,
@@ -28,7 +28,7 @@ const PostCard = ({
   const authCtx = useContext(AuthContext);
 
   const deletePost = async (id: string) => {
-    return await axios.delete(`http://localhost:5000/posts/${id}`)
+    return await postsRequest.delete(id);
   };
 
   const deletePostHandler = useMutation(deletePost, {
@@ -43,7 +43,7 @@ const PostCard = ({
     }
   })
 
-  const editPostHandler = (id: string) =>{
+  const editPostHandler = (id?: string) =>{
     navigate(`/posts/${id}/edit`);
   };
 
@@ -60,7 +60,7 @@ const PostCard = ({
           <div className="card-date">{date}</div>
         </div>
         {(authCtx.currentUser?.role === "Admin" || authCtx.currentUser?.name === author) && <div className="buttons">
-          <button
+          <button className="button-header"
             onClick={() => {
               editPostHandler(id);
             }}
@@ -68,7 +68,7 @@ const PostCard = ({
             <BiIcons.BiEdit />
           </button>
           &nbsp;
-          <button
+          <button className="button-header"
             onClick={() => {
               setPostToDelete(true);
             }}

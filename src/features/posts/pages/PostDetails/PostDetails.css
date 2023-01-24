@@ -1,9 +1,7 @@
 .blog-wrap {
   max-width: 100%;
   margin: 50px 50px;
-  /* display: grid; */
   align-items: center;
-  /* grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); */
 }
 
 .blog-goBack {
@@ -42,8 +40,19 @@ header {
 
 .author {
   position: absolute;
-  left: 85%;
-  
+  left: 65%;
+}
+
+.back_button {
+  position: absolute;
+  right: 65%;
+  background-color: transparent;
+  color: black;
+  height: 2.0rem;
+}
+
+.back_button:hover{
+  background-color: #bdc2bf;
 }
 
 @media screen and (max-width: 878px) {

@@ -1,12 +1,13 @@
-import axios from "axios";
-import React, { FormEvent, useContext, useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import React, { FormEvent, useContext, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import postsRequest from "../../../../api/posts";
 import Button from "../../../../components/Button/Button";
 import Card from "../../../../components/Card/Card";
 import InputField from "../../../../components/Input/InputField";
 import Layout from "../../../../components/Layout";
 import AuthContext from "../../../../store/auth-context";
+import { CardProps } from "../../../../types/CardProps";
 import "./CreatePosts.css";
 
 const CreatePosts = (props: any) => {
@@ -26,27 +27,18 @@ const CreatePosts = (props: any) => {
 
   let postAuthor: string | undefined = ""!;
 
-  useEffect(() => {
-    if (params.id != null) {
-      fetch("http://localhost:5000/posts/" + params.id)
-        .then((res) => {
-          return res.json();
-        })
-        .then((resp) => {
-          setEnteredTitle(resp.title);
-          setEnteredDescription(resp.description);
-          setEnteredLinkToImage(resp.image);
-          setEnteredDate(resp.date);
-          setEnteredAuthor(resp.author);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-  }, [params.id]);
+  const fetchPosts = async () => {
+    let data = await postsRequest.getById(params.id);
+    setEnteredTitle(data.title);
+    setEnteredDescription(data.description);
+    setEnteredLinkToImage(data.image);
+    setEnteredDate(data.date);
+    setEnteredAuthor(data.author);
+  };
+
+  useQuery("postss", fetchPosts, {enabled: !!params.id});
 
   const navigate = useNavigate();
-
   const validation = () => {
     let error: { id: string }[] = [];
 
@@ -74,31 +66,28 @@ const CreatePosts = (props: any) => {
     return !error.length;
   };
 
-  const publishPost = async (post: string) => {
-    const { data: response } = await axios.post(
-      "http://localhost:5000/posts",
-      post,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
+  const publishPost = async (post: CardProps) => {
+    let data = await postsRequest.post(post);
+    return data;
   };
 
   const updatePost = async () => {
-    const { data: response } = await axios.put(
-      "http://localhost:5000/posts/" + params.id,
-      {
-        title: enteredTitle,
-        description: enteredDescription,
-        image: enteredLinkToImage,
-        date: enteredDate,
-        author: postAuthor,
-      }
-    );
-    return response.data;
+
+    if (params.id == null) {
+      postAuthor = authCtx.currentUser?.name;
+    } else {
+      postAuthor = author;
+    }
+    const post =({
+      title: enteredTitle,
+      description: enteredDescription,
+      image: enteredLinkToImage,
+      date: enteredDate,
+      author: postAuthor
+    });
+
+    let data = await postsRequest.put(params.id, post);
+    return data;
   };
 
   const update = useMutation(updatePost, {
@@ -139,14 +128,14 @@ const CreatePosts = (props: any) => {
       } else {
         postAuthor = author;
       }
-      const post = JSON.stringify({
-        title: enteredTitle,
-        description: enteredDescription,
-        image: enteredLinkToImage,
-        date: enteredDate,
-        author: postAuthor,
-      });
       if (params.id == null) {
+        const post =({
+          title: enteredTitle,
+          description: enteredDescription,
+          image: enteredLinkToImage,
+          date: enteredDate,
+          author: postAuthor,
+        });
         mutate(post);
       } else {
         update.mutate();

@@ -5,13 +5,14 @@ import "./Users.css";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import UserModalForm from "../../../components/UserModal/UserModalForm";
-import axios from "axios";
 import AuthContext from "../../../store/auth-context";
 import {
   useMutation,
   useQuery,
   useQueryClient,
 } from "react-query";
+
+import usersRequest from "../../../api/users";
 
 type UserItemProps = {
   id: string;
@@ -39,17 +40,8 @@ const Users = () => {
   const queryClient = useQueryClient();
 
   const deleteUsers = async (id: string) => {
-    return await axios.delete(`http://localhost:5000/users/${id}`);
+    return usersRequest.delete(id)
   };
-
-  /*   const users = {
-
-    get: async (id: number) => {
-      const res = await axios.delete('')
-      return res.data
-    },
-    
-  } */
 
   const deleteUserHandler = useMutation(deleteUsers, {
     onSuccess: (data) => {
@@ -73,8 +65,8 @@ const Users = () => {
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
   const fetchUsers = async () => {
-    const data = await axios.get("http://localhost:5000/users");
-    setUsers(data.data);
+    const data = usersRequest.get();
+    setUsers(await data);
     return data;
   };
 

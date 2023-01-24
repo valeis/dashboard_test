@@ -120,7 +120,8 @@ font-size: 3rem;
 }
 
 button {
-  font: inherit;  background-color: #bdc2bf;
+  font: inherit;  
+  background-color: #bdc2bf;
   border: 1px solid white;
   color: white;
   font-weight: bold;

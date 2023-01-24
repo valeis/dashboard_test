@@ -1,5 +1,5 @@
 export type CardProps = {
-    id:string;
+    id?:string;
     title?: string;
     description?: string;
     image?: string;

@@ -111,19 +111,19 @@
 	margin-left: auto;
 }
 
-button{
+.button-header{
     outline: none;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     padding: 5px 5px;
-	background-color: #fff;
-	color: #000;
+	  background-color: #fff;
+  	color: #000;
 }
 
-button:hover{
+.button-header:hover{
 	background-color: #1e293b;
-  	color: #fff;
+  color: #fff;
 }
 
 .backdrop {

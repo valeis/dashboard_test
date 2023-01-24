@@ -1,6 +1,7 @@
-import axios from "axios";
-import React, { FormEvent, useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import React, { FormEvent, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import usersRequest from "../../api/users";
+import { UserProps } from "../../types/UserProps";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import InputField from "../Input/InputField";
@@ -18,30 +19,29 @@ const UserModal = (props: any) => {
 
   const [error, setError] = useState<{ id: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  
+  const user = ({
+    name: enteredName,
+    surname: enteredSurname,
+    email: enteredEmail,
+    gender: enteredGender,
+    password: enteredPassword,
+    role: enteredRole,
+  });
 
-  useEffect(() => {
-    if (props.userId != null) {
-      fetch("http://localhost:5000/users/" + props.userId)
-        .then((res) => {
-          return res.json();
-        })
-        .then((resp) => {
-          setEnteredName(resp.name);
-          setEnteredSurname(resp.surname);
-          setEnteredEmail(resp.email);
-          setEnteredGender(resp.gender);
-          setEnteredPassword(resp.password);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    }
-  }, [props.userId]);
+  const fetchUsers = async () => {
+    let data = await usersRequest.getById(props.userId);
+    setEnteredName(data.name);
+    setEnteredSurname(data.surname);
+    setEnteredEmail(data.email);
+    setEnteredGender(data.gender);
+    setEnteredPassword(data.password);
+  };
 
+  useQuery("userss", fetchUsers, {enabled: !!props.userId})
 
   const validation = () => {
     let error: { id: string }[] = [];
-    //error = !enteredName.match('22') ? [...error, {id: 'name'}]: error.filter(({id})=>id !== 'name')
     error =
       enteredName.trim().length! <= 1
         ? [...error, { id: "name" }]
@@ -92,55 +92,23 @@ const UserModal = (props: any) => {
     return !error.length;
   };
 
-  /* interface User {
-    name: string;
-    surname: string;
-    email: string;
-    gender: string;
-    password: string;
-    role: string
-  }
-  const user = JSON.stringify({
-    name: enteredName,
-    surname: enteredSurname,
-    email: enteredEmail,
-    gender: enteredGender,
-    password: enteredPassword,
-    role: enteredRole
-  }); */
-
-  const registerUser = async (user: string) => {
-    const { data: response } = await axios.post(
-      "http://localhost:5000/users",
-      user,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data;
+  const registerUser = async (user: UserProps) => {
+    let data = await usersRequest.post(user);
+    return data;
   };
 
-  const updateUser = async () =>{
-    const {data: response} = await axios.put("http://localhost:5000/users/" + props.userId, {
-            name: enteredName,
-            surname: enteredSurname,
-            email: enteredEmail,
-            gender: enteredGender,
-            password: enteredPassword,
-            role: enteredRole
-    });
-    return response.data;
+  const updateUser = async () => {
+    let data = await usersRequest.put(props.userId, user);
+    return data;
   };
 
   const queryClient = useQueryClient();
-  
+
   const closeModal = props.onConfirm;
 
   const { mutate } = useMutation(registerUser, {
     onSuccess: (data) => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries(["users"]);
     },
     onError: () => {
       console.log("Some error occured");
@@ -152,7 +120,7 @@ const UserModal = (props: any) => {
 
   const put = useMutation(updateUser, {
     onSuccess: (data) => {
-      queryClient.invalidateQueries(['users']);
+      queryClient.invalidateQueries(["users"]);
       closeModal();
     },
     onError: () => {
@@ -160,7 +128,7 @@ const UserModal = (props: any) => {
     },
     onSettled: () => {
       queryClient.invalidateQueries("update");
-    }
+    },
   });
 
   async function registerUserHandler(event: FormEvent) {
@@ -168,22 +136,6 @@ const UserModal = (props: any) => {
     const isValid = validation();
     if (isValid) {
       setIsLoading(true);
-      const user = JSON.stringify({
-        name: enteredName,
-        surname: enteredSurname,
-        email: enteredEmail,
-        gender: enteredGender,
-        password: enteredPassword,
-        role: enteredRole
-      });
-      /* const updatedData = {
-        enteredName,
-        enteredSurname,
-        enteredEmail,
-        enteredGender,
-        enteredPassword,
-        enteredRole
-      }; */
       if (props.userId == null) {
         mutate(user);
       } else {

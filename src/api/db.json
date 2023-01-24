@@ -10,18 +10,9 @@
       "id": 1
     },
     {
-      "name": "Marina",
-      "surname": "Marina",
-      "email": "marina@gmail.com",
-      "gender": "female",
-      "password": "marina123",
-      "role": "Moderator",
-      "id": 2
-    },
-    {
       "name": "Petrache",
       "surname": "Ion",
-      "email": "petrache_ion@gmail.com",
+      "email": "petrache@gmail.com",
       "gender": "male",
       "password": "ion123",
       "role": "Moderator",
@@ -55,22 +46,40 @@
       "id": 6
     },
     {
-      "name": "Ion",
-      "surname": "Ion",
-      "email": "ion@gmail.com",
+      "name": "Marcell",
+      "surname": "Marcel",
+      "email": "marcel@gmail.com",
       "gender": "male",
-      "password": "ion123",
+      "password": "marcel123",
       "role": "Moderator",
-      "id": 9
+      "id": 8
     },
     {
-      "name": "test",
-      "surname": "test16",
-      "email": "test16@gmail.com",
-      "gender": "male",
-      "password": "test123",
-      "role": "Admin",
+      "name": "skill",
+      "surname": "skill",
+      "email": "skill123@gmail.com",
+      "gender": "female",
+      "password": "skill123",
+      "role": "Moderator",
       "id": 10
+    },
+    {
+      "name": "test55",
+      "surname": "test5",
+      "email": "test5@gmail.com",
+      "gender": "male",
+      "password": "test555",
+      "role": "Moderator",
+      "id": 11
+    },
+    {
+      "name": "Marina",
+      "surname": "Marina",
+      "email": "marina@gmail.com",
+      "gender": "female",
+      "password": "marina123",
+      "role": "Moderator",
+      "id": 12
     }
   ],
   "posts": [
