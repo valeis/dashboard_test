@@ -1,6 +1,6 @@
 import React from "react";
 import LoginForm from "./features/auth/LoginForm";
-import Dashboard from "./features/Dashboard";
+import Dashboard from "./features/Dashboard/Dashboard";
 import CreatePosts from "./features/posts/pages/CreatePosts/CreatePosts";
 import PostDetails from "./features/posts/pages/PostDetails/PostDetails";
 import Posts from "./features/posts/pages/Posts/Posts";
