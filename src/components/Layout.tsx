@@ -1,5 +1,6 @@
 import { Fragment, ReactNode} from 'react';
 import Navbar from './Navbar/Navbar';
+
 type LayoutProps = {
     children: ReactNode;
   };

@@ -1,8 +1,13 @@
 import React from "react";
-import classes from './Card.module.css'
+import './Card.css'
 
-const Card = (props : any) => {
-    return <div className={`${classes.card} ${props.className}`}>
+type CardProps = {
+    children: React.ReactNode;
+    className: string;
+}
+
+const Card = (props : CardProps) => {
+    return <div className={`${'card_universal'} ${props.className}`}>
         {props.children}
     </div>
 };

@@ -1,13 +1,14 @@
 import React, { FormEvent, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
-import classes from "./LoginForm.module.css";
 import { useMutation} from "react-query";
 import AuthContext from "../../store/auth-context";
 import usersRequest from "../../api/users";
 
+import "./LoginForm.css";
 
 const LoginForm = () => {
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -74,9 +75,9 @@ const LoginForm = () => {
 
   return (
     <div>
-      <Card className={classes.input}>
+      <Card className={'input_login'}>
         <form onSubmit={proceedLoginHandler}>
-          <div className={classes.formHeader}>
+          <div className={'form_header'}>
             <h1>Login</h1>
           </div>
           <InputField
@@ -101,10 +102,10 @@ const LoginForm = () => {
               "Parola trebuie să conțină cel puțin 6 caractere"
             }
           />
-          <div className="footer">
+          <div>
             <Button type="submit">Log in</Button>
             <Link to="/register">
-              <Button type="submit" className={classes.button_register}>
+              <Button type="submit" className={'button_register'}>
                 Register
               </Button>
             </Link>

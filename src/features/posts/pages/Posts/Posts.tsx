@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
+
 import postsRequest from "../../../../api/posts";
-import Layout from "../../../../components/Layout";
-import { CardProps } from "../../../../types/CardProps";
 import PostCard from "../../components/PostCard";
+
 import "./Posts.css";
 
 const Posts = () => {
   const navigate = useNavigate();
-  const [posts, setPosts] = useState<CardProps[]>([]);
   const addPostHandler = () => {
     navigate("/posts/create", { replace: true });
   };
-
-  const fetchPosts = async () => {
-    let data = await postsRequest.get();
-    setPosts(data);
-    return data;
-  };
-
-  useQuery("posts", fetchPosts);
+  const {data: posts} = useQuery("posts", postsRequest.get);
 
   return (
-    <Layout>
+    <>
       <div className="top_button">
         <button className="add_new" onClick={addPostHandler}>
           Add new post
@@ -43,7 +35,7 @@ const Posts = () => {
             />
           ))}
       </div>
-    </Layout>
+    </>
   );
 };
 

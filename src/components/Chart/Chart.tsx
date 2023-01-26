@@ -1,18 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Chart.css";
 import {YAxis, XAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area,} from "recharts";
-import { CardProps } from "../../types/CardProps";
 import postsRequest from "../../api/posts";
 import { useQuery } from "react-query";
 
 const LineRechartComponent = () => {
-  const [posts, setPosts] = useState<CardProps[]>([]);
-  const fetchPosts = async () => {
-    const data = await postsRequest.get();
-    setPosts(data);
-    return data;
-  };
-  useQuery("posts", fetchPosts);
+  
+  const {data:posts} = useQuery("posts", postsRequest.get);
   
   
   function groupBy<T>(objectArray: T[], property: keyof T) {
@@ -28,8 +22,8 @@ const LineRechartComponent = () => {
       return acc;
     }, []);
   }
-  const postsUser = groupBy(posts, "author");
-  console.log(postsUser);
+  const postsUser = posts ? groupBy(posts, "author") : [];
+  //console.log(postsUser[0]);
 
   return (
     <ResponsiveContainer width="45%" height={500} className="recharts-wrapper">

@@ -1,14 +1,16 @@
 import React, { useContext, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
 import * as AiIcons from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import * as BiIcons from "react-icons/bi";
 import * as MdIcons from "react-icons/md";
-import "./PostCard.css";
-import { useMutation, useQueryClient } from "react-query";
+
 import ErrorModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import AuthContext from "../../../store/auth-context";
 import { CardProps } from "../../../types/CardProps";
 import postsRequest from "../../../api/posts";
+
+import "./PostCard.css";
 
 const PostCard = ({
   id,
@@ -19,21 +21,19 @@ const PostCard = ({
   author,
 }: CardProps) => {
 
-  const [ postToDelete, setPostToDelete ] = useState(false);
-
   const navigate = useNavigate();
-
   const queryClient = useQueryClient();
-
   const authCtx = useContext(AuthContext);
 
+  const [ postToDelete, setPostToDelete ] = useState(false);
+  
   const deletePost = async (id: string) => {
     return await postsRequest.delete(id);
   };
 
   const deletePostHandler = useMutation(deletePost, {
     onSuccess: (data) => {
-      queryClient.invalidateQueries({queryKey:['posts'], exact: true});
+      queryClient.invalidateQueries('posts');
     },
     onError: () => {
       console.log("Some error occured");
@@ -77,7 +77,7 @@ const PostCard = ({
           </button>
         </div>}
       </div>
-      { postToDelete && <ErrorModal setPostToDelete={setPostToDelete} deletePostHandler={deletePostHandler} id={id}/>} 
+      { postToDelete && <ErrorModal setPostToDelete={setPostToDelete} deletePostHandler={deletePostHandler} id={id!}/>} 
       <div>
        <b>{title}</b>
       </div>

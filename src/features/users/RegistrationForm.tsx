@@ -1,14 +1,19 @@
 import React, { FormEvent, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
+
 import usersRequest from "../../api/users";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
 import { UserProps } from "../../types/UserProps";
+
 import classes from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
@@ -20,8 +25,6 @@ const RegistrationForm = () => {
   const [error, setError] = useState<{ id: string }[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
-
-  const navigate = useNavigate();
 
   const validation = () => {
     let error: { id: string }[] = [];
@@ -72,8 +75,6 @@ const RegistrationForm = () => {
     const { data: response } = await usersRequest.post(user);
     return response.data;
   };
-
-  const queryClient = useQueryClient();
 
   const { mutate } = useMutation(registerUser, {
     onSuccess: (data) => {

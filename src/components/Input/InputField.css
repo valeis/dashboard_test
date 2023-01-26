@@ -1,4 +1,4 @@
-.input input {
+.input_form input {
   font: inherit;
   width: 70%;
   border: 1px solid #ccc;
@@ -11,12 +11,12 @@
   color: black;
 }
 
-.input input:focus {
+.input_form input:focus {
   outline: none;
   border-color: #4f005f;
 }
 
-.span {
+.span_form {
   display: block;
   font-size: 0.9em;
   font-style: oblique;
@@ -24,13 +24,13 @@
   color:#B23A48;
 }
 
-.input input[type=checkbox] {
+.input_form input[type=checkbox] {
   width: 4%;
   vertical-align: middle;
   position: relative;
 }
 
-.input input[type=textarea] {
+.input_form input[type=textarea] {
   height: 23%;
   vertical-align: middle;
   position: relative;

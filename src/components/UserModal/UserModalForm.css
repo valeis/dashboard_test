@@ -8,6 +8,15 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
+.input_modal {
+  position: relative;
+  width: 100%;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0.26);
+}
+
 .modal {
   position: fixed;
   top: 30vh;
@@ -17,14 +26,15 @@
   overflow: hidden;
 }
 
-.header {
+.header_modal {
   background: #bdc2bf;
   padding: 1rem;
 }
 
-.header h2 {
+.header_modal h2 {
   margin: 0;
-  color: white;
+  color: black;
+  font-weight: 600;
 }
 
 .content {
@@ -37,17 +47,20 @@
   justify-content: flex-end;
 }
 
-.button_register {
-  background: #005e7c;
+.input_modal select {
+  font: inherit;
+  width: 70%;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+  margin-bottom: 0.3rem;
   border-radius: 10px;
-  margin-left: 10px;
-  padding: 0.32rem 1rem;
-  color: #fff;
 }
-.button_register:hover,
-.button_register:active {
-  background: #495c91;
-  border-color: #495c91;
+.span_modal {
+  display: block;
+  font-size: 0.9em;
+  font-style: oblique;
+  margin-bottom: 0.2rem;
+  color: #b23a48;
 }
 
 @media (min-width: 768px) {

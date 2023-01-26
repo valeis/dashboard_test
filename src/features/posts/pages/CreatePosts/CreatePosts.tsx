@@ -1,16 +1,20 @@
 import React, { FormEvent, useContext, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
+
 import postsRequest from "../../../../api/posts";
 import Button from "../../../../components/Button/Button";
 import Card from "../../../../components/Card/Card";
 import InputField from "../../../../components/Input/InputField";
-import Layout from "../../../../components/Layout";
 import AuthContext from "../../../../store/auth-context";
 import { CardProps } from "../../../../types/CardProps";
+
 import "./CreatePosts.css";
 
-const CreatePosts = (props: any) => {
+const CreatePosts = () => {
+  const params = useParams();
+  const authCtx = useContext(AuthContext);
+
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredDescription, setEnteredDescription] = useState("");
   const [enteredLinkToImage, setEnteredLinkToImage] = useState("");
@@ -21,22 +25,18 @@ const CreatePosts = (props: any) => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const params = useParams();
-
-  const authCtx = useContext(AuthContext);
-
   let postAuthor: string | undefined = ""!;
 
-  const fetchPosts = async () => {
-    let data = await postsRequest.getById(params.id);
-    setEnteredTitle(data.title);
-    setEnteredDescription(data.description);
-    setEnteredLinkToImage(data.image);
-    setEnteredDate(data.date);
-    setEnteredAuthor(data.author);
-  };
-
-  useQuery("postss", fetchPosts, {enabled: !!params.id});
+  useQuery("postss", () => postsRequest.getById(params.id),{
+    enabled: !!params.id,
+    onSuccess: (data) => {
+      setEnteredTitle(data.title!);
+      setEnteredDescription(data.description!);
+      setEnteredLinkToImage(data.image!);
+      setEnteredDate(data.date!);
+      setEnteredAuthor(data.author!);
+    },
+  });
 
   const navigate = useNavigate();
   const validation = () => {
@@ -162,74 +162,72 @@ const CreatePosts = (props: any) => {
   };
 
   return (
-    <Layout>
-      <div>
-        <Card className="input">
-          <form onSubmit={publishPostHandler}>
-            <div className="formHeader">
-              {params.id ? <h1>Edit post</h1> : <h1>Add a new post</h1>}
-            </div>
-            <InputField
-              id="title"
-              type="text"
-              placeholder="Titlu"
-              value={enteredTitle}
-              onChange={titleChangeHandler}
-              error={
-                error.find(({ id }) => id === "title") &&
-                "Postarea trebuie să conțină titlu"
-              }
-            />
+    <div>
+      <Card className="input">
+        <form onSubmit={publishPostHandler}>
+          <div className="formHeader">
+            {params.id ? <h1>Edit post</h1> : <h1>Add a new post</h1>}
+          </div>
+          <InputField
+            id="title"
+            type="text"
+            placeholder="Titlu"
+            value={enteredTitle}
+            onChange={titleChangeHandler}
+            error={
+              error.find(({ id }) => id === "title") &&
+              "Postarea trebuie să conțină titlu"
+            }
+          />
 
-            <textarea
-              name="description"
-              id="description"
-              cols={64}
-              rows={5}
-              placeholder="Descrierea postării"
-              value={enteredDescription}
-              onChange={descriptionChangeHandler}
-              minLength={1}
-              required
-              className="textarea"
-            ></textarea>
+          <textarea
+            name="description"
+            id="description"
+            cols={64}
+            rows={5}
+            placeholder="Descrierea postării"
+            value={enteredDescription}
+            onChange={descriptionChangeHandler}
+            minLength={1}
+            required
+            className="textarea"
+          ></textarea>
 
-            <InputField
-              id="image"
-              type="text"
-              placeholder="Imagine"
-              value={enteredLinkToImage}
-              onChange={imageChangeHandler}
-              error={
-                error.find(({ id }) => id === "image") &&
-                "Postarea trebuie să conțină link-ul către imaginea"
-              }
-            />
+          <InputField
+            id="image"
+            type="text"
+            placeholder="Imagine"
+            value={enteredLinkToImage}
+            onChange={imageChangeHandler}
+            error={
+              error.find(({ id }) => id === "image") &&
+              "Postarea trebuie să conțină link-ul către imaginea"
+            }
+          />
 
-            <InputField
-              id="date"
-              type="date"
-              value={enteredDate}
-              onChange={dateChangeHandler}
-              error={
-                error.find(({ id }) => id === "date") &&
-                "Postarea trebuie să conțină data publicării"
-              }
-            />
+          <InputField
+            id="date"
+            type="date"
+            value={enteredDate}
+            onChange={dateChangeHandler}
+            error={
+              error.find(({ id }) => id === "date") &&
+              "Postarea trebuie să conțină data publicării"
+            }
+          />
 
-            <div className="footer">
-              {!isLoading && <Button type="submit">Publish</Button>}
-              {isLoading && <p>Sending request....</p>}
-              <Link to="/posts">
-                <Button type="submit" className="button_register">
-                  Cancel
-                </Button>
-              </Link>
-            </div>
-          </form>
-        </Card>
-      </div>
-    </Layout>
+          <div className="footer">
+            {!isLoading && <Button type="submit">Publish</Button>}
+            {isLoading && <p>Sending request....</p>}
+            <Link to="/posts">
+              <Button type="submit" className="button_register">
+                Cancel
+              </Button>
+            </Link>
+          </div>
+        </form>
+      </Card>
+    </div>
   );
 };
 

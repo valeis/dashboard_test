@@ -1,29 +1,29 @@
 import { CardProps } from "../types/CardProps";
-import axios_instance from "./api_instance";
+import axiosInstance from "./apiInstance";
 
 const postsRequest = {
     delete: async (id: string) => {
-        const res = await axios_instance.delete(`/posts/${id}`);
+        const res = await axiosInstance.delete(`/posts/${id}`);
         return res.data;
     },
 
     get: async() => {
-        const res = await axios_instance.get('/posts');
+        const res = await axiosInstance.get<CardProps[]>('/posts');
         return res.data;
     },
 
     getById: async (id?:string) => {
-        const res = await axios_instance.get(`posts/${id}`);
+        const res = await axiosInstance.get<CardProps>(`posts/${id}`);
         return res.data;
     },
 
     post: async (post: CardProps ) => {
-        const res = await axios_instance.post('posts', post);
+        const res = await axiosInstance.post('posts', post);
         return res.data;
     },
 
     put: async (id?:string, post?:CardProps) => {
-        const res = await axios_instance.put(`posts/${id}`, post);
+        const res = await axiosInstance.put(`posts/${id}`, post);
         return res.data
     }
 }

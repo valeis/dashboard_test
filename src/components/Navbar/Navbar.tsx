@@ -8,18 +8,15 @@ import "./Navbar.css";
 import AuthContext from "../../store/auth-context";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
+
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => {
     setSidebar(!sidebar);
   };
-
-  const authCtx = useContext(AuthContext);
-
-  const isLoggedIn = authCtx.isLoggedIn;
-
-  const navigate = useNavigate();
-
   const logoutHandler = () => {
     authCtx.logout();
     navigate("/login", { replace: true });

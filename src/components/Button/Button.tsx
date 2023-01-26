@@ -1,14 +1,17 @@
-import React from 'react';
-import classes from './Button.module.css'
+import React from "react";
 
-const Button = (props:any) => {
-    return(
-        <button
-        className={`${classes.button} ${props.className}`}
-        type={props.type || "button"} {...props}>
-            {props.children}
-        </button>
-    );
+import "./Button.css";
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+
+const Button = ({ type = "button", ...props }: ButtonProps) => {
+  return (
+    <button
+      className={`${'button'} ${props.className}`}
+      type={type}
+      {...props}
+    />
+  );
 };
 
 export default Button;

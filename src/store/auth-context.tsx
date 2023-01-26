@@ -2,7 +2,6 @@ import axios from "axios";
 import React, { ReactNode, useState} from "react";
 import { useQuery  } from "react-query";
 
-
 type AuthProviderProps = {
     children: ReactNode;
 }

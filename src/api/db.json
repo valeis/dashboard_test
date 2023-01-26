@@ -64,22 +64,22 @@
       "id": 10
     },
     {
-      "name": "test55",
-      "surname": "test5",
-      "email": "test5@gmail.com",
-      "gender": "male",
-      "password": "test555",
-      "role": "Moderator",
-      "id": 11
-    },
-    {
-      "name": "Marina",
+      "name": "Marina1",
       "surname": "Marina",
       "email": "marina@gmail.com",
       "gender": "female",
       "password": "marina123",
       "role": "Moderator",
       "id": 12
+    },
+    {
+      "name": "skill555",
+      "surname": "skill555",
+      "email": "skill@gmail.com",
+      "gender": "male",
+      "password": "skill123",
+      "role": "Moderator",
+      "id": 13
     }
   ],
   "posts": [
@@ -156,10 +156,10 @@
       "id": 14
     },
     {
-      "title": "Numarul_de_postari",
-      "description": "Numarul_de_postari",
-      "image": "https://images.unsplash.com/photo-1673865587236-de597238c72d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      "date": "2022-11-09",
+      "title": "TestTest",
+      "description": "TestTest",
+      "image": "https://images.unsplash.com/photo-1658731389324-2cefff465798?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "date": "2023-01-26",
       "author": "admin",
       "id": 15
     }

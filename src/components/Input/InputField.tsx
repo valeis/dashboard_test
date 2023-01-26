@@ -1,5 +1,5 @@
 import React from 'react'
-import classes from './InputField.module.css'
+import './InputField.css'
 
 interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
     type: string, 
@@ -10,7 +10,7 @@ interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
 
 const InputField = ({ id, type, placeholder, value, onChange, error, message}:InputProps) => {
 
- return <div className={classes.input}>
+ return <div className='input_form'>
     <input
       id={id}
       type={type}
@@ -21,7 +21,7 @@ const InputField = ({ id, type, placeholder, value, onChange, error, message}:In
       formNoValidate
     />
     {<span>{message}</span>}
-    {error && <span className={classes.span}>{error}</span>}
+    {error && <span className='span_form'>{error}</span>}
   </div>
 };
 

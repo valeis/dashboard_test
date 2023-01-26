@@ -4,7 +4,7 @@ import './Pagination.css'
 type PaginationProps ={
     usersPerPage: number,
     totalUsers: number,
-    paginate: (number:number) => any,
+    paginate: (number:number) => void,
     currentPage: number
 }
 

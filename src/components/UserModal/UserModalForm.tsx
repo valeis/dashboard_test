@@ -1,44 +1,57 @@
 import React, { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+
 import usersRequest from "../../api/users";
 import { UserProps } from "../../types/UserProps";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import InputField from "../Input/InputField";
-import classes from "./UserModalForm.module.css";
 
-const UserModal = (props: any) => {
+import "./UserModalForm.css";
+
+type UserModalProps = {
+  userId?: string;
+  onConfirm: () => void;
+};
+
+const UserModal = (props: UserModalProps) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredSurname, setEnteredSurname] = useState("");
   const [enteredEmail, setEnteredEmail] = useState("");
   const [enteredGender, setEnteredGender] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredRepeatedPassword, setRepeatedPassword] = useState("");
-  const [confirmation, setConfirmation] = useState();
+  const [confirmation, setConfirmation] = useState<"true" | undefined>(
+    undefined
+  );
   const [enteredRole, setEnteredRole] = useState("Moderator");
 
   const [error, setError] = useState<{ id: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-  
-  const user = ({
+
+  const user = {
     name: enteredName,
     surname: enteredSurname,
     email: enteredEmail,
     gender: enteredGender,
     password: enteredPassword,
     role: enteredRole,
-  });
-
-  const fetchUsers = async () => {
-    let data = await usersRequest.getById(props.userId);
-    setEnteredName(data.name);
-    setEnteredSurname(data.surname);
-    setEnteredEmail(data.email);
-    setEnteredGender(data.gender);
-    setEnteredPassword(data.password);
   };
 
-  useQuery("userss", fetchUsers, {enabled: !!props.userId})
+  useQuery(
+    "userss",
+    () => usersRequest.getById(props.userId!),
+    {
+      enabled: !!props.userId!,
+      onSuccess: (data) => {
+        setEnteredName(data.name);
+        setEnteredSurname(data.surname);
+        setEnteredEmail(data.email);
+        setEnteredGender(data.gender);
+        setEnteredPassword(data.password);
+      },
+    }
+  );
 
   const validation = () => {
     let error: { id: string }[] = [];
@@ -70,12 +83,7 @@ const UserModal = (props: any) => {
           ? [...error, { id: "confirm-password" }]
           : error.filter(({ id }) => id !== "confirm-password");
 
-      const checkbox = document.getElementById(
-        "confirmation"
-      ) as HTMLInputElement | null;
-
-      if (checkbox?.checked) {
-      } else {
+      if (!confirmation) {
         error = [...error, { id: "confirmation" }];
       }
     }
@@ -98,7 +106,7 @@ const UserModal = (props: any) => {
   };
 
   const updateUser = async () => {
-    let data = await usersRequest.put(props.userId, user);
+    let data = await usersRequest.put(props.userId!, user);
     return data;
   };
 
@@ -147,52 +155,64 @@ const UserModal = (props: any) => {
     }
   }
 
-  const usernameChangeHandler = (event: any) => {
+  const usernameChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEnteredName(event.target.value);
   };
 
-  const surnameChangeHandler = (event: any) => {
+  const surnameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredSurname(event.target.value);
   };
 
-  const emailChangeHandler = (event: any) => {
+  const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredEmail(event.target.value);
   };
 
-  const genderChangeHandler = (event: any) => {
+  const genderChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEnteredGender(event.target.value);
   };
 
-  const passwordChangeHandler = (event: any) => {
+  const passwordChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setEnteredPassword(event.target.value);
   };
 
-  const repeatedPasswordChangeHandler = (event: any) => {
+  const repeatedPasswordChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRepeatedPassword(event.target.value);
   };
 
-  const confirmationChangeHandler = (event: any) => {
-    setConfirmation(event.target.value);
+  const confirmationChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.value === "true") {
+      setConfirmation(undefined);
+    } else {
+      setConfirmation("true");
+    }
   };
 
-  const roleChangeHandler = (event: any) => {
+  const roleChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEnteredRole(event.target.value);
   };
 
   return (
     <>
-      <div className={classes.backdrop} onClick={props.onConfirm} />
-      <Card className={classes.modal}>
-        <header className={classes.header}>
+      <div className={"backdrop"} onClick={props.onConfirm} />
+      <Card className={"modal"}>
+        <header className={"header_modal"}>
           {props.userId == null ? (
             <h2>Introduceți datele noului utilizator</h2>
           ) : (
             <h2>Introduceți datele modificate</h2>
           )}
         </header>
-        <div className={classes.content}>
+        <div className={"content"}>
           <div>
-            <Card className={classes.input}>
+            <Card className={"input_modal"}>
               <form onSubmit={registerUserHandler}>
                 <InputField
                   id="name"
@@ -235,7 +255,7 @@ const UserModal = (props: any) => {
                   <option value="none">Ma abtin</option>
                 </select>
                 {error.find(({ id }) => id === "gendre") && (
-                  <span className={classes.span}>
+                  <span className={"span_modal"}>
                     Selectați cel puțin o valoare
                   </span>
                 )}
@@ -246,7 +266,7 @@ const UserModal = (props: any) => {
                   <option value="Moderator">Moderator</option>
                 </select>
                 {error.find(({ id }) => id === "role") && (
-                  <span className={classes.span}>
+                  <span className={"span_modal"}>
                     Selectați cel puțin o valoare
                   </span>
                 )}
@@ -296,10 +316,10 @@ const UserModal = (props: any) => {
                   </div>
                 )}
 
-                <div className="footer">
+                <div>
                   {!isLoading && (
                     <Button type="submit" value="submit">
-                      {props.userId == null ? "Register" : "Modify"}
+                      {!!props.userId ? "Register" : "Modify"}
                     </Button>
                   )}
                   {isLoading && <p>Sending request...</p>}
