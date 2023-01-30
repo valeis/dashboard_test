@@ -1,13 +1,11 @@
 .table * {
   border-collapse: collapse;
-  /* width: 45%; */
   text-align: center;
   margin: auto;
 }
 
 .table_l * {
   border-collapse: collapse;
-  /* width: 54%; */
   text-align: center;
   margin: auto;
 }

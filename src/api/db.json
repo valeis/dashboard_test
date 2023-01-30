@@ -1,24 +1,6 @@
 {
   "users": [
     {
-      "name": "admin",
-      "surname": "admin",
-      "email": "admin@gmail.com",
-      "gender": "male",
-      "password": "admin123",
-      "role": "Admin",
-      "id": 1
-    },
-    {
-      "name": "Petrache",
-      "surname": "Ion",
-      "email": "petrache@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "role": "Moderator",
-      "id": 3
-    },
-    {
       "name": "Test",
       "surname": "Test",
       "email": "test@gmail.com",
@@ -46,15 +28,6 @@
       "id": 6
     },
     {
-      "name": "Marcell",
-      "surname": "Marcel",
-      "email": "marcel@gmail.com",
-      "gender": "male",
-      "password": "marcel123",
-      "role": "Moderator",
-      "id": 8
-    },
-    {
       "name": "skill",
       "surname": "skill",
       "email": "skill123@gmail.com",
@@ -64,31 +37,40 @@
       "id": 10
     },
     {
-      "name": "Marina1",
-      "surname": "Marina",
-      "email": "marina@gmail.com",
-      "gender": "female",
-      "password": "marina123",
-      "role": "Moderator",
-      "id": 12
-    },
-    {
-      "name": "skill555",
-      "surname": "skill555",
-      "email": "skill@gmail.com",
+      "name": "nicu",
+      "surname": "nicu",
+      "email": "nicu@gmail.com",
       "gender": "male",
-      "password": "skill123",
-      "role": "Moderator",
-      "id": 13
-    },
-    {
-      "name": "test45",
-      "surname": "test4",
-      "email": "test4@gmail.com",
-      "gender": "male",
-      "password": "test123",
+      "password": "nicu123",
       "role": "Moderator",
       "id": 14
+    },
+    {
+      "name": "Ion",
+      "surname": "Ion",
+      "email": "ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "role": "Moderator",
+      "id": 16
+    },
+    {
+      "name": "Pavel",
+      "surname": "Pavel",
+      "email": "pavel@gmail.com",
+      "gender": "male",
+      "password": "pavel123",
+      "role": "Moderator",
+      "id": 17
+    },
+    {
+      "name": "admin",
+      "surname": "admin",
+      "email": "admin@gmail.com",
+      "gender": "male",
+      "password": "admin123",
+      "role": "Admin",
+      "id": 18
     }
   ],
   "posts": [
@@ -165,20 +147,12 @@
       "id": 14
     },
     {
-      "title": "TestTestTest",
-      "description": "TestTest",
-      "image": "https://images.unsplash.com/photo-1658731389324-2cefff465798?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      "date": "2023-01-26",
-      "author": "admin",
+      "title": "Testare",
+      "description": "Testare",
+      "image": "https://images.unsplash.com/photo-1673055022236-0bce66b62569?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      "date": "2022-10-06",
+      "author": "Marcell",
       "id": 15
-    },
-    {
-      "title": "Test",
-      "description": "Test",
-      "image": "https://images.unsplash.com/photo-1673865587236-de597238c72d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      "date": "2022-11-10",
-      "author": "admin",
-      "id": 16
     }
   ]
 }

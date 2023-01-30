@@ -21,14 +21,14 @@ const UserModal = (props: UserModalProps) => {
   const [enteredGender, setEnteredGender] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredRepeatedPassword, setRepeatedPassword] = useState("");
-  const [confirmation, setConfirmation] = useState<"true" | undefined>(
-    undefined
-  );
+  const [confirmation, setConfirmation] = useState(false);
   const [enteredRole, setEnteredRole] = useState("Moderator");
-
+  
   const [error, setError] = useState<{ id: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  
+  const queryClient = useQueryClient();
+  
   const user = {
     name: enteredName,
     surname: enteredSurname,
@@ -38,20 +38,17 @@ const UserModal = (props: UserModalProps) => {
     role: enteredRole,
   };
 
-  useQuery(
-    ["users", props.userId],
-    () => usersRequest.getById(props.userId!),
-    {
-      enabled: !!props.userId!,
-      onSuccess: (data) => {
-        setEnteredName(data.name!);
-        setEnteredSurname(data.surname!);
-        setEnteredEmail(data.email!);
-        setEnteredGender(data.gender!);
-        setEnteredPassword(data.password!);
-      },
-    }
-  );
+  useQuery(["users", props.userId], () => usersRequest.getById(props.userId!), {
+    enabled: !!props.userId!,
+    onSuccess: (data) => {
+      setEnteredName(data.name!);
+      setEnteredSurname(data.surname!);
+      setEnteredEmail(data.email!);
+      setEnteredGender(data.gender!);
+      setEnteredRole(data.role!);
+      setEnteredPassword(data.password!);
+    },
+  });
 
   const validation = () => {
     let error: { id: string }[] = [];
@@ -110,7 +107,6 @@ const UserModal = (props: UserModalProps) => {
     return data;
   };
 
-  const queryClient = useQueryClient();
 
   const closeModal = props.onConfirm;
 
@@ -188,11 +184,7 @@ const UserModal = (props: UserModalProps) => {
   const confirmationChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (event.target.value === "true") {
-      setConfirmation(undefined);
-    } else {
-      setConfirmation("true");
-    }
+    setConfirmation(event.target.checked)
   };
 
   const roleChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -248,7 +240,11 @@ const UserModal = (props: UserModalProps) => {
                   }
                 />
 
-                <select value={enteredGender} onChange={genderChangeHandler} id="gendre" >
+                <select
+                  value={enteredGender}
+                  onChange={genderChangeHandler}
+                  id="gendre"
+                >
                   <option value="">Genul</option>
                   <option value="male">Masculin</option>
                   <option value="female">Femenin</option>
@@ -260,7 +256,11 @@ const UserModal = (props: UserModalProps) => {
                   </span>
                 )}
 
-                <select value={enteredRole} onChange={roleChangeHandler} id="role">
+                <select
+                  value={enteredRole}
+                  onChange={roleChangeHandler}
+                  id="role"
+                >
                   <option value="">Role</option>
                   <option value="Admin">Admin</option>
                   <option value="Moderator">Moderator</option>
@@ -304,7 +304,8 @@ const UserModal = (props: UserModalProps) => {
                       <InputField
                         type="checkbox"
                         id="confirmation"
-                        value={confirmation}
+                        // value={confirmation}
+                        checked={confirmation}
                         onChange={confirmationChangeHandler}
                         error={
                           error.find(({ id }) => id === "confirmation") &&

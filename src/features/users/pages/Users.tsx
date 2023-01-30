@@ -1,11 +1,7 @@
 import React, { useContext, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import {
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import Pagination from "../../../components/Pagination/Pagination";
 import UserModalForm from "../../../components/UserModal/UserModalForm";
@@ -13,6 +9,7 @@ import AuthContext from "../../../store/auth-context";
 import usersRequest from "../../../api/users";
 
 import "./Users.css";
+import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
 
 const Users = () => {
   const queryClient = useQueryClient();
@@ -20,8 +17,11 @@ const Users = () => {
 
   const [addUser, setAddUser] = useState(false);
   const [editUser, setEditUser] = useState("");
+  const [userToDelete, setUserToDelete] = useState("");
+  const [userName, setUserName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(6);
+
 
   const addUserHandler = () => {
     setAddUser(true);
@@ -32,7 +32,8 @@ const Users = () => {
   };
 
   const deleteUsers = async (id: string) => {
-    return usersRequest.delete(id)
+    if (authCtx.currentUser?.id === id) authCtx.logout();
+    return usersRequest.delete(id);
   };
 
   const deleteUserHandler = useMutation(deleteUsers, {
@@ -54,14 +55,16 @@ const Users = () => {
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  const {data: users} = useQuery("users", usersRequest.get);
+  const { data: users } = useQuery("users", usersRequest.get);
 
   const indexOfLastPost = currentPage * usersPerPage;
   const indexOfFirstPost = indexOfLastPost - usersPerPage;
-  const currentUsers = users ? users!.slice(indexOfFirstPost, indexOfLastPost): '';
+  const currentUsers = users
+    ? users!.slice(indexOfFirstPost, indexOfLastPost)
+    : "";
 
   return (
-    <div className="wrapper">
+    <div>
       {addUser && <UserModalForm onConfirm={submitFormHandler} />}
       <div
         className={`${
@@ -113,7 +116,8 @@ const Users = () => {
                         &nbsp;
                         <button
                           onClick={() => {
-                            deleteUserHandler.mutate(item.id!);
+                            setUserToDelete(item.id!);
+                            setUserName(item.name!);
                           }}
                         >
                           <AiIcons.AiOutlineUserDelete />
@@ -131,12 +135,20 @@ const Users = () => {
           )}
           <Pagination
             usersPerPage={usersPerPage}
-            totalUsers={ users ? users!.length: 0}
+            totalUsers={users ? users!.length : 0}
             paginate={paginate}
             currentPage={currentPage}
           />
         </div>
       </div>
+      {userToDelete !=='' && (
+        <ConfirmationModal
+          setElementToDelete={setUserToDelete}
+          deleteElementHandler={deleteUserHandler}
+          id={userToDelete!}
+          title={userName}
+        />
+      )}
     </div>
   );
 };

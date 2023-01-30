@@ -11,7 +11,6 @@ interface AuthContextType {
   token: string | null;
   isLoggedIn: boolean;
   currentUser: User;
-  mutation: (token?: string) => void;
   login: (token?: string | null) => void;
   logout: () => void;
   isLoading: boolean;
@@ -21,7 +20,6 @@ export const AuthContext = React.createContext<AuthContextType>({
   token: "",
   isLoggedIn: false,
   currentUser: {},
-  mutation: () => {},
   login: () => {},
   logout: () => {},
   isLoading: false,
@@ -52,7 +50,6 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     login: loginHandler,
     logout: logoutHandler,
     currentUser: data!,
-    mutation: () => {},
     isLoading,
   };
 

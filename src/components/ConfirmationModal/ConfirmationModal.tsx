@@ -4,25 +4,30 @@ import Button from "../Button/Button";
 import "./ConfirmationModal.css";
 import { UseMutationResult } from "react-query";
 
-type ErrorModalProps = {
+type ConfirmationModalProps = {
   id: string;
-  setPostToDelete: (state: boolean) => void;
-  deletePostHandler: UseMutationResult<any, unknown, string, unknown>;
+  title: string;
+  setElementToDelete: (id: string) => void;
+  deleteElementHandler: UseMutationResult<any, unknown, string, unknown>;
 };
 
-const ErrorModal = (props: ErrorModalProps) => {
+const ConfirmationModal = (props: ConfirmationModalProps) => {
+  const deleteElement = () => {
+    props.deleteElementHandler.mutate(props.id);
+    props.setElementToDelete('');
+  }
   return (
     <>
-      <div className="backdrop" />
-      <Card className="modal">
-        <header className="header">
-          <h1>Delete Post ?</h1>
+      <div className="backdrop_modal" />
+      <Card className="modal_modal">
+        <header className="header_modal">
+          <h1>Delete  "{props.title}" ?</h1>
         </header>
-        <div className="content">
-          <Button onClick={() => props.setPostToDelete(false)}>Cancel</Button>
+        <div className="content_modal">
+          <Button onClick={() => props.setElementToDelete('')}>Cancel</Button>
           <Button
-            className="button_register"
-            onClick={() => props.deletePostHandler.mutate(props.id)}
+            className="button_modal"
+            onClick={() => deleteElement()}
           >
             Delete
           </Button>
@@ -32,4 +37,4 @@ const ErrorModal = (props: ErrorModalProps) => {
   );
 };
 
-export default ErrorModal;
+export default ConfirmationModal;

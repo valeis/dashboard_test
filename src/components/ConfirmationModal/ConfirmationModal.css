@@ -1,4 +1,4 @@
-.backdrop {
+.backdrop_modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,7 +8,7 @@
   background: rgba(0, 0, 0, 0.75);
 }
 
-.modal {
+.modal_modal {
   position: fixed;
   top: 30vh;
   left: 10%;
@@ -17,17 +17,17 @@
   overflow: hidden;
 }
 
-.header {
+.header_modal {
   background: #bdc2bf;
   padding: 1rem;
 }
 
-.header h2 {
+.header_modal h2 {
   margin: 0;
   color: white;
 }
 
-.content {
+.content_modal {
   padding: 1rem;
 }
 
@@ -37,21 +37,21 @@
   justify-content: flex-end;
 }
 
-.button_register {
+.button_modal {
   background: #005e7c;
   border-radius: 10px;
   margin-left: 10px;
   padding: 0.32rem 1rem;
   color: #fff;
 }
-.button_register:hover,
-.button_register:active {
+.button_modal:hover,
+.button_modal:active {
   background: #495c91;
   border-color: #495c91;
 }
 
 @media (min-width: 768px) {
-  .modal {
+  .modal_modal {
     left: calc(50% - 20rem);
     width: 40rem;
   }

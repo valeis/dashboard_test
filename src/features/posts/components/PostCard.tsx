@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as BiIcons from "react-icons/bi";
 import * as MdIcons from "react-icons/md";
 
-import ErrorModal from "../../../components/ConfirmationModal/ConfirmationModal";
+import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import AuthContext from "../../../store/auth-context";
 import { Card } from "../../../types/Card";
 import postsRequest from "../../../api/posts";
@@ -25,7 +25,7 @@ const PostCard = ({
   const queryClient = useQueryClient();
   const authCtx = useContext(AuthContext);
 
-  const [ postToDelete, setPostToDelete ] = useState(false);
+  const [ postToDelete, setPostToDelete ] = useState("");
   
   const deletePost = async (id: string) => {
     return await postsRequest.delete(id);
@@ -70,14 +70,14 @@ const PostCard = ({
           &nbsp;
           <button className="button-header"
             onClick={() => {
-              setPostToDelete(true);
+              setPostToDelete(id!);
             }}
           >
             <MdIcons.MdDeleteOutline />
           </button>
         </div>}
       </div>
-      { postToDelete && <ErrorModal setPostToDelete={setPostToDelete} deletePostHandler={deletePostHandler} id={id!}/>} 
+      { postToDelete && <ConfirmationModal setElementToDelete={setPostToDelete} deleteElementHandler={deletePostHandler} id={id!} title={title!}/>} 
       <div>
        <b>{title}</b>
       </div>
