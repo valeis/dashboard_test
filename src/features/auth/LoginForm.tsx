@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
-import { useMutation} from "react-query";
+import { useMutation } from "react-query";
 import AuthContext from "../../store/auth-context";
 import usersRequest from "../../api/users";
 
@@ -40,34 +40,36 @@ const LoginForm = () => {
     return !error.length;
   };
 
-  const usernameChangeHandler = (event: any) => {
+  const usernameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredEmail(event.target.value);
   };
 
-  const passwordChangeHandler = (event: any) => {
+  const passwordChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredPassword(event.target.value);
   };
 
-    const getRegisteredUser = async () => {
+  const getRegisteredUser = async () => {
     let data = await usersRequest.getAuth(enteredEmail, enteredPassword);
     return data;
-  }; 
+  };
 
-  const mutation = useMutation(getRegisteredUser, {onSuccess: (data) => {
-        if (!data || data?.length === 0){
-          setIsLogged(false);
-          return;
-        } 
-        authCtx.login(data[0].id);
-        navigate("/dashboard", { replace: true });
-        setIsLogged(true);
-      }})
+  const mutation = useMutation(getRegisteredUser, {
+    onSuccess: (data) => {
+      if (!data || data?.length === 0) {
+        setIsLogged(false);
+        return;
+      }
+      authCtx.login(data[0].id);
+      navigate("/dashboard", { replace: true });
+      setIsLogged(true);
+    },
+  });
 
   const proceedLoginHandler = async (event: FormEvent) => {
     event.preventDefault();
     const isValid = validation();
     if (isValid) {
-      mutation.mutate()
+      mutation.mutate();
     } else {
       return;
     }
@@ -75,9 +77,9 @@ const LoginForm = () => {
 
   return (
     <div>
-      <Card className={'input_login'}>
+      <Card className={"input_login"}>
         <form onSubmit={proceedLoginHandler}>
-          <div className={'form_header'}>
+          <div className={"form_header"}>
             <h1>Login</h1>
           </div>
           <InputField
@@ -105,7 +107,7 @@ const LoginForm = () => {
           <div>
             <Button type="submit">Log in</Button>
             <Link to="/register">
-              <Button type="submit" className={'button_register'}>
+              <Button type="submit" className={"button_register"}>
                 Register
               </Button>
             </Link>

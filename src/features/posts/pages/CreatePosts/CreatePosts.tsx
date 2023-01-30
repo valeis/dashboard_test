@@ -7,7 +7,7 @@ import Button from "../../../../components/Button/Button";
 import Card from "../../../../components/Card/Card";
 import InputField from "../../../../components/Input/InputField";
 import AuthContext from "../../../../store/auth-context";
-import { CardProps } from "../../../../types/CardProps";
+import { Card as CardType }  from "../../../../types/Card";
 
 import "./CreatePosts.css";
 
@@ -66,7 +66,7 @@ const CreatePosts = () => {
     return !error.length;
   };
 
-  const publishPost = async (post: CardProps) => {
+  const publishPost = async (post: CardType) => {
     let data = await postsRequest.post(post);
     return data;
   };

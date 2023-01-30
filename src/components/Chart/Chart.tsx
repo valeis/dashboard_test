@@ -9,7 +9,9 @@ const LineRechartComponent = () => {
   const {data:posts} = useQuery("posts", postsRequest.get);
   
   
-  function groupBy<T>(objectArray: T[], property: keyof T) {
+  
+  function groupBy<T, P extends keyof T>(objectArray: T[], property: P) {
+    type Response = (Pick<T, P> & {count:number})[];
     return objectArray.reduce((acc: (T & {count: number})[], obj) => {
       const index = acc.findIndex(
         (owner) => owner[property] === obj[property]
@@ -20,9 +22,11 @@ const LineRechartComponent = () => {
         acc[index] = { ...acc[index], count: acc[index].count + 1 };
       }
       return acc;
-    }, []);
+    }, []) as Response;
   }
+
   const postsUser = posts ? groupBy(posts, "author") : [];
+
   //console.log(postsUser[0]);
 
   return (

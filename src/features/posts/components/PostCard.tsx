@@ -7,7 +7,7 @@ import * as MdIcons from "react-icons/md";
 
 import ErrorModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import AuthContext from "../../../store/auth-context";
-import { CardProps } from "../../../types/CardProps";
+import { Card } from "../../../types/Card";
 import postsRequest from "../../../api/posts";
 
 import "./PostCard.css";
@@ -19,7 +19,7 @@ const PostCard = ({
   image,
   date,
   author,
-}: CardProps) => {
+}: Card) => {
 
   const navigate = useNavigate();
   const queryClient = useQueryClient();

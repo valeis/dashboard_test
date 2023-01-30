@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import usersRequest from "../../api/users";
-import { UserProps } from "../../types/UserProps";
+import { User } from "../../types/User";
 import Button from "../Button/Button";
 import Card from "../Card/Card";
 import InputField from "../Input/InputField";
@@ -39,16 +39,16 @@ const UserModal = (props: UserModalProps) => {
   };
 
   useQuery(
-    "userss",
+    ["users", props.userId],
     () => usersRequest.getById(props.userId!),
     {
       enabled: !!props.userId!,
       onSuccess: (data) => {
-        setEnteredName(data.name);
-        setEnteredSurname(data.surname);
-        setEnteredEmail(data.email);
-        setEnteredGender(data.gender);
-        setEnteredPassword(data.password);
+        setEnteredName(data.name!);
+        setEnteredSurname(data.surname!);
+        setEnteredEmail(data.email!);
+        setEnteredGender(data.gender!);
+        setEnteredPassword(data.password!);
       },
     }
   );
@@ -100,7 +100,7 @@ const UserModal = (props: UserModalProps) => {
     return !error.length;
   };
 
-  const registerUser = async (user: UserProps) => {
+  const registerUser = async (user: User) => {
     let data = await usersRequest.post(user);
     return data;
   };
@@ -248,7 +248,7 @@ const UserModal = (props: UserModalProps) => {
                   }
                 />
 
-                <select onChange={genderChangeHandler} id="gendre">
+                <select value={enteredGender} onChange={genderChangeHandler} id="gendre" >
                   <option value="">Genul</option>
                   <option value="male">Masculin</option>
                   <option value="female">Femenin</option>
@@ -260,7 +260,7 @@ const UserModal = (props: UserModalProps) => {
                   </span>
                 )}
 
-                <select onChange={roleChangeHandler} id="role">
+                <select value={enteredRole} onChange={roleChangeHandler} id="role">
                   <option value="">Role</option>
                   <option value="Admin">Admin</option>
                   <option value="Moderator">Moderator</option>
@@ -319,7 +319,7 @@ const UserModal = (props: UserModalProps) => {
                 <div>
                   {!isLoading && (
                     <Button type="submit" value="submit">
-                      {!!props.userId ? "Register" : "Modify"}
+                      {!props.userId ? "Register" : "Update"}
                     </Button>
                   )}
                   {isLoading && <p>Sending request...</p>}

@@ -6,28 +6,27 @@ import { RoutesData } from "./routes";
 import Layout from "./components/Layout";
 
 function App() {
-  const authCtxx = useContext(AuthContext);
-  const isLoggedIn = authCtxx.isLoggedIn;
+  const {isLoggedIn} = useContext(AuthContext);
 
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           {RoutesData.map(
-            (index, key) =>
-              index.isLoggedIn === isLoggedIn && (
+            ({isLoggedIn: loginState, element, ...props}, key) =>
+            loginState === isLoggedIn && (
                 <Route
-                  path={index.path}
-                  element= {(index.path==='/login' || index.path==='/register' ) ? index.element : <Layout>{index.element}</Layout>}
+                  element= {!loginState ? element : <Layout>{element}</Layout>}
                   key={key}
+                  {...props}
                 ></Route>
               )
           )}
 
           {isLoggedIn ? (
-            <Route path="/" element={<Navigate to="/dashboard" />}></Route>
+            <Route path="*" element={<Navigate to="/dashboard" />}></Route>
           ) : (
-             <Route path="/" element={<Navigate to="/login" />}></Route>
+             <Route path="*" element={<Navigate to="/login" />}></Route>
           )}
 
         </Routes>

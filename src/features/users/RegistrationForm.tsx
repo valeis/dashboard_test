@@ -6,7 +6,7 @@ import usersRequest from "../../api/users";
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import InputField from "../../components/Input/InputField";
-import { UserProps } from "../../types/UserProps";
+import { User } from "../../types/User";
 
 import classes from "./RegistrationForm.module.css";
 
@@ -71,7 +71,7 @@ const RegistrationForm = () => {
     return !error.length;
   };
 
-  const registerUser = async (user: UserProps) => {
+  const registerUser = async (user: User) => {
     const { data: response } = await usersRequest.post(user);
     return response.data;
   };

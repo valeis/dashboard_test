@@ -1,4 +1,5 @@
-import { UserProps } from "../types/UserProps";
+
+import { User } from "../types/User";
 import axiosInstance from "./apiInstance";
 
 const usersRequest = {
@@ -8,12 +9,12 @@ const usersRequest = {
   },
 
   get: async () => {
-    const res = await axiosInstance.get<UserProps[]>('/users');
+    const res = await axiosInstance.get<User[]>('/users');
     return res.data;
   },
 
   getById: async (id: string) => {
-    const res = await axiosInstance.get<UserProps>(`/users/${id}`);
+    const res = await axiosInstance.get<User>(`/users/${id}`);
     return res.data;
   },
 
@@ -22,12 +23,12 @@ const usersRequest = {
     return res.data
 },
 
-  put:async (id:string, user:UserProps) => {
+  put:async (id:string, user:User) => {
     const res = await axiosInstance.put(`/users/${id}`, user)
     return res.data
   },
 
-  post:async (user: UserProps) => {
+  post:async (user: User) => {
     const res = await axiosInstance.post('users', user);
     return res.data
   }
