@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { ReactNode, useState } from "react";
 import { useQuery } from "react-query";
+import usersRequest from "../api/users";
 import { User } from "../types/User";
 
 type AuthProviderProps = {
@@ -32,16 +32,6 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
   const [token, setToken] = useState(initialToken);
   const userIsLoggedIn = !!token;
 
-  const getRegisteredUser = async () => {
-    if (localStorage.length !== 0) {
-      const { data } = await axios.get
-      (
-        "http://localhost:5000/users/" + localStorage.getItem("token")
-      );
-      return data;
-    }
-  };
-
   const loginHandler = (token?: string | null) => {
     console.log(token);
     if (!token) return;
@@ -54,15 +44,14 @@ export const AuthContextProvider = ({ children }: AuthProviderProps) => {
     localStorage.removeItem("token");
   };
 
-  const { data, isLoading } = useQuery("user", getRegisteredUser);
+  const { data, isLoading } = useQuery("user", () => usersRequest.getById(initialToken!), {enabled:!!initialToken});
 
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
-    currentUser: data,
-    getRegisteredUser,
+    currentUser: data!,
     mutation: () => {},
     isLoading,
   };
