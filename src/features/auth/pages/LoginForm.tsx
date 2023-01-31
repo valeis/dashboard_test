@@ -1,12 +1,12 @@
 import React, { FormEvent, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-import Button from "../../components/Button/Button";
-import Card from "../../components/Card/Card";
-import InputField from "../../components/Input/InputField";
+import Button from "../../../components/Button/Button";
+import Card from "../../../components/Card/Card";
+import InputField from "../../../components/Input/InputField";
 import { useMutation } from "react-query";
-import AuthContext from "../../store/auth-context";
-import usersRequest from "../../api/users";
+import AuthContext from "../../../store/auth-context";
+import usersRequest from "../../../api/users";
 
 import "./LoginForm.css";
 

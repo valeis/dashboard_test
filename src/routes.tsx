@@ -1,11 +1,11 @@
 import React from "react";
-import LoginForm from "./features/auth/LoginForm";
-import Dashboard from "./features/Dashboard/Dashboard";
+import LoginForm from "./features/auth/pages/LoginForm";
+import Dashboard from "./features/dashboard/pages/Dashboard";
 import CreatePosts from "./features/posts/pages/CreatePosts/CreatePosts";
 import PostDetails from "./features/posts/pages/PostDetails/PostDetails";
 import Posts from "./features/posts/pages/Posts/Posts";
 import Users from "./features/users/pages/Users";
-import RegistrationForm from "./features/users/RegistrationForm";
+import RegistrationForm from "./features/registrationForm/pages/RegistrationForm";
 
 export const RoutesData = [
     {

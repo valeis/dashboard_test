@@ -1,7 +1,7 @@
 import React from "react";
 
-import LineRechartComponent from "../../components/Chart/Chart";
-import Layout from "../../components/Layout";
+import LineRechartComponent from "../../../components/Chart/Chart";
+import Layout from "../../../components/Layout";
 
 import './Dashboard.css';
 

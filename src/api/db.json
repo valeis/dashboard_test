@@ -71,6 +71,87 @@
       "password": "admin123",
       "role": "Admin",
       "id": 18
+    },
+    {
+      "name": "ion",
+      "surname": "ion",
+      "email": "ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "role": "Moderator",
+      "id": 19
+    },
+    {
+      "name": "ion",
+      "surname": "ion",
+      "email": "ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "role": "Moderator",
+      "id": 20
+    },
+    {
+      "name": "ion",
+      "surname": "ion",
+      "email": "ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "role": "Moderator",
+      "id": 21
+    },
+    {
+      "name": "ion",
+      "surname": "ion",
+      "email": "ion@gmail.com",
+      "gender": "male",
+      "password": "ion123",
+      "role": "Moderator",
+      "id": 22
+    },
+    {
+      "name": "ionut",
+      "surname": "ionut",
+      "email": "ionut@gmail.com",
+      "gender": "male",
+      "password": "ionut123",
+      "role": "Moderator",
+      "id": 23
+    },
+    {
+      "name": "ionut",
+      "surname": "ionut",
+      "email": "ionut@gmail.com",
+      "gender": "male",
+      "password": "ionut123",
+      "role": "Moderator",
+      "id": 24
+    },
+    {
+      "name": "ionut",
+      "surname": "ionut",
+      "email": "ionut@gmail.com",
+      "gender": "male",
+      "password": "ionut123",
+      "role": "Moderator",
+      "id": 25
+    },
+    {
+      "name": "ionut123",
+      "surname": "ionut123",
+      "email": "ionut123@gmail.com",
+      "gender": "male",
+      "password": "ionut123",
+      "role": "Moderator",
+      "id": 26
+    },
+    {
+      "name": "Ionel",
+      "surname": "Ionel",
+      "email": "ionel@gmail.com",
+      "gender": "male",
+      "password": "ionel123",
+      "role": "Moderator",
+      "id": 27
     }
   ],
   "posts": [
@@ -153,6 +234,14 @@
       "date": "2022-10-06",
       "author": "Marcell",
       "id": 15
+    },
+    {
+      "title": "Test",
+      "description": "Test",
+      "image": "https://images.unsplash.com/photo-1658731389324-2cefff465798?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "date": "2022-10-25",
+      "author": "admin",
+      "id": 16
     }
   ]
 }

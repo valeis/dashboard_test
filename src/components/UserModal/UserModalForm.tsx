@@ -304,7 +304,6 @@ const UserModal = (props: UserModalProps) => {
                       <InputField
                         type="checkbox"
                         id="confirmation"
-                        // value={confirmation}
                         checked={confirmation}
                         onChange={confirmationChangeHandler}
                         error={

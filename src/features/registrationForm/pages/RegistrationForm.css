@@ -1,18 +1,18 @@
-.input {
+.input_registration {
   position: relative;
   margin: 7rem auto;
   padding: 1rem;
   width: 60%;
   max-width: 40rem;
 }
-.formHeader {
+.formHeader_registration {
   background-color: #eff0f1;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-bottom: 1.2em;
 }
 
-.formHeader h1 {
+.formHeader_registration h1 {
   font-size: 30px;
   text-align: center;
   color: #666;
@@ -20,7 +20,7 @@
   border-bottom: 1px solid #cccccc;
 }
 
-.input label {
+.input_registration label {
   display: block;
   align-items: center;
   font-weight: bold;
@@ -28,7 +28,7 @@
   font-size: 0.9em;
 }
 
-.input select {
+.input_registration select {
   font: inherit;
   width: 70%;
   border: 1px solid #ccc;
@@ -37,7 +37,7 @@
   border-radius: 10px;
 }
 
-.span {
+.span_registration {
   display: block;
   font-size: 0.9em;
   font-style: oblique;
@@ -45,11 +45,11 @@
   color:#B23A48;
 }
 
-.button_register{
+.button__registration{
   background: #005E7C;
 }
-.button_register:hover,
-.button_register:active {
+.button__registration:hover,
+.button__registration:active {
   background: #495c91;
   border-color: #495c91;
 }

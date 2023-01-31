@@ -2,13 +2,14 @@ import React, { FormEvent, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 
-import usersRequest from "../../api/users";
-import Button from "../../components/Button/Button";
-import Card from "../../components/Card/Card";
-import InputField from "../../components/Input/InputField";
-import { User } from "../../types/User";
+import usersRequest from "../../../api/users";
+import Button from "../../../components/Button/Button";
+import Card from "../../../components/Card/Card";
+import InputField from "../../../components/Input/InputField";
+import { User } from "../../../types/User";
 
-import classes from "./RegistrationForm.module.css";
+
+import "./RegistrationForm.css";
 
 const RegistrationForm = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const RegistrationForm = () => {
   const [enteredGender, setEnteredGender] = useState("");
   const [enteredPassword, setEnteredPassword] = useState("");
   const [enteredRepeatedPassword, setRepeatedPassword] = useState("");
-  const [confirmation, setConfirmation] = useState();
+  const [confirmation, setConfirmation] = useState(false);
 
   const [error, setError] = useState<{ id: string }[]>([]);
 
@@ -72,13 +73,13 @@ const RegistrationForm = () => {
   };
 
   const registerUser = async (user: User) => {
-    const { data: response } = await usersRequest.post(user);
-    return response.data;
+    let data = await usersRequest.post(user);
+    return data;
   };
 
   const { mutate } = useMutation(registerUser, {
-    onSuccess: (data) => {
-      navigate("/");
+    onSuccess: () => {
+      navigate("/dashboard");
     },
     onError: () => {
       console.log("Some error occured");
@@ -88,7 +89,7 @@ const RegistrationForm = () => {
     },
   });
 
-  const registerUserHandler = async (event: FormEvent) => {
+  async function registerUserHandler(event: FormEvent) {
     event.preventDefault();
     const isValid = validation();
     if (isValid) {
@@ -107,39 +108,39 @@ const RegistrationForm = () => {
     }
   };
 
-  const usernameChangeHandler = (event: any) => {
+  const usernameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredName(event.target.value);
   };
 
-  const surnameChangeHandler = (event: any) => {
+  const surnameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredSurname(event.target.value);
   };
 
-  const emailChangeHandler = (event: any) => {
+  const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredEmail(event.target.value);
   };
 
-  const genderChangeHandler = (event: any) => {
+  const genderChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setEnteredGender(event.target.value);
   };
 
-  const passwordChangeHandler = (event: any) => {
+  const passwordChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEnteredPassword(event.target.value);
   };
 
-  const repeatedPasswordChangeHandler = (event: any) => {
+  const repeatedPasswordChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRepeatedPassword(event.target.value);
   };
 
-  const confirmationChangeHandler = (event: any) => {
-    setConfirmation(event.target.value);
+  const confirmationChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmation(event.target.checked);
   };
 
   return (
     <div>
-      <Card className={classes.input}>
+      <Card className='input_registration'>
         <form onSubmit={registerUserHandler}>
-          <div className={classes.formHeader}>
+          <div className='formHeader_registration'>
             <h1>Inregistrare</h1>
           </div>
           <InputField
@@ -183,7 +184,7 @@ const RegistrationForm = () => {
             <option value="none">Ma abtin</option>
           </select>
           {error.find(({ id }) => id === "gendre") && (
-            <span className={classes.span}>Selectați cel puțin o valoare</span>
+            <span className='span'>Selectați cel puțin o valoare</span>
           )}
           
           <InputField
@@ -213,7 +214,7 @@ const RegistrationForm = () => {
               <InputField
                 type="checkbox"
                 id="confirmation"
-                value={confirmation}
+                checked={confirmation}
                 onChange={confirmationChangeHandler}
                 error={
                   error.find(({ id }) => id === "confirmation") &&
@@ -224,10 +225,9 @@ const RegistrationForm = () => {
             </label>
           </div>
 
-          <div className="footer">
+          <div>
             {!isLoading && <Button type="submit">Register</Button>}
             {isLoading && <p>Sending request...</p>}
-            {/* <Button type="submit" className={classes.button_register} onClick={navigate("/", { replace: true })}>Login</Button> */}
           </div>
         </form>
       </Card>
