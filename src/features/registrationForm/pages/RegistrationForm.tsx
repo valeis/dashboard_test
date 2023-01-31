@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import usersRequest from "../../../api/users";
 import Button from "../../../components/Button/Button";
@@ -227,6 +227,11 @@ const RegistrationForm = () => {
 
           <div>
             {!isLoading && <Button type="submit">Register</Button>}
+            <Link to="/login">
+              <Button type="submit" className={"button_register"}>
+                Login
+              </Button>
+            </Link>
             {isLoading && <p>Sending request...</p>}
           </div>
         </form>

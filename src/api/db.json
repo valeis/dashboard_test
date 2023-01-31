@@ -136,22 +136,13 @@
       "id": 25
     },
     {
-      "name": "ionut123",
-      "surname": "ionut123",
-      "email": "ionut123@gmail.com",
+      "name": "Test",
+      "surname": "Test",
+      "email": "test@gmail.com",
       "gender": "male",
-      "password": "ionut123",
+      "password": "test123",
       "role": "Moderator",
       "id": 26
-    },
-    {
-      "name": "Ionel",
-      "surname": "Ionel",
-      "email": "ionel@gmail.com",
-      "gender": "male",
-      "password": "ionel123",
-      "role": "Moderator",
-      "id": 27
     }
   ],
   "posts": [
