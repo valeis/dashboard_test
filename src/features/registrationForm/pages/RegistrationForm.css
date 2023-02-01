@@ -1,12 +1,53 @@
 .input_registration {
   position: relative;
-  margin: 7rem auto;
+  margin: 3.5rem auto;
   padding: 1rem;
-  width: 60%;
+  width:430px;
   max-width: 40rem;
+  align-items:center;
+  justify-content: center;
 }
+
+.input_registration .ebs-form__field__label{
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.input_registration .ebs-button__wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin: 0 10px;
+} 
+
+.input_registration .ebs-button{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 1-0px;
+} 
+
+.input_registration .ebs-button--medium .ebs-button{
+  font-weight: 600;
+  font-size: 0.900rem;
+}
+
+.input_registration .ebs-checkbox__wrapper {
+  font-weight: 600;
+  font-size: 0.900rem; 
+}
+
+.input_registration .ebs-form__item:not(:last-child){
+  margin-bottom: 0.500rem;
+}
+
+.input_registration a:link {
+  text-decoration: none;
+}
+
 .formHeader_registration {
-  background-color: #eff0f1;
+  background-color: #dae0f2;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-bottom: 1.2em;
@@ -15,41 +56,20 @@
 .formHeader_registration h1 {
   font-size: 30px;
   text-align: center;
-  color: #666;
-  padding: 20px 0;
-  border-bottom: 1px solid #cccccc;
+  color: #000;
+  padding: 10px 0;
 }
 
-.input_registration label {
-  display: block;
-  align-items: center;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  font-size: 0.9em;
+@media only screen and (max-width: 1000px) {
+  .input_registration {
+    width: 50%;
+  }
 }
 
-.input_registration select {
-  font: inherit;
-  width: 70%;
-  border: 1px solid #ccc;
-  padding: 0.15rem;
-  margin-bottom: 0.3rem;
-  border-radius: 10px;
+@media only screen and (max-width: 400px) {
+  .input_registration {
+    width: 70%;
+  }
 }
 
-.span_registration {
-  display: block;
-  font-size: 0.9em;
-  font-style: oblique;
-  margin-bottom: 0.2rem;
-  color:#B23A48;
-}
 
-.button__registration{
-  background: #005E7C;
-}
-.button__registration:hover,
-.button__registration:active {
-  background: #495c91;
-  border-color: #495c91;
-}

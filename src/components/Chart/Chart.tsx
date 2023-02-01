@@ -6,10 +6,7 @@ import { useQuery } from "react-query";
 
 const LineRechartComponent = () => {
   
-  const {data:posts} = useQuery("posts", postsRequest.get);
-  
-  
-  
+  const {data:posts} = useQuery("posts", postsRequest.get); 
   function groupBy<T, P extends keyof T>(objectArray: T[], property: P) {
     type Response = (Pick<T, P> & {count:number})[];
     return objectArray.reduce((acc: (T & {count: number})[], obj) => {
@@ -35,7 +32,7 @@ const LineRechartComponent = () => {
         width={700}
         height={400}
         data={postsUser}
-        margin={{ top: 110, right: 0, left: 0, bottom: 0 }}
+        margin={{ top: 50, right: 0, left: 0, bottom: 0 }}
       >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="author" />

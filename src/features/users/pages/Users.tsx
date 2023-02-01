@@ -3,13 +3,15 @@ import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
-import Pagination from "../../../components/Pagination/Pagination";
 import UserModalForm from "../../../components/UserModal/UserModalForm";
 import AuthContext from "../../../store/auth-context";
 import usersRequest from "../../../api/users";
 
 import "./Users.css";
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
+import Pagination from "../../../components/Pagination/Pagination";
+
+
 
 const Users = () => {
   const queryClient = useQueryClient();
@@ -21,7 +23,6 @@ const Users = () => {
   const [userName, setUserName] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [usersPerPage] = useState(6);
-
 
   const addUserHandler = () => {
     setAddUser(true);
@@ -141,7 +142,7 @@ const Users = () => {
           />
         </div>
       </div>
-      {userToDelete !=='' && (
+      {userToDelete !== "" && (
         <ConfirmationModal
           setElementToDelete={setUserToDelete}
           deleteElementHandler={deleteUserHandler}

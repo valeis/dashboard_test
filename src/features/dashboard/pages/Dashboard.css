@@ -1,3 +1,5 @@
-.title {
-    margin-top: 2rem;
+.title_dashboard {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
 }

@@ -143,6 +143,42 @@
       "password": "test123",
       "role": "Moderator",
       "id": 26
+    },
+    {
+      "name": "Test",
+      "surname": "Test",
+      "email": "test@gmail.com",
+      "gender": "male",
+      "password": "test123",
+      "role": "Moderator",
+      "id": 27
+    },
+    {
+      "name": "testfunc",
+      "surname": "testfunc",
+      "email": "testfunc@gmail.com",
+      "gender": "male",
+      "password": "testfunc123",
+      "role": "Moderator",
+      "id": 28
+    },
+    {
+      "name": "Pavel",
+      "surname": "Pavel",
+      "email": "pavel@gmail.com",
+      "gender": "male",
+      "password": "pavel123",
+      "role": "Moderator",
+      "id": 29
+    },
+    {
+      "name": "Mihai",
+      "surname": "Mihai",
+      "email": "mihai@gmail.com",
+      "gender": "male",
+      "password": "mihai123",
+      "role": "Moderator",
+      "id": 30
     }
   ],
   "posts": [

@@ -1,9 +1,8 @@
-import React, { FormEvent, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
+import { Form, Input, Button, useForm } from "ebs-design";
 import { Link, useNavigate } from "react-router-dom";
 
-import Button from "../../../components/Button/Button";
 import Card from "../../../components/Card/Card";
-import InputField from "../../../components/Input/InputField";
 import { useMutation } from "react-query";
 import AuthContext from "../../../store/auth-context";
 import usersRequest from "../../../api/users";
@@ -11,42 +10,14 @@ import usersRequest from "../../../api/users";
 import "./LoginForm.css";
 
 const LoginForm = () => {
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [error, setError] = useState<{ id: string }[]>([]);
-
+  const [form] = useForm();
   const authCtx = useContext(AuthContext);
 
   const [logged, setIsLogged] = useState(true);
+  const [enteredEmail, setEnteredEmail] = useState<string | number>("");
+  const [enteredPassword, setEnteredPassword] = useState<string | number>("");
 
   const navigate = useNavigate();
-
-  const validation = () => {
-    let error: { id: string }[] = [];
-    error =
-      enteredEmail.trim().length! <= 5
-        ? [...error, { id: "email" }]
-        : error.filter(({ id }) => id !== "email");
-    error = !enteredEmail.match(
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    )
-      ? [...error, { id: "email" }]
-      : error.filter(({ id }) => id !== "email");
-    error =
-      enteredPassword.trim().length! <= 5
-        ? [...error, { id: "password" }]
-        : error.filter(({ id }) => id !== "password");
-    setError(error);
-    return !error.length;
-  };
-
-  const usernameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredEmail(event.target.value);
-  };
-
-  const passwordChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredPassword(event.target.value);
-  };
 
   const getRegisteredUser = async () => {
     let data = await usersRequest.getAuth(enteredEmail, enteredPassword);
@@ -65,55 +36,71 @@ const LoginForm = () => {
     },
   });
 
-  const proceedLoginHandler = async (event: FormEvent) => {
-    event.preventDefault();
-    const isValid = validation();
-    if (isValid) {
-      mutation.mutate();
-    } else {
-      return;
-    }
-  };
-
   return (
     <div>
       <Card className={"input_login"}>
-        <form onSubmit={proceedLoginHandler}>
-          <div className={"form_header"}>
-            <h1>Login</h1>
+        <div className={"formHeader_login"}>
+          <h1>Login</h1>
+        </div>
+        <Form
+          form={form}
+          validateMessages={{
+            // eslint-disable-next-line no-template-curly-in-string
+            required: "Câmpul ”${label}” nu poate să fie gol",
+          }}
+          onFinish={async (values) => {
+            await setEnteredEmail(values.email);
+            await setEnteredPassword(values.password);
+            mutation.mutate(values.email, values.password);
+          }}
+          controlOptions={{
+            col: {
+              size: 12,
+            },
+          }}
+          labelOptions={{
+            col: {
+              size: 12,
+            },
+          }}
+          //onValuesChange={(v)=> console.log(v)}
+          type="vertical"
+        >
+          <Form.Field
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input type="email" />
+          </Form.Field>
+
+          <Form.Field
+            label="Parola"
+            name="password"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input type="password" />
+          </Form.Field>
+
+          <div className="ebs-button">
+          <Button type="primary" submit={true}>
+            Log in
+          </Button>
+
+          <Link to="/register">
+            <Button type="ghost">Register</Button>
+          </Link>  
           </div>
-          <InputField
-            id="emails"
-            type="text"
-            placeholder="Email"
-            value={enteredEmail}
-            onChange={usernameChangeHandler}
-            error={
-              error.find(({ id }) => id === "email") &&
-              "Email-ul introdus nu corespunde cerințelor"
-            }
-          />
-          <InputField
-            id="password"
-            type="password"
-            placeholder="Parola"
-            value={enteredPassword}
-            onChange={passwordChangeHandler}
-            error={
-              error.find(({ id }) => id === "password") &&
-              "Parola trebuie să conțină cel puțin 6 caractere"
-            }
-          />
-          <div>
-            <Button type="submit">Log in</Button>
-            <Link to="/register">
-              <Button type="submit" className={"button_register"}>
-                Register
-              </Button>
-            </Link>
-          </div>
-          {!logged && <span>Utilizatorul dat nu a fost găsit în sistem !</span>}
-        </form>
+          {!logged && <span className="span_login">Utilizatorul dat nu a fost găsit în sistem !</span>}
+        </Form>
       </Card>
     </div>
   );

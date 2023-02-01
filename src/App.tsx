@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import "./App.css";
+//import "./App.css";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import AuthContext from "./store/auth-context";
 import { RoutesData } from "./routes";
-import Layout from "./components/Layout";
+import 'ebs-design/dist/styles/index.scss';
+import LayoutDashboard from "./components/Layout/Layout";
 
 function App() {
   const {isLoggedIn} = useContext(AuthContext);
@@ -16,7 +17,7 @@ function App() {
             ({isLoggedIn: loginState, element, ...props}, key) =>
             loginState === isLoggedIn && (
                 <Route
-                  element= {!loginState ? element : <Layout>{element}</Layout>}
+                  element= {!loginState ? element : <LayoutDashboard>{element}</LayoutDashboard>}
                   key={key}
                   {...props}
                 ></Route>

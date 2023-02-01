@@ -1,0 +1,7 @@
+.icon_layout{
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-58%);
+    font-size: 1.45rem;
+}
