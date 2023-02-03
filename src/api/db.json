@@ -46,15 +46,6 @@
       "id": 14
     },
     {
-      "name": "Ion",
-      "surname": "Ion",
-      "email": "ion@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "role": "Moderator",
-      "id": 16
-    },
-    {
       "name": "Pavel",
       "surname": "Pavel",
       "email": "pavel@gmail.com",
@@ -64,15 +55,6 @@
       "id": 17
     },
     {
-      "name": "admin",
-      "surname": "admin",
-      "email": "admin@gmail.com",
-      "gender": "male",
-      "password": "admin123",
-      "role": "Admin",
-      "id": 18
-    },
-    {
       "name": "ion",
       "surname": "ion",
       "email": "ion@gmail.com",
@@ -80,24 +62,6 @@
       "password": "ion123",
       "role": "Moderator",
       "id": 19
-    },
-    {
-      "name": "ion",
-      "surname": "ion",
-      "email": "ion@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "role": "Moderator",
-      "id": 20
-    },
-    {
-      "name": "ion",
-      "surname": "ion",
-      "email": "ion@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "role": "Moderator",
-      "id": 21
     },
     {
       "name": "ion",
@@ -118,58 +82,31 @@
       "id": 23
     },
     {
-      "name": "ionut",
-      "surname": "ionut",
-      "email": "ionut@gmail.com",
+      "name": "1234",
+      "surname": "1234",
+      "email": "1234",
       "gender": "male",
-      "password": "ionut123",
+      "password": "1234",
       "role": "Moderator",
       "id": 24
     },
     {
-      "name": "ionut",
-      "surname": "ionut",
-      "email": "ionut@gmail.com",
+      "name": "admin",
+      "surname": "admin",
+      "email": "admin@gmail.com",
       "gender": "male",
-      "password": "ionut123",
-      "role": "Moderator",
+      "password": "admin123",
+      "role": "Admin",
       "id": 25
     },
     {
-      "name": "Test",
-      "surname": "Test",
-      "email": "test@gmail.com",
+      "name": "ionut",
+      "surname": "ionut",
+      "email": "ionut",
       "gender": "male",
-      "password": "test123",
+      "password": "ionut123",
       "role": "Moderator",
       "id": 26
-    },
-    {
-      "name": "Test",
-      "surname": "Test",
-      "email": "test@gmail.com",
-      "gender": "male",
-      "password": "test123",
-      "role": "Moderator",
-      "id": 27
-    },
-    {
-      "name": "testfunc",
-      "surname": "testfunc",
-      "email": "testfunc@gmail.com",
-      "gender": "male",
-      "password": "testfunc123",
-      "role": "Moderator",
-      "id": 28
-    },
-    {
-      "name": "Pavel",
-      "surname": "Pavel",
-      "email": "pavel@gmail.com",
-      "gender": "male",
-      "password": "pavel123",
-      "role": "Moderator",
-      "id": 29
     },
     {
       "name": "Mihai",
@@ -178,7 +115,7 @@
       "gender": "male",
       "password": "mihai123",
       "role": "Moderator",
-      "id": 30
+      "id": 27
     }
   ],
   "posts": [
@@ -189,14 +126,6 @@
       "date": "2018-10-05",
       "author": "admin",
       "id": 4
-    },
-    {
-      "title": "A purple and blue sky",
-      "description": "Featured in Spirituality, Nature, Travel\nThe tides of beach\nPoovar, Kerala, India\nPublished 4 days ago",
-      "image": "https://images.unsplash.com/photo-1673865587236-de597238c72d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      "date": "2020-06-25",
-      "author": "admin",
-      "id": 5
     },
     {
       "title": "A boat on the water",
@@ -240,35 +169,19 @@
     },
     {
       "title": "Nature image",
-      "description": "Featured in Editorial, Nature\nThe beautifully carved rocks of Fjaðrárgljúfur Canyon, Iceland\nFjaðrárgljúfur Canyon, Kirkjubæjarklaustur, Iceland\nPublished on November 21, 2022\nNIKON CORPORATION, NIKON D3300",
+      "description": "Featured in Editorial, Nature\nThe beautifully carved rocks of Fjaðrárgljúfur Canyon, Iceland\nFjaðrárgljúfur Canyon, Kirkjubæjarklaustur, Iceland\nPublished on November 21, 2022\nNIKON CORPORATION, NIKON D50000",
       "image": "https://images.unsplash.com/photo-1669064206623-10e3b30231c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       "date": "2022-05-13",
       "author": "Marina",
       "id": 13
     },
     {
-      "title": "Ion_test",
-      "description": "Ion_test",
-      "image": "https://images.unsplash.com/photo-1538719501547-bc023056a8b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=396&q=80",
-      "date": "2023-01-06",
+      "title": "A long exposure photo of a rock",
+      "description": "Featured in\nEditorial, Nature, Wallpapers\nBlack Sand Beach Reynisfjara, Iceland.\nPublished 9 days ago\nSONY, ILCE-7RM3\n",
+      "image": "https://images.unsplash.com/photo-1674580351112-42fdbbae9c86?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "date": "2022-11-25",
       "author": "admin",
-      "id": 14
-    },
-    {
-      "title": "Testare",
-      "description": "Testare",
-      "image": "https://images.unsplash.com/photo-1673055022236-0bce66b62569?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
-      "date": "2022-10-06",
-      "author": "Marcell",
       "id": 15
-    },
-    {
-      "title": "Test",
-      "description": "Test",
-      "image": "https://images.unsplash.com/photo-1658731389324-2cefff465798?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      "date": "2022-10-25",
-      "author": "admin",
-      "id": 16
     }
   ]
 }

@@ -19,7 +19,9 @@
     transition: all 0.3s ease;
     background: transparent;
     color: #000000;
-    border-color: #eee; 
+    border-color: #eee;
+    padding: 1px 12px;
+    color: #101010; 
 }
 
 .pagination button.active {

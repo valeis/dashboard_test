@@ -1,25 +1,51 @@
-.input {
+.create_posts {
   position: relative;
-  margin: 7rem auto;
+  margin: 2rem auto;
   padding: 1rem;
-  width: 80%;
+  width: 40%;
   max-width: 50rem;
 }
 
-.formHeader {
-  background-color: #eff0f1;
+.create_posts .ebs-form__field__label{
+  font-weight: 600;
+  font-size: 14px
+}
+
+.create_posts .ebs-button__wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin: 0 10px;
+}
+
+.create_posts .ebs-button--medium .ebs-button{
+  font-weight: 600;
+  font-size: 0.900rem;
+}
+
+.create_posts .ebs-form__item:not(:last-child){
+  margin-bottom: 0.500rem;
+}
+
+.create_posts a:link {
+  text-decoration: none;
+}
+
+.formHeader_posts {
+  background-color: #dae0f2;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   margin-bottom: 1.2em;
 }
 
-.formHeader h1 {
+.formHeader_posts h1 {
   font-size: 30px;
   text-align: center;
-  color: #666;
-  padding: 20px 0;
-  border-bottom: 1px solid #cccccc;
+  color: #000;
+  padding: 10px 0;
 }
+
 
 .textarea {
   font: inherit;

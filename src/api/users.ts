@@ -18,8 +18,8 @@ const usersRequest = {
     return res.data;
   },
 
-  getAuth: async (email?: string | number, password?: string | number) => {
-    const res = await axiosInstance.get(`users/?email=${email || null}&password=${password || null}`);
+  getAuth: async (auth: {email: string, password: string}) => {
+    const res = await axiosInstance.get(`users/?email=${auth.email || null}&password=${auth.password || null}`);
     return res.data
 },
 

@@ -1,91 +1,47 @@
-import React, { FormEvent, useContext, useState } from "react";
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  Space,
+  Textarea,
+  useForm,
+} from "ebs-design";
+import React, { useState,  useContext } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 import postsRequest from "../../../../api/posts";
-import Button from "../../../../components/Button/Button";
 import Card from "../../../../components/Card/Card";
-import InputField from "../../../../components/Input/InputField";
 import AuthContext from "../../../../store/auth-context";
-import { Card as CardType }  from "../../../../types/Card";
+import { Card as CardType } from "../../../../types/Card";
 
 import "./CreatePosts.css";
 
 const CreatePosts = () => {
   const params = useParams();
   const authCtx = useContext(AuthContext);
-
-  const [enteredTitle, setEnteredTitle] = useState("");
-  const [enteredDescription, setEnteredDescription] = useState("");
-  const [enteredLinkToImage, setEnteredLinkToImage] = useState("");
-  const [enteredDate, setEnteredDate] = useState("");
-  const [author, setEnteredAuthor] = useState("");
-
-  const [error, setError] = useState<{ id: string }[]>([]);
-
-  const [isLoading, setIsLoading] = useState(false);
+  const [form] = useForm();
 
   let postAuthor: string | undefined = ""!;
+  const [ author, setAuthor ] = useState("")
 
-  useQuery("postss", () => postsRequest.getById(params.id),{
+  useQuery(["posts", params.id], () => postsRequest.getById(params.id), {
     enabled: !!params.id,
     onSuccess: (data) => {
-      setEnteredTitle(data.title!);
-      setEnteredDescription(data.description!);
-      setEnteredLinkToImage(data.image!);
-      setEnteredDate(data.date!);
-      setEnteredAuthor(data.author!);
+      form.setFieldsValue(data);
+      setAuthor(data.author!);
     },
   });
 
   const navigate = useNavigate();
-  const validation = () => {
-    let error: { id: string }[] = [];
-
-    error =
-      enteredTitle.trim().length! <= 1
-        ? [...error, { id: "title" }]
-        : error.filter(({ id }) => id !== "title");
-
-    error =
-      enteredDescription.trim().length! <= 1
-        ? [...error, { id: "description" }]
-        : error.filter(({ id }) => id !== "description");
-
-    error =
-      enteredDate.trim().length! <= 1
-        ? [...error, { id: "date" }]
-        : error.filter(({ id }) => id !== "date");
-
-    error =
-      enteredLinkToImage.trim().length! <= 1
-        ? [...error, { id: "image" }]
-        : error.filter(({ id }) => id !== "image");
-
-    setError(error);
-    return !error.length;
-  };
 
   const publishPost = async (post: CardType) => {
     let data = await postsRequest.post(post);
     return data;
   };
 
-  const updatePost = async () => {
-
-    if (params.id == null) {
-      postAuthor = authCtx.currentUser?.name;
-    } else {
-      postAuthor = author;
-    }
-    const post =({
-      title: enteredTitle,
-      description: enteredDescription,
-      image: enteredLinkToImage,
-      date: enteredDate,
-      author: postAuthor
-    });
-
+  const updatePost = async (post: CardType) => {
     let data = await postsRequest.put(params.id, post);
     return data;
   };
@@ -117,117 +73,107 @@ const CreatePosts = () => {
     },
   });
 
-  const publishPostHandler = async (event: FormEvent) => {
-    event.preventDefault();
-    const isValid = validation();
-    if (isValid) {
-      setIsLoading(true);
-
-      if (params.id == null) {
-        postAuthor = authCtx.currentUser?.name;
-      } else {
-        postAuthor = author;
-      }
-      if (params.id == null) {
-        const post =({
-          title: enteredTitle,
-          description: enteredDescription,
-          image: enteredLinkToImage,
-          date: enteredDate,
-          author: postAuthor,
-        });
-        mutate(post);
-      } else {
-        update.mutate();
-      }
-    } else {
-      return;
-    }
-  };
-
-  const titleChangeHandler = (event: any) => {
-    setEnteredTitle(event.target.value);
-  };
-
-  const descriptionChangeHandler = (event: any) => {
-    setEnteredDescription(event.target.value);
-  };
-
-  const imageChangeHandler = (event: any) => {
-    setEnteredLinkToImage(event.target.value);
-  };
-
-  const dateChangeHandler = (event: any) => {
-    setEnteredDate(event.target.value);
-  };
 
   return (
-    <div>
-      <Card className="input">
-        <form onSubmit={publishPostHandler}>
-          <div className="formHeader">
-            {params.id ? <h1>Edit post</h1> : <h1>Add a new post</h1>}
-          </div>
-          <InputField
-            id="title"
-            type="text"
-            placeholder="Titlu"
-            value={enteredTitle}
-            onChange={titleChangeHandler}
-            error={
-              error.find(({ id }) => id === "title") &&
-              "Postarea trebuie să conțină titlu"
-            }
-          />
+    <Card className="create_posts">
+      <div className="formHeader_posts">
+        {params.id ? <h1>Edit post</h1> : <h1>Add a new post</h1>}
+      </div>
+      <Form
+        form={form}
+        validateMessages={{
+          // eslint-disable-next-line no-template-curly-in-string
+          required: "Câmpul ”${label}” nu poate să fie gol",
+        }}
+        onFinish={(values) => {
+          if (params.id == null){
+            postAuthor = authCtx.currentUser?.name;
+          } else {
+            postAuthor = author
+          }
+          const post = {
+            title: values.title,
+            description: values.description,
+            image: values.image,
+            date: values.date,
+            author: postAuthor
+          };
+          if (params.id == null){
+            mutate(post);
+          } else {
+            update.mutate(post);
+          }
+        }}
+        controlOptions={{
+          col: {
+            size: 12,
+          },
+        }}
+        type="vertical"
+      >
+        <Form.Field
+          label="Titlu"
+          name="title"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input type="text" />
+        </Form.Field>
 
-          <textarea
-            name="description"
-            id="description"
-            cols={64}
-            rows={5}
-            placeholder="Descrierea postării"
-            value={enteredDescription}
-            onChange={descriptionChangeHandler}
-            minLength={1}
-            required
-            className="textarea"
-          ></textarea>
+        <Form.Field
+          label="Descrierea postării"
+          name="description"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Textarea></Textarea>
+        </Form.Field>
 
-          <InputField
-            id="image"
-            type="text"
-            placeholder="Imagine"
-            value={enteredLinkToImage}
-            onChange={imageChangeHandler}
-            error={
-              error.find(({ id }) => id === "image") &&
-              "Postarea trebuie să conțină link-ul către imaginea"
-            }
-          />
+        <Form.Field
+          label="Link-ul către imagine"
+          name="image"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <Input type="text" />
+        </Form.Field>
 
-          <InputField
-            id="date"
-            type="date"
-            value={enteredDate}
-            onChange={dateChangeHandler}
-            error={
-              error.find(({ id }) => id === "date") &&
-              "Postarea trebuie să conțină data publicării"
-            }
-          />
+        <Form.Field
+          label="Data"
+          name="date"
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <DatePicker />
+        </Form.Field>
 
-          <div className="footer">
-            {!isLoading && <Button type="submit">Publish</Button>}
-            {isLoading && <p>Sending request....</p>}
+        {
+          <Space justify="center">
             <Link to="/posts">
-              <Button type="submit" className="button_register">
+              <Button type="ghost" size="medium">
                 Cancel
               </Button>
             </Link>
-          </div>
-        </form>
-      </Card>
-    </div>
+
+            <Button type="fill" size="medium" submit={true}>
+              Publish
+            </Button>
+          </Space>
+        }
+      </Form>
+    </Card>
   );
 };
 

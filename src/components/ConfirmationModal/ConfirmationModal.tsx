@@ -1,8 +1,6 @@
 import React from "react";
-import Card from "../Card/Card";
-import Button from "../Button/Button";
-import "./ConfirmationModal.css";
 import { UseMutationResult } from "react-query";
+import { Button, Modal, Space } from "ebs-design";
 
 type ConfirmationModalProps = {
   id: string;
@@ -14,26 +12,34 @@ type ConfirmationModalProps = {
 const ConfirmationModal = (props: ConfirmationModalProps) => {
   const deleteElement = () => {
     props.deleteElementHandler.mutate(props.id);
-    props.setElementToDelete('');
-  }
+    props.setElementToDelete("");
+  };
   return (
-    <>
-      <div className="backdrop_modal" />
-      <Card className="modal_modal">
-        <header className="header_modal">
-          <h1>Delete  "{props.title}" ?</h1>
-        </header>
-        <div className="content_modal">
-          <Button onClick={() => props.setElementToDelete('')}>Cancel</Button>
-          <Button
-            className="button_modal"
-            onClick={() => deleteElement()}
-          >
-            Delete
-          </Button>
+      <Modal
+        closeOnClickOutside
+        mask
+        open
+        size="small"
+        title={`Delete "${props.title}" ?`}
+        onClose={() => props.setElementToDelete("")}
+      >
+        <div>
+          <Modal.Content>
+            <Space justify="center">
+              <Button
+                type="ghost"
+                size="medium"
+                onClick={() => props.setElementToDelete("")}
+              >
+                Cancel
+              </Button>
+              <Button type="fill" size="medium" onClick={() => deleteElement()}>
+                Delete
+              </Button>
+            </Space>
+          </Modal.Content>
         </div>
-      </Card>
-    </>
+      </Modal>
   );
 };
 

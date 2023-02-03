@@ -14,17 +14,8 @@ const LoginForm = () => {
   const authCtx = useContext(AuthContext);
 
   const [logged, setIsLogged] = useState(true);
-  const [enteredEmail, setEnteredEmail] = useState<string | number>("");
-  const [enteredPassword, setEnteredPassword] = useState<string | number>("");
-
   const navigate = useNavigate();
-
-  const getRegisteredUser = async () => {
-    let data = await usersRequest.getAuth(enteredEmail, enteredPassword);
-    return data;
-  };
-
-  const mutation = useMutation(getRegisteredUser, {
+  const mutation = useMutation(usersRequest.getAuth, {
     onSuccess: (data) => {
       if (!data || data?.length === 0) {
         setIsLogged(false);
@@ -48,10 +39,8 @@ const LoginForm = () => {
             // eslint-disable-next-line no-template-curly-in-string
             required: "Câmpul ”${label}” nu poate să fie gol",
           }}
-          onFinish={async (values) => {
-            await setEnteredEmail(values.email);
-            await setEnteredPassword(values.password);
-            mutation.mutate(values.email, values.password);
+          onFinish={ (values) => {
+            mutation.mutate(values);
           }}
           controlOptions={{
             col: {
@@ -63,7 +52,6 @@ const LoginForm = () => {
               size: 12,
             },
           }}
-          //onValuesChange={(v)=> console.log(v)}
           type="vertical"
         >
           <Form.Field

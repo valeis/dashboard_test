@@ -1,3 +1,4 @@
+import { Button } from "ebs-design";
 import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -12,15 +13,13 @@ const Posts = () => {
   const addPostHandler = () => {
     navigate("/posts/create", { replace: true });
   };
-  const {data: posts} = useQuery("posts", postsRequest.get);
+  const { data: posts } = useQuery("posts", postsRequest.get);
 
   return (
     <>
-      <div className="top_button">
-        <button className="add_new" onClick={addPostHandler}>
-          Add new post
-        </button>
-      </div>
+      <Button className="top_button" type="primary" onClick={addPostHandler}>
+        Add new post
+      </Button>
       <div className="test">
         {posts &&
           posts.map((item) => (

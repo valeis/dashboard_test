@@ -2,16 +2,16 @@ import React, { useContext, useState } from "react";
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { Button, Table } from "ebs-design";
 
 import UserModalForm from "../../../components/UserModal/UserModalForm";
 import AuthContext from "../../../store/auth-context";
 import usersRequest from "../../../api/users";
-
-import "./Users.css";
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import Pagination from "../../../components/Pagination/Pagination";
 
-
+import "./Users.css";
+import { User } from "../../../types/User";
 
 const Users = () => {
   const queryClient = useQueryClient();
@@ -40,6 +40,9 @@ const Users = () => {
   const deleteUserHandler = useMutation(deleteUsers, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["users"], exact: true });
+      if (currentPage !== 1) {
+        setCurrentPage(currentPage - 1);
+      }
     },
     onError: () => {
       console.log("Some error occured");
@@ -60,88 +63,94 @@ const Users = () => {
 
   const indexOfLastPost = currentPage * usersPerPage;
   const indexOfFirstPost = indexOfLastPost - usersPerPage;
-  const currentUsers = users
-    ? users!.slice(indexOfFirstPost, indexOfLastPost)
-    : "";
+  const currentUsers = users && users!.slice(indexOfFirstPost, indexOfLastPost);
+
+  const columns_user = [
+    {
+      dataIndex: "id",
+      title: "Id",
+    },
+    {
+      dataIndex: "name",
+      title: "Nume",
+    },
+    {
+      dataIndex: "surname",
+      title: "Prenume",
+    },
+    {
+      dataIndex: "gender",
+      title: "Genul",
+    },
+    {
+      dataIndex: "email",
+      title: "Email",
+    },
+    {
+      dataIndex: "role",
+      title: "Rolul",
+    },
+  ];
+
+  const columns = [
+    ...columns_user,
+    {
+      dataIndex: "id",
+      title: "Acțiuni",
+      render: (id: string, record: User) => {
+        return (
+          <>
+            <Button
+              type="fill"
+              prefix={<FaIcons.FaEdit />}
+              onClick={() => {
+                editUserHandler(id);
+              }}
+            ></Button>
+            &nbsp;
+            <Button
+              type="primary"
+              prefix={<AiIcons.AiOutlineUserDelete />}
+              onClick={() => {
+                setUserToDelete(id);
+                setUserName(record.name!);
+              }}
+            ></Button>
+          </>
+        );
+      },
+    },
+  ];
 
   return (
     <div>
       {addUser && <UserModalForm onConfirm={submitFormHandler} />}
-      <div
-        className={`${
-          authCtx.currentUser?.role === "Moderator" ? "table" : "table_l"
-        }`}
-      >
-        <div className="table_header">
-          <p>Registered users</p>
-          <div>
-            {authCtx.currentUser?.role === "Admin" && (
-              <button className="add_new" onClick={addUserHandler}>
-                Add new user
-              </button>
-            )}
-          </div>
-        </div>
-        <div className="table_section">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nume</th>
-                <th>Prenume</th>
-                <th>Genul</th>
-                <th>Email</th>
-                <th>Rolul</th>
-                {authCtx.currentUser?.role === "Admin" && <th>Acțiuni</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {currentUsers &&
-                currentUsers.map((item) => (
-                  <tr key={item.id}>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                    <td>{item.surname}</td>
-                    <td>{item.gender}</td>
-                    <td>{item.email}</td>
-                    <td>{item.role}</td>
-                    {authCtx.currentUser?.role === "Admin" && (
-                      <td>
-                        <button
-                          onClick={() => {
-                            editUserHandler(item.id!);
-                          }}
-                        >
-                          <FaIcons.FaEdit />
-                        </button>
-                        &nbsp;
-                        <button
-                          onClick={() => {
-                            setUserToDelete(item.id!);
-                            setUserName(item.name!);
-                          }}
-                        >
-                          <AiIcons.AiOutlineUserDelete />
-                        </button>
-                      </td>
-                    )}
-                  </tr>
-                ))}
-            </tbody>
-          </table>
-          {editUser !== "" ? (
-            <UserModalForm onConfirm={submitFormHandler} userId={editUser} />
-          ) : (
-            ""
+      <div className="table_header">
+        <h2>Registered users</h2>
+        <div>
+          {authCtx.currentUser?.role === "Admin" && (
+            <Button type="primary" onClick={addUserHandler}>
+              Add new user
+            </Button>
           )}
-          <Pagination
-            usersPerPage={usersPerPage}
-            totalUsers={users ? users!.length : 0}
-            paginate={paginate}
-            currentPage={currentPage}
-          />
         </div>
       </div>
+      <Table
+        columns={authCtx.currentUser?.role === "Admin" ? columns : columns_user}
+        data={currentUsers}
+        size="large"
+      />
+      {editUser !== "" ? (
+        <UserModalForm onConfirm={submitFormHandler} userId={editUser} />
+      ) : (
+        ""
+      )}
+      <Pagination
+        usersPerPage={usersPerPage}
+        totalUsers={users ? users!.length : 0}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       {userToDelete !== "" && (
         <ConfirmationModal
           setElementToDelete={setUserToDelete}

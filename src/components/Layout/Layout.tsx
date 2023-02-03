@@ -4,7 +4,7 @@ import {
   Layout,
   Sidebar,
 } from "ebs-design";
-import { ReactNode, useContext, useState } from "react";
+import { ReactNode, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import * as BiIcons from "react-icons/bi";
 
@@ -15,21 +15,41 @@ type LayoutProps = {
   children: ReactNode;
 };
 
+const paths = [
+  {
+    pathName: "/dashboard",
+    text: "Home",
+    prefix: <Icon type="chart" model="bold" />,
+  },
+  {
+    pathName: "/users",
+    text:"Users",
+    prefix: <Icon type="users" model="bold" />,
+  },
+  {
+    pathName: "/posts",
+    text: "Posts",
+    prefix: <Icon type="globe" model="bold" />
+  },
+];
+
 const LayoutDashboard = ({ children }: LayoutProps) => {
 
   const authCtx = useContext(AuthContext);
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const logoutHandler = () => {
     authCtx.logout();
     navigate("/login", {  replace: true });
   };
 
-  const  [ activeTab, setActiveTab ] = useState(' ');
+  const  [ activeTab, setActiveTab ] = useState(" ");
 
-  const setActiveHandler = (name:string) => {
-    setActiveTab(name);
-  }
+  useEffect(() => {
+    const firstPath = "/" + pathname.split("/").filter(i=>i)[0]
+    setActiveTab(firstPath);
+  }, [pathname])
 
   return (
     <Layout>
@@ -43,24 +63,14 @@ const LayoutDashboard = ({ children }: LayoutProps) => {
 
       <Sidebar>
         <Sidebar.TopMenu >
-          <Sidebar.Item
-            prefix={<Icon type="chart" model="bold"/>}
-            text="Home"
-            onClick={() => {navigate('/dashboard'); setActiveHandler('Home')}} 
-            active={activeTab==='Home' ? true : false}
-          />
-          <Sidebar.Item
-            prefix={<Icon type="users" model="bold"/>}
-            text="Users"
-            onClick={() => {navigate('/users'); setActiveHandler('Users')}}
-            active={activeTab==='Users'? true : false}
-          />
-           <Sidebar.Item
-            prefix={<Icon type="globe" model="bold"/>}
-            text="Posts"
-            onClick={() => {navigate('/posts'); setActiveHandler('Posts')}}
-            active={activeTab==='Posts'? true : false}
-          />        
+          {paths.map(({ pathName, ...rest }) => (
+            <Sidebar.Item
+              key={pathName}
+              onClick={() => navigate(pathName)}
+              active={activeTab === pathName}
+              {...rest}
+            />
+          ))}       
         </Sidebar.TopMenu>
 
         <Sidebar.BottomMenu>

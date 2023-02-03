@@ -1,15 +1,3 @@
-.table * {
-  border-collapse: collapse;
-  text-align: center;
-  margin: auto;
-}
-
-.table_l * {
-  border-collapse: collapse;
-  text-align: center;
-  margin: auto;
-}
-
 .table_header {
   display: flex;
   justify-content: space-between;
@@ -24,137 +12,22 @@
   font-weight: 600;
 }
 
-button {
-  outline: none;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  padding: 1px 12px;
-  color: #ffffff;
-}
-
-td button:nth-child(1) {
-  background-color: #0298cf;
-}
-
-td button:nth-child(2) {
-  background-color: #7c3238;
-}
-
-.add_new {
-  padding: 10px 20px;
-  color: #ffffff;
-  background-color: #0298cf;
-}
-
-::placeholder {
-  color: black;
-  font-weight: 200;
-}
-
-.table_section {
-  height: 650px;
-  overflow: auto;
-}
-
-thead th {
-  position: sticky;
-  top: 0;
-  background-color: #f6f9fc;
-  color: #8493a5;
-  font-size: 15px;
+.rc-table.ebs-table .rc-table-thead tr th.rc-table-cell:defined{
+  text-align: center;
+  font-size: 0.950rem;
   font-weight: bold;
 }
 
-th,
-td {
-  border-bottom: 1px solid #dddddd;
-  padding: 10px 20px;
-  word-break: break-all;
+.rc-table.ebs-table .rc-table-tbody tr.rc-table-row td.rc-table-cell:defined{
   text-align: center;
+  align-items: center;
+  font-size: 0.900rem;
 }
 
-tr:hover td {
-  color: #0298cf;
-  cursor: pointer;
-  background-color: #f6f9fc;
+.rc-table.ebs-table td:defined{
+  padding: 1rem 0.600rem;
 }
 
-::-webkit-scrollbar {
-  height: 5px;
-  width: 5px;
-}
-
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-::-webkit-scrollbar-thumb {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-}
-
-@media only screen and (max-width: 1500px),
-  (min-device-width: 768px) and (max-device-width: 1080px) {
-  /* Force table to not be like tables anymore */
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
-    display: block;
-  }
-
-  .table_header button {
-    display: block;
-    margin: 0;
-  }
-
-  /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr,
-  .table_header p {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
-
-  tr {
-    border: 1px solid #ccc;
-  }
-
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  td:before {
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-  }
-
-  td:nth-of-type(1):before {
-    content: "ID";
-  }
-  td:nth-of-type(2):before {
-    content: "Nume";
-  }
-  td:nth-of-type(3):before {
-    content: "Prenume";
-  }
-  td:nth-of-type(4):before {
-    content: "Genul";
-  }
-  td:nth-of-type(5):before {
-    content: "Email";
-  }
-  td:nth-of-type(5):before {
-    content: "Acțiuni";
-  }
+.ebs-button__prefix:defined{
+  left: 38%;
 }

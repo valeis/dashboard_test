@@ -167,6 +167,13 @@ const RegistrationForm = () => {
           rules={[
             {
               required: true,
+              async validator(rule, value) {
+                value
+                  ? await Promise.resolve()
+                  : await Promise.reject(
+                      "Pentru a continua trebuie să fiți de acord cu prelucrarea datelor personale!"
+                    );
+              },
             },
           ]}
         >

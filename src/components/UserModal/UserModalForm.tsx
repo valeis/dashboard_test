@@ -1,11 +1,18 @@
-import React, { FormEvent, useState } from "react";
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Modal,
+  Select,
+  Space,
+  useForm,
+} from "ebs-design";
+import React from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import usersRequest from "../../api/users";
 import { User } from "../../types/User";
-import Button from "../Button/Button";
-import Card from "../Card/Card";
-import InputField from "../Input/InputField";
 
 import "./UserModalForm.css";
 
@@ -15,98 +22,25 @@ type UserModalProps = {
 };
 
 const UserModal = (props: UserModalProps) => {
-  const [enteredName, setEnteredName] = useState("");
-  const [enteredSurname, setEnteredSurname] = useState("");
-  const [enteredEmail, setEnteredEmail] = useState("");
-  const [enteredGender, setEnteredGender] = useState("");
-  const [enteredPassword, setEnteredPassword] = useState("");
-  const [enteredRepeatedPassword, setRepeatedPassword] = useState("");
-  const [confirmation, setConfirmation] = useState(false);
-  const [enteredRole, setEnteredRole] = useState("Moderator");
-  
-  const [error, setError] = useState<{ id: string }[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
-  
   const queryClient = useQueryClient();
-  
-  const user = {
-    name: enteredName,
-    surname: enteredSurname,
-    email: enteredEmail,
-    gender: enteredGender,
-    password: enteredPassword,
-    role: enteredRole,
-  };
+  const [form] = useForm();
 
   useQuery(["users", props.userId], () => usersRequest.getById(props.userId!), {
     enabled: !!props.userId!,
     onSuccess: (data) => {
-      setEnteredName(data.name!);
-      setEnteredSurname(data.surname!);
-      setEnteredEmail(data.email!);
-      setEnteredGender(data.gender!);
-      setEnteredRole(data.role!);
-      setEnteredPassword(data.password!);
+      form.setFieldsValue(data);
     },
   });
-
-  const validation = () => {
-    let error: { id: string }[] = [];
-    error =
-      enteredName.trim().length! <= 1
-        ? [...error, { id: "name" }]
-        : error.filter(({ id }) => id !== "name");
-    error =
-      enteredSurname.trim().length! <= 1
-        ? [...error, { id: "surname" }]
-        : error.filter(({ id }) => id !== "surname");
-    error =
-      enteredEmail.trim().length! <= 5
-        ? [...error, { id: "email" }]
-        : error.filter(({ id }) => id !== "email");
-    error = !enteredEmail.match(
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
-    )
-      ? [...error, { id: "email" }]
-      : error.filter(({ id }) => id !== "email");
-
-    if (!props.userId) {
-      error =
-        enteredPassword.trim().length! <= 5
-          ? [...error, { id: "password" }]
-          : error.filter(({ id }) => id !== "password");
-      error =
-        enteredPassword !== enteredRepeatedPassword
-          ? [...error, { id: "confirm-password" }]
-          : error.filter(({ id }) => id !== "confirm-password");
-
-      if (!confirmation) {
-        error = [...error, { id: "confirmation" }];
-      }
-    }
-
-    if (enteredGender !== "") {
-    } else {
-      error = [...error, { id: "gendre" }];
-    }
-    if (enteredRole !== "") {
-    } else {
-      error = [...error, { id: "role" }];
-    }
-    setError(error);
-    return !error.length;
-  };
 
   const registerUser = async (user: User) => {
     let data = await usersRequest.post(user);
     return data;
   };
 
-  const updateUser = async () => {
+  const updateUser = async (user: User) => {
     let data = await usersRequest.put(props.userId!, user);
     return data;
   };
-
 
   const closeModal = props.onConfirm;
 
@@ -125,7 +59,6 @@ const UserModal = (props: UserModalProps) => {
   const put = useMutation(updateUser, {
     onSuccess: (data) => {
       queryClient.invalidateQueries(["users"]);
-      closeModal();
     },
     onError: () => {
       console.log("Some error occured");
@@ -135,202 +68,207 @@ const UserModal = (props: UserModalProps) => {
     },
   });
 
-  async function registerUserHandler(event: FormEvent) {
-    event.preventDefault();
-    const isValid = validation();
-    if (isValid) {
-      setIsLoading(true);
-      if (props.userId == null) {
-        mutate(user);
-      } else {
-        put.mutate();
-      }
-      closeModal();
-    } else {
-      return;
-    }
-  }
-
-  const usernameChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setEnteredName(event.target.value);
-  };
-
-  const surnameChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredSurname(event.target.value);
-  };
-
-  const emailChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEnteredEmail(event.target.value);
-  };
-
-  const genderChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setEnteredGender(event.target.value);
-  };
-
-  const passwordChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setEnteredPassword(event.target.value);
-  };
-
-  const repeatedPasswordChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRepeatedPassword(event.target.value);
-  };
-
-  const confirmationChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setConfirmation(event.target.checked)
-  };
-
-  const roleChangeHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setEnteredRole(event.target.value);
-  };
-
   return (
-    <>
-      <div className={"backdrop"} onClick={props.onConfirm} />
-      <Card className={"modal"}>
-        <header className={"header_modal"}>
-          {props.userId == null ? (
-            <h2>Introduceți datele noului utilizator</h2>
-          ) : (
-            <h2>Introduceți datele modificate</h2>
-          )}
-        </header>
-        <div className={"content"}>
-          <div>
-            <Card className={"input_modal"}>
-              <form onSubmit={registerUserHandler}>
-                <InputField
-                  id="name"
-                  type="text"
-                  placeholder="Nume"
-                  value={enteredName}
-                  onChange={usernameChangeHandler}
-                  error={
-                    error.find(({ id }) => id === "name") &&
-                    "Numele introdus nu corespunde cerințelor"
-                  }
-                />
-                <InputField
-                  id="surname"
-                  type="text"
-                  placeholder="Prenume"
-                  value={enteredSurname}
-                  onChange={surnameChangeHandler}
-                  error={
-                    error.find(({ id }) => id === "surname") &&
-                    "Prenumele introdus nu corespunde cerințelor"
-                  }
-                />
-                <InputField
-                  id="email"
-                  type="text"
-                  placeholder="Email"
-                  value={enteredEmail}
-                  onChange={emailChangeHandler}
-                  error={
-                    error.find(({ id }) => id === "email") &&
-                    "Email-ul introdus nu corespunde cerințelor"
-                  }
-                />
+    <Modal
+      closeOnClickOutside
+      mask
+      open
+      size="small"
+      title={
+        props.userId == null
+          ? "Introduceți datele noului utilizator"
+          : "Introduceți datele modificate"
+      }
+      className={props.userId == null ? "modal_user" : "modal_user_update" }
+      onClose={props.onConfirm}
+    >
+      <div className="user_modal">
+        <Modal.Content>
+          <Form
+            form={form}
+            validateMessages={{
+              // eslint-disable-next-line no-template-curly-in-string
+              required: "Câmpul ”${label}” nu poate să fie gol",
+            }}
+            onFinish={(values) => {
+              const user = {
+                name: values.name,
+                surname: values.surname,
+                email: values.email,
+                gender: values.gender,
+                password: values.password,
+                role: values.role,
+              };
+              if (props.userId == null){
+                mutate(user);
+              } else {
+                put.mutate(user);
+              }
+              closeModal();
+            }}
+            controlOptions={{
+              col: {
+                size: 12,
+              },
+            }}
+            labelOptions={{
+              col: {
+                size: 12,
+              },
+            }}
+            type="vertical"
+          >
+            <Form.Field
+              label="Nume"
+              name="name"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input type="text" />
+            </Form.Field>
 
-                <select
-                  value={enteredGender}
-                  onChange={genderChangeHandler}
-                  id="gendre"
-                >
-                  <option value="">Genul</option>
-                  <option value="male">Masculin</option>
-                  <option value="female">Femenin</option>
-                  <option value="none">Ma abtin</option>
-                </select>
-                {error.find(({ id }) => id === "gendre") && (
-                  <span className={"span_modal"}>
-                    Selectați cel puțin o valoare
-                  </span>
-                )}
+            <Form.Field
+              label="Prenume"
+              name="surname"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input type="text" />
+            </Form.Field>
 
-                <select
-                  value={enteredRole}
-                  onChange={roleChangeHandler}
-                  id="role"
-                >
-                  <option value="">Role</option>
-                  <option value="Admin">Admin</option>
-                  <option value="Moderator">Moderator</option>
-                </select>
-                {error.find(({ id }) => id === "role") && (
-                  <span className={"span_modal"}>
-                    Selectați cel puțin o valoare
-                  </span>
-                )}
+            <Form.Field
+              label="Email"
+              name="email"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Input type="email" />
+            </Form.Field>
 
-                {props.userId == null && (
-                  <InputField
-                    id="password"
-                    type="password"
-                    placeholder="Parola"
-                    value={enteredPassword}
-                    onChange={passwordChangeHandler}
-                    error={
-                      error.find(({ id }) => id === "password") &&
-                      "Parola trebuie să conțină cel puțin 6 caractere"
-                    }
-                  />
-                )}
+            <Form.Field
+              label="Gender"
+              name="gender"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Select
+                options={[
+                  {
+                    text: "Masculin",
+                    value: "male",
+                  },
+                  {
+                    text: "Femenin",
+                    value: "female",
+                  },
+                  {
+                    text: "Mă abțin",
+                    value: "none",
+                  },
+                ]}
+              />
+            </Form.Field>
 
-                {props.userId == null && (
-                  <InputField
-                    id="confirm-password"
-                    type="password"
-                    placeholder="Confirmare parola"
-                    value={enteredRepeatedPassword}
-                    onChange={repeatedPasswordChangeHandler}
-                    error={
-                      error.find(({ id }) => id === "confirm-password") &&
-                      "Parolele nu corespund!"
-                    }
-                  />
-                )}
-                {props.userId == null && (
-                  <div>
-                    <label htmlFor="confirmation">
-                      <InputField
-                        type="checkbox"
-                        id="confirmation"
-                        checked={confirmation}
-                        onChange={confirmationChangeHandler}
-                        error={
-                          error.find(({ id }) => id === "confirmation") &&
-                          "Pentru a continua trebuie să fiți de acord cu prelucrarea datelor personale!"
-                        }
-                        message="Sunt de acord cu prelucrarea datelor personale"
-                      />
-                    </label>
-                  </div>
-                )}
+            <Form.Field
+              label="Rolul"
+              name="role"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Select
+                options={[
+                  {
+                    text: "Moderator",
+                    value: "Moderator",
+                  },
+                  {
+                    text: "Admin",
+                    value: "Admin",
+                  },
+                ]}
+              />
+            </Form.Field>
+            {props.userId == null && (
+              <Form.Field
+                label="Parola"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                  },
+                ]}
+              >
+                <Input type="password" />
+              </Form.Field>
+            )}
 
-                <div>
-                  {!isLoading && (
-                    <Button type="submit" value="submit">
-                      {!props.userId ? "Register" : "Update"}
-                    </Button>
-                  )}
-                  {isLoading && <p>Sending request...</p>}
-                </div>
-              </form>
-            </Card>
-          </div>
-        </div>
-      </Card>
-    </>
+            {props.userId == null && (
+              <Form.Field
+                label="Confirmare parola"
+                name="confirm_password"
+                rules={[
+                  {
+                    required: true,
+                  },
+                  ({ getFieldValue }) => ({
+                    async validator(_, value) {
+                      if (getFieldValue("password") !== value) {
+                        return Promise.reject(
+                          "Parolele introduse nu corespund"
+                        );
+                      }
+                      return Promise.resolve();
+                    },
+                  }),
+                ]}
+              >
+                <Input type="password" />
+              </Form.Field>
+            )}
+
+            {props.userId == null && (
+              <Form.Field
+                name="confirmations"
+                rules={[
+                  {
+                    required: true,
+                    async validator(rule, value){
+                      value ? await Promise.resolve() : await Promise.reject('Pentru a continua trebuie să fiți de acord cu prelucrarea datelor personale!')
+                    },
+                  },
+                ]}
+              >
+                <Checkbox text="Sunt deacord cu prelucrarea datelor personale" />
+              </Form.Field>
+            )}
+            <Space justify="center">
+              <Button type="ghost" size="medium" onClick={props.onConfirm}>
+                Cancel
+              </Button>
+
+              <Button type="fill" size="medium" submit={true}>
+                {!props.userId ? "Add User" : "Update"}
+              </Button>
+            </Space>
+          </Form>
+        </Modal.Content>
+      </div>
+    </Modal>
   );
 };
-
 export default UserModal;
