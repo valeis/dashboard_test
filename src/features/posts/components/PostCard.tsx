@@ -7,10 +7,11 @@ import * as MdIcons from "react-icons/md";
 
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
 import AuthContext from "../../../store/auth-context";
-import { Card } from "../../../types/Card";
+import { Card as CardType } from "../../../types/Card";
 import postsRequest from "../../../api/posts";
 
 import "./PostCard.css";
+import { Button, Card, Space, Table } from "ebs-design";
 
 const PostCard = ({
   id,
@@ -19,82 +20,102 @@ const PostCard = ({
   image,
   date,
   author,
-}: Card) => {
-
+}: CardType) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const authCtx = useContext(AuthContext);
 
-  const [ postToDelete, setPostToDelete ] = useState("");
-  
+  const [postToDelete, setPostToDelete] = useState("");
+
   const deletePost = async (id: string) => {
     return await postsRequest.delete(id);
   };
 
   const deletePostHandler = useMutation(deletePost, {
     onSuccess: (data) => {
-      queryClient.invalidateQueries('posts');
+      queryClient.invalidateQueries("posts");
     },
     onError: () => {
       console.log("Some error occured");
     },
     onSettled: () => {
       queryClient.invalidateQueries("create");
-    }
-  })
+    },
+  });
 
-  const editPostHandler = (id?: string) =>{
+  const editPostHandler = (id?: string) => {
     navigate(`/posts/${id}/edit`);
   };
 
   return (
-    <div className="card">
-      <div className="card-header">
-        <div className="profile">
-          <span className="letter">
-            <AiIcons.AiOutlineUser />
-          </span>
-        </div>
-        <div className="card-title-group">
-          <h5 className="card-title">{author}</h5>
-          <div className="card-date">{date}</div>
-        </div>
-        {(authCtx.currentUser?.role === "Admin" || authCtx.currentUser?.name === author) && <div className="buttons">
-          <button className="button-header"
-            onClick={() => {
-              editPostHandler(id);
-            }}
-          >
-            <BiIcons.BiEdit />
-          </button>
-          &nbsp;
-          <button className="button-header"
-            onClick={() => {
-              setPostToDelete(id!);
-            }}
-          >
-            <MdIcons.MdDeleteOutline />
-          </button>
-        </div>}
-      </div>
-      { postToDelete && <ConfirmationModal setElementToDelete={setPostToDelete} deleteElementHandler={deletePostHandler} id={id!} title={title!}/>} 
-      <div>
-       <b>{title}</b>
-      </div>
-      <img className="card-image" src={image} alt="Logo" />
-      <div className="card-text">
-        {description?.substring(0, 60)}
-        <b>{description!.length > 60 ? "..." : ""}</b>
-      </div>
-      <button
-        className="button-81"
-        onClick={() => {
-          navigate(`/posts/${id}`);
-        }}
-      >
-        Detalii
-      </button>
-    </div>
+    <Card size="medium">
+      <Card.Header bordered>
+        <Space align="center" justify="space-between">
+          <Space align="center">
+            <h4>Card title</h4>
+            <Button type="primary">A regular button</Button>
+          </Space>
+          <Button>Another one</Button>
+        </Space>
+      </Card.Header>
+      <Card.Body>
+        <Table
+          columns={[
+            {
+              dataIndex: "title",
+              key: "title",
+              title: "Title",
+            },
+            {
+              dataIndex: "desc",
+              key: "desc",
+              title: "Description",
+            },
+            {
+              dataIndex: "date",
+              key: "date",
+              title: "Time",
+            },
+          ]}
+          data={[
+            {
+              date: "Today",
+              desc: "Desc",
+              title: "Test",
+            },
+            {
+              date: "Today",
+              desc: "Desc",
+              title: "Test",
+            },
+            {
+              date: "Today",
+              desc: "Desc",
+              title: "Test",
+            },
+            {
+              date: "Today",
+              desc: "Desc",
+              title: "Test",
+            },
+            {
+              date: "Today",
+              desc: "Desc",
+              title: "Test",
+            },
+          ]}
+        />
+      </Card.Body>
+      <Card.Footer bordered>
+        <Space align="center" justify="space-between">
+          <span className="no-wrap">1 of 5</span>
+          <Space>
+            <Button disabled>Prev</Button>
+            <Button>Next</Button>
+          </Space>
+        </Space>
+      </Card.Footer>
+    </Card>
   );
 };
 

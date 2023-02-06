@@ -1,4 +1,4 @@
-import { Button } from "ebs-design";
+import { Button, Col, Row } from "ebs-design";
 import React from "react";
 import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
@@ -20,20 +20,21 @@ const Posts = () => {
       <Button className="top_button" type="primary" onClick={addPostHandler}>
         Add new post
       </Button>
-      <div className="test">
+      <Row className="mb-16">
         {posts &&
           posts.map((item) => (
-            <PostCard
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              description={item.description}
-              image={item.image}
-              date={item.date}
-              author={item.author}
-            />
+            <Col className="col-md" key={item.id}>
+              <PostCard
+                id={item.id}
+                title={item.title}
+                description={item.description}
+                image={item.image}
+                date={item.date}
+                author={item.author}
+              />
+            </Col>
           ))}
-      </div>
+      </Row>
     </>
   );
 };
