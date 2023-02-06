@@ -27,7 +27,3 @@
 .rc-table.ebs-table td:defined{
   padding: 1rem 0.600rem;
 }
-
-.ebs-button__prefix:defined{
-  left: 38%;
-}

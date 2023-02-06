@@ -5,8 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import postsRequest from "../../../../api/posts";
 
-
 import "./PostDetails.css";
+import { Button, Space } from "ebs-design";
 
 const PostDetails = () => {
   const params = useParams();
@@ -18,25 +18,25 @@ const PostDetails = () => {
 
   return (
     <div>
-      <header>
-        <h1>{data?.title}</h1>
-        <div className="author">
-          <h2>{data?.author}</h2>
-          <p className="blog-date">Published {data?.date}</p>
-        </div>
-        <button
-          className="back_button"
+      <Space justify="center" ><h1>{data?.title}</h1></Space>
+      <Space align="center" justify="space-around" direction="horizontal">
+        <Button
+          size="large"
+          type="light"
           onClick={() => {
             navigate("/posts");
           }}
-        >
-          <AiIcons.IoIosArrowDropleft size="10x" />
-        </button>
-      </header>
+          prefix={<AiIcons.IoIosArrowDropleft size="35px" />}
+        ></Button>
+        <Space direction="vertical" size="small" align="end">
+          <h2 className="author">{data?.author}</h2>
+          <p className="blog-date">Published {data?.date}</p>
+        </Space>
+      </Space>
       <div className="blog-wrap">
         <img src={data?.image} alt="cover" />
-        <p className="blog-desc">{data?.description}</p>
       </div>
+      <p className="blog-desc">{data?.description}</p>
     </div>
   );
 };

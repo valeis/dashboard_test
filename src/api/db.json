@@ -37,15 +37,6 @@
       "id": 10
     },
     {
-      "name": "nicu",
-      "surname": "nicu",
-      "email": "nicu@gmail.com",
-      "gender": "male",
-      "password": "nicu123",
-      "role": "Moderator",
-      "id": 14
-    },
-    {
       "name": "Pavel",
       "surname": "Pavel",
       "email": "pavel@gmail.com",
@@ -53,24 +44,6 @@
       "password": "pavel123",
       "role": "Moderator",
       "id": 17
-    },
-    {
-      "name": "ion",
-      "surname": "ion",
-      "email": "ion@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "role": "Moderator",
-      "id": 19
-    },
-    {
-      "name": "ion",
-      "surname": "ion",
-      "email": "ion@gmail.com",
-      "gender": "male",
-      "password": "ion123",
-      "role": "Moderator",
-      "id": 22
     },
     {
       "name": "ionut",
@@ -110,12 +83,21 @@
     },
     {
       "name": "Mihai",
-      "surname": "Mihai",
+      "surname": "mihai",
       "email": "mihai@gmail.com",
       "gender": "male",
       "password": "mihai123",
       "role": "Moderator",
       "id": 27
+    },
+    {
+      "name": "Petru",
+      "surname": "Petru ",
+      "email": "petru@gmail.com",
+      "gender": "male",
+      "password": "petru123",
+      "role": "Moderator",
+      "id": 28
     }
   ],
   "posts": [
@@ -160,28 +142,44 @@
       "id": 11
     },
     {
-      "title": "Shore Image",
-      "description": "Featured in Editorial\nDocks\nPublished on November 22, 2022\n",
-      "image": "https://images.unsplash.com/photo-1669085239292-7865b7dab916?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=464&q=80",
-      "date": "2022-12-24",
-      "author": "Marina",
-      "id": 12
-    },
-    {
-      "title": "Nature image",
-      "description": "Featured in Editorial, Nature\nThe beautifully carved rocks of Fjaðrárgljúfur Canyon, Iceland\nFjaðrárgljúfur Canyon, Kirkjubæjarklaustur, Iceland\nPublished on November 21, 2022\nNIKON CORPORATION, NIKON D50000",
-      "image": "https://images.unsplash.com/photo-1669064206623-10e3b30231c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
-      "date": "2022-05-13",
-      "author": "Marina",
-      "id": 13
-    },
-    {
       "title": "A long exposure photo of a rock",
       "description": "Featured in\nEditorial, Nature, Wallpapers\nBlack Sand Beach Reynisfjara, Iceland.\nPublished 9 days ago\nSONY, ILCE-7RM3\n",
       "image": "https://images.unsplash.com/photo-1674580351112-42fdbbae9c86?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
       "date": "2022-11-25",
       "author": "admin",
       "id": 15
+    },
+    {
+      "title": "A man standing on the side of the street",
+      "description": "Featured in Editorial\nPublished 2 days ago\nEpson, GT-X970\n",
+      "image": "https://images.unsplash.com/photo-1675522154319-666f8181678c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1147&q=80",
+      "date": "2023-02-04",
+      "author": "admin",
+      "id": 16
+    },
+    {
+      "title": "A view of a mountain range covered in clouds",
+      "description": "Featured in Editorial\nPublished 4 days ago\nCanon, EOS 6D Mark II",
+      "image": "https://images.unsplash.com/photo-1675339739656-55dd61d08570?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
+      "date": "2022-09-11",
+      "author": "admin",
+      "id": 17
+    },
+    {
+      "title": "A city street with a tall white building",
+      "description": "Featured in Editorial\nBla-bla-bla",
+      "image": "https://images.unsplash.com/photo-1675522034416-3477274244b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80",
+      "date": "2021-11-07",
+      "author": "admin",
+      "id": 18
+    },
+    {
+      "title": "A person sitting on a cliff",
+      "description": "Featured in Nature, Travel, Wallpapers\nGuy is sitting on a cliff watching an ocean low tide\nPublished 13 days ago\nNORITSU KOKI, QSS-32_33",
+      "image": "https://images.unsplash.com/photo-1674592309639-39067f6a8111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80",
+      "date": "2020-03-18",
+      "author": "Mihai",
+      "id": 19
     }
   ]
 }

@@ -20,7 +20,7 @@ const ConfirmationModal = (props: ConfirmationModalProps) => {
         mask
         open
         size="small"
-        title={`Delete "${props.title}" ?`}
+        title={`Delete "${props.title?.substring(0,26)} ${props.title?.length > 26 ? "..." : ""}" ?`}
         onClose={() => props.setElementToDelete("")}
       >
         <div>

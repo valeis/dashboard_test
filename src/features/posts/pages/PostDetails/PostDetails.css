@@ -1,22 +1,3 @@
-.blog-wrap {
-  max-width: 100%;
-  margin: 50px 50px;
-  align-items: center;
-}
-
-.blog-goBack {
-  text-decoration: none;
-  font-size: 0.8rem;
-  color: #a9a9a9;
-  font-weight: 500;
-  margin-bottom: 2rem;
-  display: block;
-}
-header {
-  text-align: center;
-  margin: 20px;
-}
-
 .blog-date {
   font-size: 0.8rem;
   color: #a9a9a9;
@@ -24,10 +5,10 @@ header {
 }
 
 .blog-wrap img {
+  display: flex;
+  align-items: center;
   max-width: 50%;
-  height: auto;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -39,30 +20,9 @@ header {
 }
 
 .author {
-  position: absolute;
-  left: 65%;
+  margin: 0;
 }
 
-.back_button {
-  position: absolute;
-  right: 65%;
-  background-color: transparent;
-  color: black;
-  height: 2.8rem;
-}
-
-.back_button:hover{
-  background-color: #bdc2bf;
-}
-
-@media screen and (max-width: 878px) {
-  .author {
-    left: 75%;
-  }
-}
-
-@media screen and (max-width: 622px) {
-  .author {
-    left: 65%;
-  }
+.blog-date {
+  margin: 0px 0px 3.5px 0px;
 }

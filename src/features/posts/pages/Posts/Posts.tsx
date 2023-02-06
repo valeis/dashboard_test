@@ -20,10 +20,10 @@ const Posts = () => {
       <Button className="top_button" type="primary" onClick={addPostHandler}>
         Add new post
       </Button>
-      <Row className="mb-16">
+      <Row>
         {posts &&
           posts.map((item) => (
-            <Col className="col-md" key={item.id}>
+            <Col className="col-12 col-sm-8 col-lg-6 col-xl-4 col-xxl-3" key={item.id}>
               <PostCard
                 id={item.id}
                 title={item.title}

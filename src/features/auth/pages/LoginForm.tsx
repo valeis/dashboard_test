@@ -13,20 +13,6 @@ const LoginForm = () => {
   const [form] = useForm();
   const authCtx = useContext(AuthContext);
 
-  const [logged, setIsLogged] = useState(true);
-  const navigate = useNavigate();
-  const mutation = useMutation(usersRequest.getAuth, {
-    onSuccess: (data) => {
-      if (!data || data?.length === 0) {
-        setIsLogged(false);
-        return;
-      }
-      authCtx.login(data[0].id);
-      navigate("/dashboard", { replace: true });
-      setIsLogged(true);
-    },
-  });
-
   return (
     <div>
       <Card className={"input_login"}>
@@ -40,7 +26,7 @@ const LoginForm = () => {
             required: "Câmpul ”${label}” nu poate să fie gol",
           }}
           onFinish={ (values) => {
-            mutation.mutate(values);
+            authCtx.login.mutate(values);
           }}
           controlOptions={{
             col: {
@@ -87,7 +73,7 @@ const LoginForm = () => {
             <Button type="ghost">Register</Button>
           </Link>  
           </div>
-          {!logged && <span className="span_login">Utilizatorul dat nu a fost găsit în sistem !</span>}
+          { authCtx.token!== null && <span className="span_login">Utilizatorul dat nu a fost găsit în sistem !</span>}
         </Form>
       </Card>
     </div>

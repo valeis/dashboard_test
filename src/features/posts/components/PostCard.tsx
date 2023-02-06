@@ -11,7 +11,7 @@ import { Card as CardType } from "../../../types/Card";
 import postsRequest from "../../../api/posts";
 
 import "./PostCard.css";
-import { Button, Card, Space, Table } from "ebs-design";
+import { AvatarInline, Button, Card, Space, Table } from "ebs-design";
 
 const PostCard = ({
   id,
@@ -48,72 +48,83 @@ const PostCard = ({
   };
 
   return (
-    <Card size="medium">
+    <Card size="small">
       <Card.Header bordered>
         <Space align="center" justify="space-between">
-          <Space align="center">
-            <h4>Card title</h4>
-            <Button type="primary">A regular button</Button>
+          <Space
+            align="start"
+            direction="vertical"
+            size="small"
+            justify="center"
+          >
+            <div className="header">
+              <AvatarInline alt={author} />
+            </div>
+            <div className="header">{date}</div>
           </Space>
-          <Button>Another one</Button>
+          
+          <Space
+            align="end"
+            direction="horizontal"
+            size="small"
+            justify="center"
+          >
+            <Button
+              type="text"
+              prefix={<BiIcons.BiEdit />}
+              onClick={() => {
+                editPostHandler(id);
+              }}
+            ></Button>
+            <Button
+              type="text"
+              prefix={<MdIcons.MdDeleteOutline />}
+              onClick={() => {
+                setPostToDelete(id!);
+              }}
+            ></Button>
+          </Space>
         </Space>
       </Card.Header>
       <Card.Body>
-        <Table
-          columns={[
-            {
-              dataIndex: "title",
-              key: "title",
-              title: "Title",
-            },
-            {
-              dataIndex: "desc",
-              key: "desc",
-              title: "Description",
-            },
-            {
-              dataIndex: "date",
-              key: "date",
-              title: "Time",
-            },
-          ]}
-          data={[
-            {
-              date: "Today",
-              desc: "Desc",
-              title: "Test",
-            },
-            {
-              date: "Today",
-              desc: "Desc",
-              title: "Test",
-            },
-            {
-              date: "Today",
-              desc: "Desc",
-              title: "Test",
-            },
-            {
-              date: "Today",
-              desc: "Desc",
-              title: "Test",
-            },
-            {
-              date: "Today",
-              desc: "Desc",
-              title: "Test",
-            },
-          ]}
-        />
+        <Space justify="center">
+          <b>
+            <div className="card-text">
+              {title?.substring(0, 30)}
+              {title!.length > 30 ? "..." : ""}
+            </div>
+          </b>
+        </Space>
+        <img className="card-image" src={image} alt="Logo" />
+        <Space justify="center">
+          <div className="card-description">
+            {description?.substring(0, 90)}
+            <b>{description!.length > 90 ? "..." : ""}</b>
+          </div>
+        </Space>
       </Card.Body>
-      <Card.Footer bordered>
-        <Space align="center" justify="space-between">
-          <span className="no-wrap">1 of 5</span>
+
+      <Card.Footer>
+        <Space align="center" justify="center">
           <Space>
-            <Button disabled>Prev</Button>
-            <Button>Next</Button>
+            <Button
+              type="fill"
+              onClick={() => {
+                navigate(`/posts/${id}`);
+              }}
+            >
+              Detalii
+            </Button>
           </Space>
         </Space>
+        {postToDelete && (
+        <ConfirmationModal
+          setElementToDelete={setPostToDelete}
+          deleteElementHandler={deletePostHandler}
+          id={id!}
+          title={title!}
+        />
+      )}
       </Card.Footer>
     </Card>
   );
