@@ -1,17 +1,17 @@
-import React, { useState, useContext } from "react";
+import React, {useContext, useState } from "react";
 import { Form, Input, Button, useForm } from "ebs-design";
-import { Link, useNavigate } from "react-router-dom";
+import { Link} from "react-router-dom";
 
 import Card from "../../../components/Card/Card";
-import { useMutation } from "react-query";
 import AuthContext from "../../../store/auth-context";
-import usersRequest from "../../../api/users";
 
 import "./LoginForm.css";
 
 const LoginForm = () => {
   const [form] = useForm();
   const authCtx = useContext(AuthContext);
+
+  const [logged, setLogged] = useState(true);
 
   return (
     <div>
@@ -26,7 +26,9 @@ const LoginForm = () => {
             required: "Câmpul ”${label}” nu poate să fie gol",
           }}
           onFinish={ (values) => {
-            authCtx.login.mutate(values);
+            authCtx.login(values);
+            console.log(authCtx.isLoggedIn)
+            setLogged(authCtx.isLoggedIn);
           }}
           controlOptions={{
             col: {
@@ -73,7 +75,7 @@ const LoginForm = () => {
             <Button type="ghost">Register</Button>
           </Link>  
           </div>
-          { authCtx.token!== null && <span className="span_login">Utilizatorul dat nu a fost găsit în sistem !</span>}
+          {!logged && <span className="span_login">Utilizatorul dat nu a fost găsit în sistem !</span>}
         </Form>
       </Card>
     </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Checkbox, Form, Input, Select, Button, useForm } from "ebs-design";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation} from "react-query";
 import { Link, useNavigate } from "react-router-dom";
 
 import usersRequest from "../../../api/users";
@@ -11,7 +11,6 @@ import "./RegistrationForm.css";
 
 const RegistrationForm = () => {
   const [form] = useForm();
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const registerUser = async (user: User) => {
@@ -25,10 +24,7 @@ const RegistrationForm = () => {
     },
     onError: () => {
       console.log("Some error occured during registration!");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries("create");
-    },
+    }
   });
 
   return (

@@ -67,10 +67,7 @@ const CreatePosts = () => {
     },
     onError: () => {
       console.log("Some error occured");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries("create");
-    },
+    }
   });
 
 

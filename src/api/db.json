@@ -46,15 +46,6 @@
       "id": 17
     },
     {
-      "name": "ionut",
-      "surname": "ionut",
-      "email": "ionut@gmail.com",
-      "gender": "male",
-      "password": "ionut123",
-      "role": "Moderator",
-      "id": 23
-    },
-    {
       "name": "1234",
       "surname": "1234",
       "email": "1234",
@@ -82,22 +73,13 @@
       "id": 26
     },
     {
-      "name": "Mihai",
-      "surname": "mihai",
-      "email": "mihai@gmail.com",
+      "name": "marin",
+      "surname": "marin",
+      "email": "marin@gmail.com",
       "gender": "male",
-      "password": "mihai123",
+      "password": "marin123",
       "role": "Moderator",
       "id": 27
-    },
-    {
-      "name": "Petru",
-      "surname": "Petru ",
-      "email": "petru@gmail.com",
-      "gender": "male",
-      "password": "petru123",
-      "role": "Moderator",
-      "id": 28
     }
   ],
   "posts": [
@@ -180,6 +162,14 @@
       "date": "2020-03-18",
       "author": "Mihai",
       "id": 19
+    },
+    {
+      "title": "A mountain covered in snoww",
+      "description": "Featured in Editorial\ntop of the mountain with moody clouds\nComox Valley, BC, Canada\nCanon, EOS Rebel T7i",
+      "image": "https://images.unsplash.com/photo-1675719648634-ee7dfd9075f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80",
+      "date": "2007-02-12",
+      "author": "marin",
+      "id": 20
     }
   ]
 }

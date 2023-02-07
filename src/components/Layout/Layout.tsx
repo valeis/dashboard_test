@@ -41,7 +41,6 @@ const LayoutDashboard = ({ children }: LayoutProps) => {
 
   const logoutHandler = () => {
     authCtx.logout();
-    navigate("/login", {  replace: true });
   };
 
   const  [ activeTab, setActiveTab ] = useState(" ");

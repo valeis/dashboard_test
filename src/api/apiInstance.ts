@@ -14,7 +14,7 @@ axiosInstance.interceptors.response.use(
   },
   
   function (error: AxiosError) {
-    if (error.response!.status === 404 && error.config!.url!.includes('/users/null')){
+    if (error.response!.status === 404 && error.config!.url!.includes('/users/')){
         localStorage.removeItem("token");
     }
     return Promise.reject(error);

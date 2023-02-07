@@ -1,17 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import * as AiIcons from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import * as BiIcons from "react-icons/bi";
 import * as MdIcons from "react-icons/md";
 
 import ConfirmationModal from "../../../components/ConfirmationModal/ConfirmationModal";
-import AuthContext from "../../../store/auth-context";
 import { Card as CardType } from "../../../types/Card";
 import postsRequest from "../../../api/posts";
 
 import "./PostCard.css";
-import { AvatarInline, Button, Card, Space, Table } from "ebs-design";
+import { AvatarInline, Button, Card, Space } from "ebs-design";
 
 const PostCard = ({
   id,
@@ -23,7 +21,7 @@ const PostCard = ({
 }: CardType) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const authCtx = useContext(AuthContext);
+
 
   const [postToDelete, setPostToDelete] = useState("");
 
