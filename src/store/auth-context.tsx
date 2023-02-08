@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { UseMutateFunction, useMutation, useQuery} from "react-query";
+import { useMutation, useQuery } from "react-query";
 import usersRequest from "../api/users";
 import { User } from "../types/User";
 
@@ -10,7 +10,7 @@ type AuthProviderProps = {
 interface AuthContextType {
   isLoggedIn: boolean;
   currentUser: User;
-  login: UseMutateFunction<any, unknown, { email: string; password: string; }>
+  login: (body:{email: string, password: string})=>void
   logout: () => void;
   isLoading: boolean;
 }

@@ -6,19 +6,23 @@ import { useNavigate, useParams } from "react-router-dom";
 import postsRequest from "../../../../api/posts";
 
 import "./PostDetails.css";
-import { Button, Space } from "ebs-design";
+import { Button, Loader, Space } from "ebs-design";
 
 const PostDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  const { data } = useQuery(["posts", params.id], () =>
-    postsRequest.getById(params.id)
+  const { data } = useQuery(
+    ["posts", params.id],
+    () => postsRequest.getById(params.id),
+    { onError: () => navigate("/posts") }
   );
 
-  return (
+  return data ? (
     <div>
-      <Space justify="center" ><h1>{data?.title}</h1></Space>
+      <Space justify="center">
+        <h1>{data?.title}</h1>
+      </Space>
       <Space align="center" justify="space-around" direction="horizontal">
         <Button
           size="large"
@@ -38,6 +42,10 @@ const PostDetails = () => {
       </div>
       <p className="blog-desc">{data?.description}</p>
     </div>
+  ) : (
+    <Loader fade fixed height="100%" loading size="regular">
+      Loaded
+    </Loader>
   );
 };
 export default PostDetails;
